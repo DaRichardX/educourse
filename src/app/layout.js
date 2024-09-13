@@ -13,6 +13,7 @@ import { LocalizationProvider } from '@/components/core/localization-provider';
 import { SettingsButton } from '@/components/core/settings/settings-button';
 import { ThemeProvider } from '@/components/core/theme-provider/theme-provider';
 import { Toaster } from '@/components/core/toaster';
+import { DataProvider } from '@/contexts/data/data-context';
 
 export const metadata = { title: config.site.name };
 
@@ -31,15 +32,17 @@ export default async function Layout({ children }) {
         <Analytics>
           <LocalizationProvider>
             <UserProvider>
-              <SettingsProvider settings={settings}>
-                <I18nProvider lng={settings.language}>
-                  <ThemeProvider>
-                    {children}
-                    <SettingsButton />
-                    <Toaster position="bottom-right" />
-                  </ThemeProvider>
-                </I18nProvider>
-              </SettingsProvider>
+              <DataProvider>
+                <SettingsProvider settings={settings}>
+                  <I18nProvider lng={settings.language}>
+                    <ThemeProvider>
+                      {children}
+                      <SettingsButton />
+                      <Toaster position="bottom-right" />
+                    </ThemeProvider>
+                  </I18nProvider>
+                </SettingsProvider>
+              </DataProvider>
             </UserProvider>
           </LocalizationProvider>
         </Analytics>

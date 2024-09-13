@@ -76,10 +76,10 @@ export const paths = {
       thread: (threadType, threadId) => `/dashboard/chat/${threadType}/${threadId}`,
     },
     crypto: '/dashboard/crypto',
-    customers: {
-      list: '/dashboard/customers',
-      create: '/dashboard/customers/create',
-      details: (customerId) => `/dashboard/customers/${customerId}`,
+    students: {
+      list: '/dashboard/students',
+      create: '/dashboard/students/create',
+      details: (studentId) => `/dashboard/students/${studentId}`,
     },
     eCommerce: '/dashboard/e-commerce',
     fileStorage: '/dashboard/file-storage',

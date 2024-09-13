@@ -99,7 +99,7 @@ export function CustomerCreateForm() {
       try {
         // Make API request
         toast.success('Customer updated');
-        router.push(paths.dashboard.customers.details('1'));
+        router.push(paths.dashboard.students.details('1'));
       } catch (err) {
         logger.error(err);
         toast.error('Something went wrong!');
@@ -403,7 +403,7 @@ export function CustomerCreateForm() {
           </Stack>
         </CardContent>
         <CardActions sx={{ justifyContent: 'flex-end' }}>
-          <Button color="secondary" component={RouterLink} href={paths.dashboard.customers.list}>
+          <Button color="secondary" component={RouterLink} href={paths.dashboard.students.list}>
             Cancel
           </Button>
           <Button type="submit" variant="contained">

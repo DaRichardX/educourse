@@ -111,7 +111,6 @@ export function MainNav({ color = 'evident', items = [] }) {
               orientation="vertical"
               sx={{ borderColor: 'var(--MainNav-divider)', display: { xs: 'none', md: 'block' } }}
             />
-            <LanguageSwitch />
             <UserButton />
           </Stack>
         </Box>

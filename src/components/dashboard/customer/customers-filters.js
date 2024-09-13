@@ -54,7 +54,7 @@ export function CustomersFilters({ filters = {}, sortDir = 'desc' }) {
         searchParams.set('phone', newFilters.phone);
       }
 
-      router.push(`${paths.dashboard.customers.list}?${searchParams.toString()}`);
+      router.push(`${paths.dashboard.students.list}?${searchParams.toString()}`);
     },
     [router]
   );

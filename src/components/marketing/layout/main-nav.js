@@ -57,21 +57,31 @@ export function MainNav() {
             spacing={2}
             sx={{ alignItems: 'center', flex: '1 1 auto', justifyContent: 'flex-end' }}
           >
-            <Box component="nav" sx={{ display: { xs: 'none', md: 'block' } }}>
+            {/* <Box component="nav" sx={{ display: { xs: 'none', md: 'block' } }}>
               <Stack component="ul" direction="row" spacing={1} sx={{ listStyle: 'none', m: 0, p: 0 }}>
                 <NavItem pathname={pathname} title="Pages">
                   <PagesPopover />
                 </NavItem>
               </Stack>
-            </Box>
+            </Box> */}
+            <Button
+              component={RouterLink}
+              href={paths.dashboard.overview}
+              sx={{
+                color: 'var(--mui-palette-neutral-300)',
+                '&:hover': { bgcolor: 'var(--mui-palette-action-hover)' },
+              }}
+            >
+              Sign in
+            </Button>
             <Button
               component="a"
-              href={paths.purchase}
+              href={"not implemented"}
               sx={{ display: { xs: 'none', md: 'flex' } }}
               target="_blank"
               variant="contained"
             >
-              Purchase now
+              Contact Us
             </Button>
             <IconButton
               onClick={() => {

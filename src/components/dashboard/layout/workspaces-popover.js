@@ -7,7 +7,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
 export const workspaces = [
-  { name: 'Devias', avatar: '/assets/workspace-avatar-1.png' },
+  { name: 'University Hill', avatar: '/assets/workspace-avatar-uhill.jpg' },
   { name: 'Carpatin', avatar: '/assets/workspace-avatar-2.png' },
 ];
 

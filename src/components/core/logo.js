@@ -18,7 +18,7 @@ export function Logo({ color = 'dark', emblem, height = HEIGHT, width = WIDTH })
     url = color === 'light' ? '/assets/logo.svg' : '/assets/logo--dark.svg';
   }
 
-  return <Box alt="logo" component="img" height={height} src={url} width={width} />;
+  return <Box alt="logo" component="img" height={undefined} src={url} width={200} />;
 }
 
 export function DynamicLogo({ colorDark = 'light', colorLight = 'dark', height = HEIGHT, width = WIDTH, ...props }) {

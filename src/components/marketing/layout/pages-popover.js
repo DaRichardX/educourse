@@ -12,7 +12,7 @@ const groups = [
     title: 'Dashboard',
     items: [
       { key: 'overview', title: 'Overview', href: paths.dashboard.overview },
-      { key: 'customers', title: 'Customers', href: paths.dashboard.customers.list },
+      { key: 'customers', title: 'Customers', href: paths.dashboard.students.list },
       { key: 'logistics', title: 'Logistics', href: paths.dashboard.logistics.metrics },
       { key: 'settings', title: 'Settings', href: paths.dashboard.settings.account },
       { key: 'file-storage', title: 'File storage', href: paths.dashboard.fileStorage },

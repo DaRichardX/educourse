@@ -65,43 +65,36 @@ export function Hero() {
         <Stack spacing={4}>
           <Stack spacing={2}>
             <Typography sx={{ fontSize: '3.5rem', fontWeight: 600, lineHeight: 1.2, textAlign: 'center' }}>
-              Focus on development, leave{' '}
+              Supercharge Course Planning. Takeback{' '}
               <Typography color="primary.main" component="span" variant="inherit">
-                User Experience
-              </Typography>{' '}
-              to us.
+                Your Time
+              </Typography>
             </Typography>
             <Typography color="neutral.300" sx={{ fontWeight: 400, textAlign: 'center' }} variant="h5">
-              Premium template designed to accelerate app development with a stunning design and powerful pre-built
-              Material UI components.
+            Effortlessly manage student schedules and optimize course planning with our intuitive, modern platform—built to replace outdated systems and save you time.
             </Typography>
           </Stack>
           <Stack direction="row" spacing={2} sx={{ justifyContent: 'center' }}>
-            <Button component={RouterLink} href={paths.dashboard.overview} variant="contained">
-              Dashboard
+            <Button component={RouterLink} href={"not implemented"} variant="contained">
+              Contact Us
             </Button>
             <Button
               component={RouterLink}
-              href={paths.components.index}
+              href={paths.dashboard.overview}
               sx={{
                 color: 'var(--mui-palette-common-white)',
                 '&:hover': { bgcolor: 'var(--mui-palette-action-hover)' },
               }}
             >
-              Components
+              Sign in
             </Button>
           </Stack>
           <Stack direction="row" spacing={1} sx={{ alignItems: 'center', justifyContent: 'center ' }}>
-            <AvatarGroup sx={{ '& .MuiAvatar-root': { border: '2px solid var(--mui-palette-neutral-950)' } }}>
-              <Avatar alt="User 5" src="/assets/avatar-5.png" />
-              <Avatar alt="User 1" src="/assets/avatar-1.png" />
-              <Avatar alt="User 2" src="/assets/avatar-2.png" />
-            </AvatarGroup>
             <Typography color="neutral.300" sx={{ whiteSpace: 'nowrap' }} variant="caption">
               <Typography color="inherit" component="span" sx={{ fontWeight: 700 }} variant="inherit">
-                4.7/5
+                Built for MyEducation BC Counsellors
               </Typography>{' '}
-              based on (100+ reviews)
+              | Everything is complimentary to the existing (although bad) system that is unreplaceable as of now.
             </Typography>
           </Stack>
         </Stack>

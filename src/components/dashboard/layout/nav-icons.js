@@ -27,7 +27,11 @@ import { Translate as TranslateIcon } from '@phosphor-icons/react/dist/ssr/Trans
 import { Truck as TruckIcon } from '@phosphor-icons/react/dist/ssr/Truck';
 import { Upload as UploadIcon } from '@phosphor-icons/react/dist/ssr/Upload';
 import { Users as UsersIcon } from '@phosphor-icons/react/dist/ssr/Users';
+import { CalendarDot as CalendarDotIcon } from '@phosphor-icons/react/dist/ssr/CalendarDot';
+import { Student as StudentIcon } from '@phosphor-icons/react/dist/ssr/Student';
 import { WarningDiamond as WarningDiamondIcon } from '@phosphor-icons/react/dist/ssr/WarningDiamond';
+import { Chalkboard as ChalkboardIcon } from '@phosphor-icons/react/dist/ssr/Chalkboard';
+
 
 export const icons = {
   'address-book': AddressBookIcon,
@@ -54,10 +58,13 @@ export const icons = {
   house: HouseIcon,
   kanban: KanbanIcon,
   link: LinkIcon,
+  calendardots: CalendarDotIcon,
   lock: LockIcon,
   receipt: ReceiptIcon,
   translate: TranslateIcon,
   truck: TruckIcon,
   upload: UploadIcon,
   users: UsersIcon,
+  student: StudentIcon,
+  chalkboard: ChalkboardIcon,
 };
