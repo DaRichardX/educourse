@@ -2,12 +2,12 @@ import * as React from 'react';
 
 import { UserContext } from '@/contexts/auth/user-context';
 
-export function useUser() {
+export function useUserData() {
   const context = React.useContext(UserContext);
 
   if (!context) {
-    throw new Error('useUser must be used within a UserProvider');
+    throw new Error('useUserData must be used within a UserProvider');
   }
 
-  return context.state;
+  return context.userData;
 }

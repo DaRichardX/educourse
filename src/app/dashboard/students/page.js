@@ -4,10 +4,13 @@ import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
+import { useData } from '@/hooks/use-data'
 import Typography from '@mui/material/Typography';
 import { Plus as PlusIcon } from '@phosphor-icons/react/dist/ssr/Plus';
 
+
 import { config } from '@/config';
+import { logger } from '@/lib/default-logger';
 import { dayjs } from '@/lib/dayjs';
 import { CustomersFilters } from '@/components/dashboard/customer/customers-filters';
 import { CustomersPagination } from '@/components/dashboard/customer/customers-pagination';
@@ -74,6 +77,9 @@ export default function Page({ searchParams }) {
 
   const sortedCustomers = applySort(customers, sortDir);
   const filteredCustomers = applyFilters(sortedCustomers, { email, phone, status });
+
+  const data = useData();
+  logger.debug(data);
 
   return (
     <Box

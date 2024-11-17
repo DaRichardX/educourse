@@ -22,12 +22,12 @@ import { CognitoSignOut } from './cognito-sign-out';
 import { CustomSignOut } from './custom-sign-out';
 import { FirebaseSignOut } from './firebase-sign-out';
 import { SupabaseSignOut } from './supabase-sign-out';
-import { useUser } from '@/hooks/use-user';
+import { useUserData } from '@/hooks/use-user-data';
 
 
 export function UserPopover({ anchorEl, onClose, open }) {
 
-  const user = useUser().user;
+  const userData = useUserData();
   
   return (
     <Popover
@@ -39,9 +39,9 @@ export function UserPopover({ anchorEl, onClose, open }) {
       transformOrigin={{ horizontal: 'right', vertical: 'top' }}
     >
       <Box sx={{ p: 2 }}>
-        <Typography>{user ? user.name : null}</Typography>
+        <Typography>{userData ? userData.name : null}</Typography>
         <Typography color="text.secondary" variant="body2">
-          {user ? user.email : null}
+          {userData ? userData.email : null}
         </Typography>
       </Box>
       <Divider />

@@ -33,6 +33,7 @@ import { WarningDiamond as WarningDiamondIcon } from '@phosphor-icons/react/dist
 import { Chalkboard as ChalkboardIcon } from '@phosphor-icons/react/dist/ssr/Chalkboard';
 
 
+
 export const icons = {
   'address-book': AddressBookIcon,
   'align-left': AlignLeftIcon,

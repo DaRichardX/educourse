@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { DataContext } from '@/contexts/data/data-context';
 
-export function useUser() {
+export function useData() {
   const context = React.useContext(DataContext);
 
   if (!context) {

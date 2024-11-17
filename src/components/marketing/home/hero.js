@@ -65,13 +65,14 @@ export function Hero() {
         <Stack spacing={4}>
           <Stack spacing={2}>
             <Typography sx={{ fontSize: '3.5rem', fontWeight: 600, lineHeight: 1.2, textAlign: 'center' }}>
-              Supercharge Course Planning. Takeback{' '}
+              Admin-ing Shouldn't Be That Hard.{' '}
               <Typography color="primary.main" component="span" variant="inherit">
-                Your Time
-              </Typography>
+                Let's Change That.
+              </Typography> 
+              
             </Typography>
             <Typography color="neutral.300" sx={{ fontWeight: 400, textAlign: 'center' }} variant="h5">
-            Effortlessly manage student schedules and optimize course planning with our intuitive, modern platform—built to replace outdated systems and save you time.
+              a suite of opensource and secure applications to decrease admin work. 
             </Typography>
           </Stack>
           <Stack direction="row" spacing={2} sx={{ justifyContent: 'center' }}>

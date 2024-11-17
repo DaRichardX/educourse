@@ -15,89 +15,100 @@ export function UserProvider({ children }) {
 
   const [state, setState] = React.useState({
     user: null,
-    userData: null,
     error: null,
     isLoading: true,
   });
 
-  async function getUserData(uid) {
-    try {
-      const userDocRef = doc(firestore, 'users', uid); // Reference to the user's document
-      const userDoc = await getDoc(userDocRef); // Fetch the document from Firestore
+  const [userData, setUserData] = React.useState({
 
-      if (userDoc.exists()) {
-        const userdata = userDoc.data();
-        logger.debug('[Auth] userData:', userdata);
-
-        setState((prev) => ({
-          ...prev,
-          user:
-            {
-                id: uid,
-                email: userdata.email,
-                name: `${userdata.first_name} ${userdata.last_name}`,
-                avatar: "avatar-default.jpg",
-            },
-          userData: userdata,
-          error: null,
-          isLoading: false,
-        }));
-
-        return userdata;
-      } 
-        logger.debug(`[Auth] userData document not found for ${  uid}`);
-      
-    } catch (error) {
-      logger.debug('[Auth] Error fetching userData:', error);
-    }
-  }
+  });
 
   React.useEffect(() => {
     const unsubscribe = onAuthStateChanged(firebaseAuth, (user) => {
       logger.debug('[Auth] onAuthStateChanged:', user);
-
       if(user){
-        setState((prev) => ({
+        getUserData(user.uid); //sets the userData state (mainly used for info display)
+        setState((prev) => ({ //sets the state state (mainly used for auth)
           ...prev,
-          user: user
-            ? {
+          user:
+            {
                 id: user.uid,
                 email: user.email,
-                name: "Loading...",
                 avatar: "avatar-default.jpg",
-              }
-            : null,
+            },
           error: null,
           isLoading: false,
-        }));
-        getUserData(user.uid);
+        }));    
       }else{
+        //signout, user doesn't exist
+        setUserData((prev) => ({
+          ...prev,
+          id: null,
+          org_id: "",
+          email: "",
+          name: "",
+          first_name: "",
+          last_name: "",
+          name_org: "",
+          avatar: "",
+          org_data: "",
+        }));
         setState((prev) => ({
           ...prev,
-          user: user
-            ? {
-                id: user.uid,
-                email: user.email ?? undefined,
-                name: user.displayName ?? undefined,
-                avatar: user.photoURL ?? undefined,
-              }
-            : null,
+          user: null,
           error: null,
           isLoading: false,
         }));
-
       }
     });
 
+    async function getUserData(uid) { //only sets userData
+      try {
+        const userDocRef = doc(firestore, 'users', uid); // Reference to the user's document
+        const userDoc = await getDoc(userDocRef); // Fetch the document from Firestore
 
+        if (!userDoc.exists()) {
+          logger.debug(`[Auth] userData document not found for ${  uid}`);
+          return;
+        }
+
+        const userdata = userDoc.data(); //fetched userdata from /users/uid
+        logger.debug('[Auth] userData:', userdata);
+
+        const orgDocRef = doc(firestore, 'orgs', userdata.org_id); // Reference to the user's org's document
+        const orgDoc = await getDoc(orgDocRef); // Fetch the document from Firestore
+
+        if(!orgDoc.exists){
+          logger.debug(`[Auth] orgData document not found for ${  userdata.org_id}`);
+        }
+
+        logger.debug('[Auth] orgData:', orgDoc.data());
+
+        setUserData((prev) => ({
+          ...prev,
+          id: uid,
+          org_id: userdata.org_id,
+          email: userdata.email,
+          name: `${userdata.first_name} ${userdata.last_name}`,
+          first_name: userdata.first_name,
+          last_name: userdata.last_name,
+          name_org: `${orgDoc.data().name}`,
+          avatar: "avatar-default.jpg",
+          org_data: orgDoc.data()
+        }));
+        //success
+      } catch (error) {
+        logger.debug('[Auth] Error fetching userData:', error);
+      }
+    }
     
 
     return () => {
       unsubscribe();
     };
-  }, [firebaseAuth]);
+  }, [firebaseAuth, firestore]);
 
-  return <UserContext.Provider value={{ ...state }}>{children}</UserContext.Provider>;
+  return <UserContext.Provider value={{state, userData}}>{children}</UserContext.Provider>;
 }
 
 export const UserConsumer = UserContext.Consumer;

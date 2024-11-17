@@ -6,12 +6,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
-export const workspaces = [
-  { name: 'University Hill', avatar: '/assets/workspace-avatar-uhill.jpg' },
-  { name: 'Carpatin', avatar: '/assets/workspace-avatar-2.png' },
-];
-
-export function WorkspacesPopover({ anchorEl, onChange, onClose, open = false }) {
+export function WorkspacesPopover({ workspaces, anchorEl, onChange, onClose, open = false }) {
   return (
     <Menu
       anchorEl={anchorEl}

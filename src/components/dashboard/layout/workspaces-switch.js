@@ -9,12 +9,15 @@ import { CaretUpDown as CaretUpDownIcon } from '@phosphor-icons/react/dist/ssr/C
 
 import { usePopover } from '@/hooks/use-popover';
 
-import { workspaces, WorkspacesPopover } from './workspaces-popover';
+import { WorkspacesPopover } from './workspaces-popover';
+import { useUserData } from '@/hooks/use-user-data';
 
 export function WorkspacesSwitch() {
   const popover = usePopover();
-  const workspace = workspaces[0];
-
+  const userData = useUserData();
+  const workspace = [{name: userData.name_org, id: userData.org_id, avatar: '/assets/workspace-avatar-uhill.jpg'}]
+  //await multi workspace, currently userData only has one org_id field. In future, it will be
+  // orgid, role pairs so that they can log onto multi workspaces. This is hardcoded so that it work currently.
   return (
     <React.Fragment>
       <Stack
@@ -30,18 +33,19 @@ export function WorkspacesSwitch() {
           p: '4px 8px',
         }}
       >
-        <Avatar src={workspace.avatar} variant="rounded" />
+        <Avatar src={workspace[0].avatar} variant="rounded" />
         <Box sx={{ flex: '1 1 auto' }}>
           <Typography color="var(--Workspaces-title-color)" variant="caption">
             Workspace
           </Typography>
           <Typography color="var(--Workspaces-name-color)" variant="subtitle2">
-            {workspace.name}
+            {workspace[0].name}
           </Typography>
         </Box>
         <CaretUpDownIcon color="var(--Workspaces-expand-color)" fontSize="var(--icon-fontSize-sm)" />
       </Stack>
       <WorkspacesPopover
+        workspaces={workspace}
         anchorEl={popover.anchorRef.current}
         onChange={popover.handleClose}
         onClose={popover.handleClose}
