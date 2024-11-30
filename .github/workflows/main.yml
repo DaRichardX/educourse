@@ -6,6 +6,7 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: "/educourse:main"
+  IS_STATIC_APP: true
 
 jobs:
   amd64:
