@@ -1,35 +1,22 @@
-# Stage 1: Build
-FROM node:18 AS builder
+# Base image
+FROM node:18
 
 # Set the working directory
-WORKDIR /
+WORKDIR /app
 
-# Copy package.json and package-lock.json to install dependencies
+# Copy package.json and package-lock.json
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm install --production
 
-# Copy the rest of the application code
-COPY . .
+# Copy the pre-built Next.js app
+COPY .next ./.next
+COPY public ./public
+COPY node_modules ./node_modules
 
-# Build the Next.js application
-RUN npm run build
-
-# Stage 2: Production
-FROM node:18 AS runner
-
-# Set the working directory
-WORKDIR /
-
-# Copy only the necessary files from the builder stage
-COPY --from=builder /package*.json ./
-COPY --from=builder /.next ./.next
-COPY --from=builder /public ./public
-COPY --from=builder /node_modules ./node_modules
-
-# Expose the Next.js default port
+# Expose port
 EXPOSE 3000
 
-# Start the application
+# Start the app
 CMD ["npm", "start"]
