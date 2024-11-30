@@ -33,9 +33,9 @@ jobs:
         run: npm run build
 
       # Step 5: Export the Next.js app (optional for static apps)
-      - name: Export static Next.js app
-        if: ${{ env.IS_STATIC_APP == 'true' }}
-        run: npm run export
+      #- name: Export static Next.js app
+      #  if: ${{ env.IS_STATIC_APP == 'true' }}
+      #  run: npm run export
 
       # Step 6: Build and push Docker image
       - name: Login to ghcr.io
