@@ -1,21 +1,18 @@
-# Base image
-FROM node:18
-
-# Set the working directory
+# Base image for production
+FROM node:18 AS runner
 WORKDIR /app
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
+# Copy pre-built files from the GitHub Actions build
+COPY ./.next ./.next
+COPY ./public ./public
+COPY ./package.json ./package.json
+COPY ./package-lock.json ./package-lock.json
 
-# Install dependencies
+# Install production dependencies
 RUN npm install --production
 
-# Copy the pre-built Next.js app
-COPY .next ./.next
-COPY public ./public
-
-# Expose port
+# Expose the port the app runs on
 EXPOSE 3000
 
-# Start the app
+# Start the Next.js app
 CMD ["npm", "start"]
