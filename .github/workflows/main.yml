@@ -5,7 +5,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: "/educourse:main"
+  IMAGE_NAME: "DaRichardX/educourse"
   IS_STATIC_APP: true
 
 jobs:
