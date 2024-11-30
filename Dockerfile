@@ -13,7 +13,6 @@ RUN npm install --production
 # Copy the pre-built Next.js app
 COPY .next ./.next
 COPY public ./public
-COPY node_modules ./node_modules
 
 # Expose port
 EXPOSE 3000
