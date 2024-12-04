@@ -17,8 +17,6 @@ import { config } from '@/config';
 import { paths } from '@/paths';
 import { AuthStrategy } from '@/lib/auth/strategy';
 
-import { Auth0SignOut } from './auth0-sign-out';
-import { CognitoSignOut } from './cognito-sign-out';
 import { CustomSignOut } from './custom-sign-out';
 import { FirebaseSignOut } from './firebase-sign-out';
 import { SupabaseSignOut } from './supabase-sign-out';
@@ -68,8 +66,6 @@ export function UserPopover({ anchorEl, onClose, open }) {
       <Divider />
       <Box sx={{ p: 1 }}>
         {config.auth.strategy === AuthStrategy.CUSTOM ? <CustomSignOut /> : null}
-        {config.auth.strategy === AuthStrategy.AUTH0 ? <Auth0SignOut /> : null}
-        {config.auth.strategy === AuthStrategy.COGNITO ? <CognitoSignOut /> : null}
         {config.auth.strategy === AuthStrategy.FIREBASE ? <FirebaseSignOut /> : null}
         {config.auth.strategy === AuthStrategy.SUPABASE ? <SupabaseSignOut /> : null}
       </Box>

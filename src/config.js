@@ -15,18 +15,6 @@ export const config = {
   },
   logLevel: process.env.NEXT_PUBLIC_LOG_LEVEL || LogLevel.ALL,
   auth: { strategy: AuthStrategy.FIREBASE },
-  auth0: {
-    secret: process.env.AUTH0_SECRET,
-    baseUrl: process.env.AUTH0_BASE_URL,
-    issuerBaseUrl: process.env.AUTH0_ISSUER_BASE_URL,
-    clientId: process.env.AUTH0_CLIENT_ID,
-    clientSecret: process.env.AUTH0_CLIENT_SECRET,
-  },
-  cognito: {
-    identityPoolId: process.env.NEXT_PUBLIC_COGNITO_IDENTITY_POOL_ID,
-    userPoolClientId: process.env.NEXT_PUBLIC_COGNITO_USER_POOL_CLIENT_ID,
-    userPoolId: process.env.NEXT_PUBLIC_COGNITO_USER_POOL_ID,
-  },
   firebase: {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
     appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,

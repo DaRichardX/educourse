@@ -33,14 +33,6 @@ export function AuthGuard({ children }) {
           router.replace(paths.auth.custom.signIn);
           return;
         }
-        case AuthStrategy.AUTH0: {
-          router.replace(paths.auth.auth0.signIn);
-          return;
-        }
-        case AuthStrategy.COGNITO: {
-          router.replace(paths.auth.cognito.signIn);
-          return;
-        }
         case AuthStrategy.FIREBASE: {
           router.replace(paths.auth.firebase.signIn);
           return;

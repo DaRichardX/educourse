@@ -9,21 +9,6 @@ export const paths = {
       signUp: '/auth/custom/sign-up',
       resetPassword: '/auth/custom/reset-password',
     },
-    auth0: {
-      callback: '/auth/auth0/callback',
-      signIn: '/auth/auth0/sign-in',
-      signUp: '/auth/auth0/sign-up',
-      signOut: '/auth/auth0/sign-out',
-      profile: '/auth/auth0/profile',
-    },
-    cognito: {
-      signIn: '/auth/cognito/sign-in',
-      signUp: '/auth/cognito/sign-up',
-      signUpConfirm: '/auth/cognito/sign-up-confirm',
-      newPasswordRequired: '/auth/cognito/new-password-required',
-      resetPassword: '/auth/cognito/reset-password',
-      updatePassword: '/auth/cognito/update-password',
-    },
     firebase: {
       signIn: '/auth/sign-in',
       signUp: '/auth/sign-up',
