@@ -65,9 +65,9 @@ export function Hero() {
         <Stack spacing={4}>
           <Stack spacing={2}>
             <Typography sx={{ fontSize: '3.5rem', fontWeight: 600, lineHeight: 1.2, textAlign: 'center' }}>
-              Admin-ing Shouldn't Be That Hard.{' '}
+              do we need marketing landing page?{' '}
               <Typography color="primary.main" component="span" variant="inherit">
-                Let's Change That.
+                actually lets try making one.
               </Typography> 
               
             </Typography>
@@ -93,9 +93,9 @@ export function Hero() {
           <Stack direction="row" spacing={1} sx={{ alignItems: 'center', justifyContent: 'center ' }}>
             <Typography color="neutral.300" sx={{ whiteSpace: 'nowrap' }} variant="caption">
               <Typography color="inherit" component="span" sx={{ fontWeight: 700 }} variant="inherit">
-                Built for MyEducation BC Counsellors
+                Built for School Administrators
               </Typography>{' '}
-              | Everything is complimentary to the existing (although bad) system that is unreplaceable as of now.
+              | A suite of free, secure and highly efficent softwares & tools.
             </Typography>
           </Stack>
         </Stack>
