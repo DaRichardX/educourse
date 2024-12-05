@@ -64,15 +64,15 @@ export function Hero() {
       <Container maxWidth="md" sx={{ position: 'relative', py: '120px', zIndex: 3 }}>
         <Stack spacing={4}>
           <Stack spacing={2}>
-            <Typography sx={{ fontSize: '3.5rem', fontWeight: 600, lineHeight: 1.2, textAlign: 'center' }}>
-              do we need marketing landing page?{' '}
+            <Typography sx={{ fontSize: '4rem', fontWeight: 600, lineHeight: 1.2, textAlign: 'center', marginBottom: '40px' }}>
+            <Typography color="primary.main" component="span" variant="inherit">EduCourse</Typography> Simplifies Your School Administrations{' '}
               <Typography color="primary.main" component="span" variant="inherit">
-                actually lets try making one.
+                <br />One Step at a Time.
               </Typography> 
               
             </Typography>
-            <Typography color="neutral.300" sx={{ fontWeight: 400, textAlign: 'center' }} variant="h5">
-              a suite of opensource and secure applications to decrease admin work. 
+            <Typography color="neutral.300" sx={{ fontSize: '1.2rem', fontWeight: 400, textAlign: 'center' }} variant="h5">
+            EduCourse is a Suite of Open-Source, Secure Applications Designed for School Administrators to Streamline their School Administrations
             </Typography>
           </Stack>
           <Stack direction="row" spacing={2} sx={{ justifyContent: 'center' }}>
@@ -93,9 +93,8 @@ export function Hero() {
           <Stack direction="row" spacing={1} sx={{ alignItems: 'center', justifyContent: 'center ' }}>
             <Typography color="neutral.300" sx={{ whiteSpace: 'nowrap' }} variant="caption">
               <Typography color="inherit" component="span" sx={{ fontWeight: 700 }} variant="inherit">
-                Built for School Administrators
-              </Typography>{' '}
-              | A suite of free, secure and highly efficent softwares & tools.
+                Free, secure, and highly efficient 
+              </Typography>
             </Typography>
           </Stack>
         </Stack>
