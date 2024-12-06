@@ -1,121 +1,192 @@
-'use client';
+"use client";
 
-import * as React from 'react';
-import RouterLink from 'next/link';
-import Avatar from '@mui/material/Avatar';
-import AvatarGroup from '@mui/material/AvatarGroup';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import Stack from '@mui/material/Stack';
-import { useColorScheme } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
+import * as React from "react";
+import RouterLink from "next/link";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import Stack from "@mui/material/Stack";
+import { useColorScheme } from "@mui/material/styles";
+import Typography from "@mui/material/Typography";
 
-import { paths } from '@/paths';
+import { paths } from "@/paths";
 
 export function Hero() {
   const { colorScheme } = useColorScheme();
 
-  const [img, setImg] = React.useState('/assets/home-hero-light.png');
+  const [img, setImg] = React.useState("/assets/home-hero-light.png");
 
   React.useEffect(() => {
-    setImg(colorScheme === 'dark' ? '/assets/home-hero-dark.png' : '/assets/home-hero-light.png');
+    setImg(
+      colorScheme === "dark"
+        ? "/assets/home-hero-dark.png"
+        : "/assets/home-hero-light.png",
+    );
   }, [colorScheme]);
 
   return (
     <Box
       sx={{
-        bgcolor: 'var(--mui-palette-neutral-950)',
-        color: 'var(--mui-palette-common-white)',
-        overflow: 'hidden',
-        position: 'relative',
+        bgcolor: "var(--mui-palette-neutral-950)",
+        color: "var(--mui-palette-common-white)",
+        overflow: "hidden",
+        position: "relative",
       }}
     >
       <Box
         sx={{
-          alignItems: 'center',
+          alignItems: "center",
           bottom: 0,
-          display: 'flex',
-          justifyContent: 'center',
+          display: "flex",
+          justifyContent: "center",
           left: 0,
-          position: 'absolute',
+          position: "absolute",
           right: 0,
           top: 0,
           zIndex: 0,
         }}
       >
-        <Box component="img" src="/assets/home-cosmic.svg" sx={{ height: 'auto', width: '1600px' }} />
+        <Box
+          component="img"
+          src="/assets/home-cosmic.svg"
+          sx={{ height: "auto", width: "1600px" }}
+        />
       </Box>
       <Box
         sx={{
-          alignItems: 'center',
+          alignItems: "center",
           bottom: 0,
-          display: 'flex',
-          justifyContent: 'center',
+          display: "flex",
+          justifyContent: "center",
           left: 0,
-          position: 'absolute',
+          position: "absolute",
           right: 0,
           top: 0,
           zIndex: 1,
         }}
       >
-        <Box component="img" src="/assets/home-rectangles.svg" sx={{ height: 'auto', width: '1900px' }} />
+        <Box
+          component="img"
+          src="/assets/home-rectangles.svg"
+          sx={{ height: "auto", width: "1900px" }}
+        />
       </Box>
-      <Container maxWidth="md" sx={{ position: 'relative', py: '100px', zIndex: 3 }}>
+      <Container
+        maxWidth="md"
+        sx={{ position: "relative", py: "100px", zIndex: 3 }}
+      >
         <Stack spacing={4}>
           <Stack spacing={2}>
-            <Typography sx={{ fontSize: '4rem', fontWeight: 600, lineHeight: 1.2, textAlign: 'center', marginBottom: '40px' }}>
-            <Typography color="primary.main" component="span" variant="inherit">EduCourse</Typography> Simplifies Your School Administrations{' '}
-              <Typography color="primary.main" component="span" variant="inherit">
-                <br />One Process at a Time.
-              </Typography> 
-              
+            <Typography
+              sx={{
+                fontSize: { xs: "2.45rem", sm: "3.5rem", md: "4rem" },
+                fontWeight: 600,
+                lineHeight: 1.2,
+                textAlign: "center",
+                margin: "0 15px",
+                marginBottom: "40px",
+              }}
+            >
+              <Typography
+                color="primary.main"
+                component="span"
+                variant="inherit"
+              >
+                EduCourse
+              </Typography>{" "}
+              Simplifies Your School Administrations{" "}
+              <Typography
+                color="primary.main"
+                component="span"
+                variant="inherit"
+              >
+                <br />
+                One Process at a Time.
+              </Typography>
             </Typography>
-            <Typography color="neutral.300" sx={{ fontSize: '1.2rem', fontWeight: 400, textAlign: 'center', lineHeight: '1.8rem' }} variant="h5">
-            EduCourse is a Suite of Open-Source, Secure Applications Designed for School Administrators to Streamline their School Administrations.
+            <Typography
+              color="neutral.300"
+              sx={{
+                fontSize: { xs: "0.8rem", sm: "1rem", md: "1.2rem" },
+                fontWeight: 400,
+                textAlign: "center",
+                lineHeight: { xs: "1.4rem", sm: "1.6rem", md: "1.8rem" },
+              }}
+              variant="h5"
+            >
+              EduCourse is a Suite of Open-Source, Secure Applications Designed
+              for School Administrators to Streamline their School
+              Administrations.
             </Typography>
           </Stack>
-          <Stack direction="row" spacing={2} sx={{ justifyContent: 'center' }}>
-            <Button component={RouterLink} href={"https://www.youtube.com/watch?v=dQw4w9WgXcQ"} variant="contained" size='large'>
+
+          <Stack direction="row" spacing={2} sx={{ justifyContent: "center" }}>
+            <Button
+              component={RouterLink}
+              href={"https://www.youtube.com/watch?v=dQw4w9WgXcQ"}
+              variant="contained"
+              size="large"
+            >
               Contact Us
             </Button>
             <Button
               component={RouterLink}
               href={paths.dashboard.overview}
               sx={{
-                color: '#dadada',
-                '&:hover': { bgcolor: 'var(--mui-palette-action-hover)' },
+                color: "#dadada",
+                "&:hover": { bgcolor: "var(--mui-palette-action-hover)" },
               }}
-              size='large'
+              size="large"
             >
               Sign in
             </Button>
           </Stack>
         </Stack>
       </Container>
-      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2 }}>
-        <Box sx={{ bottom: 0, left: 0, position: 'absolute', px: '24px', right: 0, top: 0, zIndex: 0 }}>
+      <Container maxWidth="lg" sx={{ position: "relative", zIndex: 2 }}>
+        <Box
+          sx={{
+            bottom: 0,
+            left: 0,
+            position: "absolute",
+            px: "24px",
+            right: 0,
+            top: 0,
+            zIndex: 0,
+          }}
+        >
           <Box
-            sx={{ bgcolor: 'var(--mui-palette-neutral-950)', borderRadius: '28px', height: '100%', width: '100%' }}
+            sx={{
+              bgcolor: "var(--mui-palette-neutral-950)",
+              borderRadius: "28px",
+              height: "100%",
+              width: "100%",
+            }}
           />
         </Box>
         <Box
           sx={{
-            bgcolor: '#8057f4',
-            filter: 'blur(50px)',
-            height: '30px',
-            left: '50%',
-            position: 'absolute',
+            bgcolor: "#8057f4",
+            filter: "blur(50px)",
+            height: "30px",
+            left: "50%",
+            position: "absolute",
             top: 0,
-            transform: 'translateX(-50%)',
-            width: '80%',
+            transform: "translateX(-50%)",
+            width: "80%",
             zIndex: 1,
           }}
         />
         <Box
           component="img"
           src={img}
-          sx={{ display: 'block', height: 'auto', position: 'relative', width: '100%', zIndex: 2 }}
+          sx={{
+            display: "block",
+            height: "auto",
+            position: "relative",
+            width: "100%",
+            zIndex: 2,
+          }}
         />
       </Container>
     </Box>
