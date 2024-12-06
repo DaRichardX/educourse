@@ -17,10 +17,11 @@ import { isNavItemActive } from '@/lib/is-nav-item-active';
 import { Dropdown } from '@/components/core/dropdown/dropdown';
 import { DropdownPopover } from '@/components/core/dropdown/dropdown-popover';
 import { DropdownTrigger } from '@/components/core/dropdown/dropdown-trigger';
-import { Logo } from '@/components/core/logo';
-
 import { MobileNav } from './mobile-nav';
-import { PagesPopover } from './pages-popover';
+
+function Logo({ height = 32, width = 122 }) {
+  return <img draggable="false" style={{ userSelect: 'none', pointerEvents: 'none' }} src="/assets/educourselogoBW.svg" alt="EduCourse Logo" height={height} width={width} />;
+}
 
 export function MainNav() {
   const [openNav, setOpenNav] = React.useState(false);
@@ -43,7 +44,7 @@ export function MainNav() {
         <Container maxWidth="lg" sx={{ display: 'flex', minHeight: 'var(--MainNav-height)', py: '16px' }}>
           <Stack direction="row" spacing={2} sx={{ alignItems: 'center', flex: '1 1 auto' }}>
             <Box component={RouterLink} href={paths.home} sx={{ display: 'inline-flex' }}>
-              <Logo color="light" height={32} width={122} />
+              <Logo height={50} width={200} />
             </Box>
             <Box component="nav" sx={{ display: { xs: 'none', md: 'block' } }}>
               <Stack component="ul" direction="row" spacing={1} sx={{ listStyle: 'none', m: 0, p: 0 }}>

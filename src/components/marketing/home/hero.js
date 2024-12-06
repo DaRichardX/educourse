@@ -61,41 +61,35 @@ export function Hero() {
       >
         <Box component="img" src="/assets/home-rectangles.svg" sx={{ height: 'auto', width: '1900px' }} />
       </Box>
-      <Container maxWidth="md" sx={{ position: 'relative', py: '120px', zIndex: 3 }}>
+      <Container maxWidth="md" sx={{ position: 'relative', py: '100px', zIndex: 3 }}>
         <Stack spacing={4}>
           <Stack spacing={2}>
             <Typography sx={{ fontSize: '4rem', fontWeight: 600, lineHeight: 1.2, textAlign: 'center', marginBottom: '40px' }}>
             <Typography color="primary.main" component="span" variant="inherit">EduCourse</Typography> Simplifies Your School Administrations{' '}
               <Typography color="primary.main" component="span" variant="inherit">
-                <br />One Step at a Time.
+                <br />One Process at a Time.
               </Typography> 
               
             </Typography>
-            <Typography color="neutral.300" sx={{ fontSize: '1.2rem', fontWeight: 400, textAlign: 'center' }} variant="h5">
-            EduCourse is a Suite of Open-Source, Secure Applications Designed for School Administrators to Streamline their School Administrations
+            <Typography color="neutral.300" sx={{ fontSize: '1.2rem', fontWeight: 400, textAlign: 'center', lineHeight: '1.8rem' }} variant="h5">
+            EduCourse is a Suite of Open-Source, Secure Applications Designed for School Administrators to Streamline their School Administrations.
             </Typography>
           </Stack>
           <Stack direction="row" spacing={2} sx={{ justifyContent: 'center' }}>
-            <Button component={RouterLink} href={"not implemented"} variant="contained">
+            <Button component={RouterLink} href={"https://www.youtube.com/watch?v=dQw4w9WgXcQ"} variant="contained" size='large'>
               Contact Us
             </Button>
             <Button
               component={RouterLink}
               href={paths.dashboard.overview}
               sx={{
-                color: 'var(--mui-palette-common-white)',
+                color: '#dadada',
                 '&:hover': { bgcolor: 'var(--mui-palette-action-hover)' },
               }}
+              size='large'
             >
               Sign in
             </Button>
-          </Stack>
-          <Stack direction="row" spacing={1} sx={{ alignItems: 'center', justifyContent: 'center ' }}>
-            <Typography color="neutral.300" sx={{ whiteSpace: 'nowrap' }} variant="caption">
-              <Typography color="inherit" component="span" sx={{ fontWeight: 700 }} variant="inherit">
-                Free, secure, and highly efficient 
-              </Typography>
-            </Typography>
           </Stack>
         </Stack>
       </Container>

@@ -99,6 +99,6 @@ export const MuiButton = {
     containedError: getContainedVars('error'),
     sizeSmall: { '--Button-minHeight': '28x', fontSize: '0.8125rem', lineHeight: '24px' },
     sizeMedium: { '--Button-minHeight': '40x', fontSize: '0.875rem', lineHeight: '28px' },
-    sizeLarge: { '--Button-minHeight': '48x', fontSize: '0.9375rem', lineHeight: '32px' },
+    sizeLarge: { '--Button-minHeight': '50px', fontSize: '1rem', lineHeight: '32px' },
   },
 };
