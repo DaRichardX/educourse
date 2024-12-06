@@ -79,7 +79,7 @@ export function Hero() {
           <Stack spacing={2}>
             <Typography
               sx={{
-                fontSize: { xs: "2.45rem", sm: "3.5rem", md: "4rem" },
+                fontSize: { xs: "2.5rem", sm: "3.5rem", md: "4rem" },
                 fontWeight: 600,
                 lineHeight: 1.2,
                 textAlign: "center",

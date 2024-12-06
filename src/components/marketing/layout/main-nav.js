@@ -1,26 +1,35 @@
-'use client';
+"use client";
 
-import * as React from 'react';
-import RouterLink from 'next/link';
-import { usePathname } from 'next/navigation';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import IconButton from '@mui/material/IconButton';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import { CaretDown as CaretDownIcon } from '@phosphor-icons/react/dist/ssr/CaretDown';
-import { List as ListIcon } from '@phosphor-icons/react/dist/ssr/List';
+import * as React from "react";
+import RouterLink from "next/link";
+import { usePathname } from "next/navigation";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import IconButton from "@mui/material/IconButton";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import { CaretDown as CaretDownIcon } from "@phosphor-icons/react/dist/ssr/CaretDown";
+import { List as ListIcon } from "@phosphor-icons/react/dist/ssr/List";
 
-import { paths } from '@/paths';
-import { isNavItemActive } from '@/lib/is-nav-item-active';
-import { Dropdown } from '@/components/core/dropdown/dropdown';
-import { DropdownPopover } from '@/components/core/dropdown/dropdown-popover';
-import { DropdownTrigger } from '@/components/core/dropdown/dropdown-trigger';
-import { MobileNav } from './mobile-nav';
+import { paths } from "@/paths";
+import { isNavItemActive } from "@/lib/is-nav-item-active";
+import { Dropdown } from "@/components/core/dropdown/dropdown";
+import { DropdownPopover } from "@/components/core/dropdown/dropdown-popover";
+import { DropdownTrigger } from "@/components/core/dropdown/dropdown-trigger";
+import { MobileNav } from "./mobile-nav";
 
 function Logo({ height = 32, width = 122 }) {
-  return <img draggable="false" style={{ userSelect: 'none', pointerEvents: 'none' }} src="/assets/educourselogoBW.svg" alt="EduCourse Logo" height={height} width={width} />;
+  return (
+    <img
+      draggable="false"
+      style={{ userSelect: "none", pointerEvents: "none" }}
+      src="/assets/educourselogoBW.svg"
+      alt="EduCourse Logo"
+      height={height}
+      width={width}
+    />
+  );
 }
 
 export function MainNav() {
@@ -32,31 +41,63 @@ export function MainNav() {
       <Box
         component="header"
         sx={{
-          bgcolor: 'var(--mui-palette-neutral-950)',
-          color: 'var(--mui-palette-common-white)',
+          bgcolor: "var(--mui-palette-neutral-950)",
+          color: "var(--mui-palette-common-white)",
           left: 0,
-          position: 'sticky',
+          position: "sticky",
           right: 0,
           top: 0,
-          zIndex: 'var(--MainNav-zIndex)',
+          zIndex: "var(--MainNav-zIndex)",
         }}
       >
-        <Container maxWidth="lg" sx={{ display: 'flex', minHeight: 'var(--MainNav-height)', py: '16px' }}>
-          <Stack direction="row" spacing={2} sx={{ alignItems: 'center', flex: '1 1 auto' }}>
-            <Box component={RouterLink} href={paths.home} sx={{ display: 'inline-flex' }}>
+        <Container
+          maxWidth="lg"
+          sx={{
+            display: "flex",
+            minHeight: "var(--MainNav-height)",
+            py: "16px",
+          }}
+        >
+          <Stack
+            direction="row"
+            spacing={2}
+            sx={{ alignItems: "center", flex: "1 1 auto" }}
+          >
+            <Box
+              component={RouterLink}
+              href={paths.home}
+              sx={{ display: "inline-flex" }}
+            >
               <Logo height={50} width={200} />
             </Box>
-            <Box component="nav" sx={{ display: { xs: 'none', md: 'block' } }}>
-              <Stack component="ul" direction="row" spacing={1} sx={{ listStyle: 'none', m: 0, p: 0 }}>
-                <NavItem href={paths.components.index} pathname={pathname} title="Components" />
-                <NavItem href={paths.docs} pathname={pathname} title="Documentation" />
+            <Box component="nav" sx={{ display: { xs: "none", md: "block" } }}>
+              <Stack
+                component="ul"
+                direction="row"
+                spacing={1}
+                sx={{ listStyle: "none", m: 0, p: 0 }}
+              >
+                <NavItem
+                  href={paths.components.index}
+                  pathname={pathname}
+                  title="Components"
+                />
+                <NavItem
+                  href={paths.docs}
+                  pathname={pathname}
+                  title="Documentation"
+                />
               </Stack>
             </Box>
           </Stack>
           <Stack
             direction="row"
             spacing={2}
-            sx={{ alignItems: 'center', flex: '1 1 auto', justifyContent: 'flex-end' }}
+            sx={{
+              alignItems: "center",
+              flex: "1 1 auto",
+              justifyContent: "flex-end",
+            }}
           >
             {/* <Box component="nav" sx={{ display: { xs: 'none', md: 'block' } }}>
               <Stack component="ul" direction="row" spacing={1} sx={{ listStyle: 'none', m: 0, p: 0 }}>
@@ -69,8 +110,8 @@ export function MainNav() {
               component={RouterLink}
               href={paths.dashboard.overview}
               sx={{
-                color: 'var(--mui-palette-neutral-300)',
-                '&:hover': { bgcolor: 'var(--mui-palette-action-hover)' },
+                color: "var(--mui-palette-neutral-300)",
+                "&:hover": { bgcolor: "var(--mui-palette-action-hover)" },
               }}
             >
               Sign in
@@ -78,7 +119,7 @@ export function MainNav() {
             <Button
               component="a"
               href={"not implemented"}
-              sx={{ display: { xs: 'none', md: 'flex' } }}
+              sx={{ display: { xs: "none", md: "flex" } }}
               target="_blank"
               variant="contained"
             >
@@ -88,7 +129,10 @@ export function MainNav() {
               onClick={() => {
                 setOpenNav(true);
               }}
-              sx={{ color: 'var(--mui-palette-common-white)', display: { xs: 'flex', md: 'none' } }}
+              sx={{
+                color: "var(--mui-palette-common-white)",
+                display: { xs: "flex", md: "none" },
+              }}
             >
               <ListIcon />
             </IconButton>
@@ -105,65 +149,94 @@ export function MainNav() {
   );
 }
 
-export function NavItem({ children, disabled, external, href, matcher, pathname, title }) {
-  const active = isNavItemActive({ disabled, external, href, matcher, pathname });
+export function NavItem({
+  children,
+  disabled,
+  external,
+  href,
+  matcher,
+  pathname,
+  title,
+}) {
+  const active = isNavItemActive({
+    disabled,
+    external,
+    href,
+    matcher,
+    pathname,
+  });
   const hasPopover = Boolean(children);
 
   const element = (
-    <Box component="li" sx={{ userSelect: 'none' }}>
+    <Box component="li" sx={{ userSelect: "none" }}>
       <Box
         {...(hasPopover
           ? {
               onClick: (event) => {
                 event.preventDefault();
               },
-              role: 'button',
+              role: "button",
             }
           : {
               ...(href
                 ? {
-                    component: external ? 'a' : RouterLink,
+                    component: external ? "a" : RouterLink,
                     href,
-                    target: external ? '_blank' : undefined,
-                    rel: external ? 'noreferrer' : undefined,
+                    target: external ? "_blank" : undefined,
+                    rel: external ? "noreferrer" : undefined,
                   }
-                : { role: 'button' }),
+                : { role: "button" }),
             })}
         sx={{
-          alignItems: 'center',
+          alignItems: "center",
           borderRadius: 1,
-          color: 'var(--mui-palette-neutral-300)',
-          cursor: 'pointer',
-          display: 'flex',
-          flex: '0 0 auto',
+          color: "var(--mui-palette-neutral-300)",
+          cursor: "pointer",
+          display: "flex",
+          flex: "0 0 auto",
           gap: 1,
-          p: '6px 16px',
-          textAlign: 'left',
-          textDecoration: 'none',
-          whiteSpace: 'nowrap',
+          p: "6px 16px",
+          textAlign: "left",
+          textDecoration: "none",
+          whiteSpace: "nowrap",
           ...(disabled && {
-            bgcolor: 'var(--mui-palette-action-disabledBackground)',
-            color: 'var(--mui-action-disabled)',
-            cursor: 'not-allowed',
+            bgcolor: "var(--mui-palette-action-disabledBackground)",
+            color: "var(--mui-action-disabled)",
+            cursor: "not-allowed",
           }),
-          ...(active && { color: 'var(--mui-palette-common-white)' }),
-          '&:hover': {
+          ...(active && { color: "var(--mui-palette-common-white)" }),
+          "&:hover": {
             ...(!disabled &&
-              !active && { bgcolor: 'rgba(255, 255, 255, 0.04)', color: 'var(--mui-palette-common-white)' }),
+              !active && {
+                bgcolor: "rgba(255, 255, 255, 0.04)",
+                color: "var(--mui-palette-common-white)",
+              }),
           },
         }}
         tabIndex={0}
       >
-        <Box component="span" sx={{ flex: '1 1 auto' }}>
+        <Box component="span" sx={{ flex: "1 1 auto" }}>
           <Typography
             component="span"
-            sx={{ color: 'inherit', fontSize: '0.875rem', fontWeight: 500, lineHeight: '28px' }}
+            sx={{
+              color: "inherit",
+              fontSize: "0.875rem",
+              fontWeight: 500,
+              lineHeight: "28px",
+            }}
           >
             {title}
           </Typography>
         </Box>
         {hasPopover ? (
-          <Box sx={{ alignItems: 'center', color: 'inherit', display: 'flex', flex: '0 0 auto' }}>
+          <Box
+            sx={{
+              alignItems: "center",
+              color: "inherit",
+              display: "flex",
+              flex: "0 0 auto",
+            }}
+          >
             <CaretDownIcon fontSize="var(--icon-fontSize-sm)" />
           </Box>
         ) : null}
@@ -176,9 +249,9 @@ export function NavItem({ children, disabled, external, href, matcher, pathname,
       <Dropdown>
         <DropdownTrigger>{element}</DropdownTrigger>
         <DropdownPopover
-          PaperProps={{ sx: { width: '800px', maxWidth: '100%' } }}
-          anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
-          transformOrigin={{ horizontal: 'center', vertical: 'top' }}
+          PaperProps={{ sx: { width: "800px", maxWidth: "100%" } }}
+          anchorOrigin={{ horizontal: "center", vertical: "bottom" }}
+          transformOrigin={{ horizontal: "center", vertical: "top" }}
         >
           {children}
         </DropdownPopover>
