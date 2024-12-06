@@ -19,8 +19,17 @@ import { DropdownPopover } from "@/components/core/dropdown/dropdown-popover";
 import { DropdownTrigger } from "@/components/core/dropdown/dropdown-trigger";
 import { MobileNav } from "./mobile-nav";
 
-function Logo({ height = 32, width = 122 }) {
-  return (
+export function Logo({ height = 32, width = 122, dark }) {
+  return dark ? (
+    <img
+      draggable="false"
+      style={{ userSelect: "none", pointerEvents: "none" }}
+      src="/assets/EducourseLogoWB.svg"
+      alt="EduCourse Logo"
+      height={height}
+      width={width}
+    />
+  ) : (
     <img
       draggable="false"
       style={{ userSelect: "none", pointerEvents: "none" }}
@@ -68,7 +77,7 @@ export function MainNav() {
               href={paths.home}
               sx={{ display: "inline-flex" }}
             >
-              <Logo height={50} width={200} />
+              <Logo height={50} width={200} dark={false} />
             </Box>
             <Box component="nav" sx={{ display: { xs: "none", md: "block" } }}>
               <Stack
