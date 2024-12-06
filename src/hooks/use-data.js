@@ -1,13 +1,16 @@
-import * as React from 'react';
+"use client";
+// ain't no way bro forgot 'use client' for Next.js
 
-import { DataContext } from '@/contexts/data/data-context';
+import React, { createContext, useState } from 'react';
 
-export function useData() {
-  const context = React.useContext(DataContext);
+export const DataContext = createContext();
 
-  if (!context) {
-    throw new Error('useData must be used within a DataProvider');
-  }
+export function DataProvider({ children }) {
+  const [data, setData] = useState(null);
 
-  return context;
-}
+  return (
+    <DataContext.Provider value={{ data, setData }}>
+      {children}
+    </DataContext.Provider>
+  );
+};

@@ -6,8 +6,9 @@ import CardContent from '@mui/material/CardContent';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 
-export function Summary({ amount, icon: Icon, title }) {
+export function SummaryPending({ amount, icon: Icon, title }) {
   return (
     <Card>
       <CardContent>
@@ -26,7 +27,7 @@ export function Summary({ amount, icon: Icon, title }) {
             <Typography color="text.secondary" variant="body1">
               {title}
             </Typography>
-            <Typography variant="h3" color="primary.main">{amount}</Typography>
+            <Typography variant="h3" color="primary.main">{new Intl.NumberFormat('en-US').format(amount)}</Typography>
           </div>
         </Stack>
       </CardContent>
@@ -34,13 +35,10 @@ export function Summary({ amount, icon: Icon, title }) {
       <Box sx={{ p: '16px' }}>
         <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
           
-          <Typography color="text.secondary" variant="body2">
-            <Typography component="span" sx={{ fontSize: '1.2rem' }}>
-              71.3%
-              {/* {new Intl.NumberFormat('en-US', { style: 'percent', maximumFractionDigits: 2 }).format(diff / 100)} */}
-            </Typography>{' '}
-            completed
-          </Typography>
+        <Button variant="contained" style={{ fontSize: '0.8rem' }} size='small' color="secondary">
+            Resend Links
+          </Button>
+          
         </Stack>
       </Box>
     </Card>

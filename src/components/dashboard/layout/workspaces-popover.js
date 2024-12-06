@@ -16,9 +16,9 @@ export function WorkspacesPopover({ workspaces, anchorEl, onChange, onClose, ope
       slotProps={{ paper: { sx: { width: '250px' } } }}
       transformOrigin={{ horizontal: 'right', vertical: 'top' }}
     >
-      {workspaces.map((workspace) => (
+      {workspaces.map((workspace, index) => (
         <MenuItem
-          key={workspace.name}
+          key={`${workspace.name}-${index}-${Math.random()}`} // Ensure unique key
           onClick={() => {
             onChange?.(workspace.name);
           }}

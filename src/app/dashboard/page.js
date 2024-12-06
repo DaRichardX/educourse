@@ -5,25 +5,52 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Unstable_Grid2';
 import { ArrowRight as ArrowRightIcon } from '@phosphor-icons/react/dist/ssr/ArrowRight';
-import { Briefcase as BriefcaseIcon } from '@phosphor-icons/react/dist/ssr/Briefcase';
 import { FileCode as FileCodeIcon } from '@phosphor-icons/react/dist/ssr/FileCode';
 import { Info as InfoIcon } from '@phosphor-icons/react/dist/ssr/Info';
-import { ListChecks as ListChecksIcon } from '@phosphor-icons/react/dist/ssr/ListChecks';
-import { Plus as PlusIcon } from '@phosphor-icons/react/dist/ssr/Plus';
 import { Users as UsersIcon } from '@phosphor-icons/react/dist/ssr/Users';
 import { Warning as WarningIcon } from '@phosphor-icons/react/dist/ssr/Warning';
 
+import { CustomersTable as GradesTable } from '@/components/dashboard/customer/customers-table.js';
 import { config } from '@/config';
 import { dayjs } from '@/lib/dayjs';
-import { AppChat } from '@/components/dashboard/overview/app-chat';
-import { AppLimits } from '@/components/dashboard/overview/app-limits';
-import { AppUsage } from '@/components/dashboard/overview/app-usage';
 import { Events } from '@/components/dashboard/overview/events';
 import { HelperWidget } from '@/components/dashboard/overview/helper-widget';
-import { Subscriptions } from '@/components/dashboard/overview/subscriptions';
 import { Summary } from '@/components/dashboard/overview/summary';
+import { SummaryPending } from '@/components/dashboard/overview/summary-pending';
 
 export const metadata = { title: `Overview | Dashboard | ${config.site.name}` };
+const rows = [
+  {
+    id: 1,
+    name: 'Grade 12',
+    percentage: 100,
+    status: 'complete',
+  },
+  {
+    id: 2,
+    name: 'Grade 11',
+    percentage: 100,
+    status: 'complete',
+  },
+  {
+    id: 3,
+    name: 'Grade 10',
+    percentage: 90,
+    status: 'pending',
+  },
+  {
+    id: 4,
+    name: 'Grade 9',
+    percentage: 68,
+    status: 'pending',
+  },
+  {
+    id: 5,
+    name: 'Grade 8',
+    percentage: 89,
+    status: 'pending',
+  },
+];
 
 export default function Page() {
   return (
@@ -38,124 +65,28 @@ export default function Page() {
       <Stack spacing={4}>
         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={3} sx={{ alignItems: 'flex-start' }}>
           <Box sx={{ flex: '1 1 auto' }}>
-            <Typography variant="h4">Overview</Typography>
+            <Typography variant="h3">Overview</Typography>
           </Box>
           <div>
-            <Button startIcon={<PlusIcon />} variant="contained">
-              Dashboard
-            </Button>
+          <Button endIcon={<DownloadIcon />} variant="contained">
+            Export All
+          </Button>
           </div>
         </Stack>
         <Grid container spacing={4}>
-          <Grid md={4} xs={12}>
-            <Summary amount={31} diff={15} icon={ListChecksIcon} title="Tickets" trend="up" />
+          
+          <Grid md={6} xs={12}>
+            <Summary amount={845} icon={UsersIcon} title="Sign ups" />
           </Grid>
-          <Grid md={4} xs={12}>
-            <Summary amount={240} diff={5} icon={UsersIcon} title="Sign ups" trend="down" />
+
+          <Grid md={6} xs={12}>
+            <SummaryPending amount={340} icon={WarningIcon} title="Pending Submissions" />
           </Grid>
-          <Grid md={4} xs={12}>
-            <Summary amount={21} diff={12} icon={WarningIcon} title="Open issues" trend="up" />
+
+          <Grid md={12} xs={12}>
+            <GradesTable rows={rows} />
           </Grid>
-          <Grid md={8} xs={12}>
-            <AppUsage
-              data={[
-                { name: 'Jan', v1: 36, v2: 19 },
-                { name: 'Feb', v1: 45, v2: 23 },
-                { name: 'Mar', v1: 26, v2: 12 },
-                { name: 'Apr', v1: 39, v2: 20 },
-                { name: 'May', v1: 26, v2: 12 },
-                { name: 'Jun', v1: 42, v2: 31 },
-                { name: 'Jul', v1: 38, v2: 19 },
-                { name: 'Aug', v1: 39, v2: 20 },
-                { name: 'Sep', v1: 37, v2: 18 },
-                { name: 'Oct', v1: 41, v2: 22 },
-                { name: 'Nov', v1: 45, v2: 24 },
-                { name: 'Dec', v1: 23, v2: 17 },
-              ]}
-            />
-          </Grid>
-          <Grid md={4} xs={12}>
-            <Subscriptions
-              subscriptions={[
-                {
-                  id: 'supabase',
-                  title: 'Supabase',
-                  icon: '/assets/company-avatar-5.png',
-                  costs: '$599',
-                  billingCycle: 'year',
-                  status: 'paid',
-                },
-                {
-                  id: 'vercel',
-                  title: 'Vercel',
-                  icon: '/assets/company-avatar-4.png',
-                  costs: '$20',
-                  billingCycle: 'month',
-                  status: 'expiring',
-                },
-                {
-                  id: 'auth0',
-                  title: 'Auth0',
-                  icon: '/assets/company-avatar-3.png',
-                  costs: '$20-80',
-                  billingCycle: 'month',
-                  status: 'canceled',
-                },
-                {
-                  id: 'google_cloud',
-                  title: 'Google Cloud',
-                  icon: '/assets/company-avatar-2.png',
-                  costs: '$100-200',
-                  billingCycle: 'month',
-                  status: 'paid',
-                },
-                {
-                  id: 'stripe',
-                  title: 'Stripe',
-                  icon: '/assets/company-avatar-1.png',
-                  costs: '$70',
-                  billingCycle: 'month',
-                  status: 'paid',
-                },
-              ]}
-            />
-          </Grid>
-          <Grid md={4} xs={12}>
-            <AppChat
-              messages={[
-                {
-                  id: 'MSG-001',
-                  content: 'Hello, we spoke earlier on the phone',
-                  author: { name: 'Alcides Antonio', avatar: '/assets/avatar-10.png', status: 'online' },
-                  createdAt: dayjs().subtract(2, 'minute').toDate(),
-                },
-                {
-                  id: 'MSG-002',
-                  content: 'Is the job still available?',
-                  author: { name: 'Marcus Finn', avatar: '/assets/avatar-9.png', status: 'offline' },
-                  createdAt: dayjs().subtract(56, 'minute').toDate(),
-                },
-                {
-                  id: 'MSG-003',
-                  content: "What is a screening task? I'd like to",
-                  author: { name: 'Carson Darrin', avatar: '/assets/avatar-3.png', status: 'online' },
-                  createdAt: dayjs().subtract(3, 'hour').subtract(23, 'minute').toDate(),
-                },
-                {
-                  id: 'MSG-004',
-                  content: 'Still waiting for feedback',
-                  author: { name: 'Fran Perez', avatar: '/assets/avatar-5.png', status: 'online' },
-                  createdAt: dayjs().subtract(8, 'hour').subtract(6, 'minute').toDate(),
-                },
-                {
-                  id: 'MSG-005',
-                  content: 'Need more information about campaigns',
-                  author: { name: 'Jie Yan', avatar: '/assets/avatar-8.png', status: 'offline' },
-                  createdAt: dayjs().subtract(10, 'hour').subtract(18, 'minute').toDate(),
-                },
-              ]}
-            />
-          </Grid>
+          
           <Grid md={4} xs={12}>
             <Events
               events={[
@@ -184,22 +115,6 @@ export default function Page() {
                   createdAt: dayjs().add(7, 'day').toDate(),
                 },
               ]}
-            />
-          </Grid>
-          <Grid md={4} xs={12}>
-            <AppLimits usage={80} />
-          </Grid>
-          <Grid md={4} xs={12}>
-            <HelperWidget
-              action={
-                <Button color="secondary" endIcon={<ArrowRightIcon />} size="small">
-                  Search jobs
-                </Button>
-              }
-              description="Search for jobs that match your skills and apply to them directly."
-              icon={BriefcaseIcon}
-              label="Jobs"
-              title="Find your dream job"
             />
           </Grid>
           <Grid md={4} xs={12}>
@@ -233,3 +148,15 @@ export default function Page() {
     </Box>
   );
 }
+
+function DownloadIcon() { return (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width="18"
+    height="18"
+    fill="#FFFFFF"
+  >
+    <path d="M12 16l4-4h-3V4h-2v8H8l4 4zm-6 2v2h12v-2H6z" />
+  </svg>
+)};
