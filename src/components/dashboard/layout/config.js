@@ -20,18 +20,25 @@ export const layoutConfig = {
             {
               key: 'capstone:rooms',
               title: 'Rooms',
+              href: paths.dashboard.capstone.rooms,
             },
             {
               key: 'capstone:presentors',
               title: 'Presentors',
+              href: paths.dashboard.capstone.presenters,
+
             },
             {
               key: 'capstone:registration',
               title: 'Registrations',
+              href: paths.dashboard.capstone.registration,
+
             },
             {
               key: 'capstone:placement',
-              title: 'Placement',
+              title: 'Export Placement',
+              href: paths.dashboard.capstone.placement,
+
             }
           ],
           //href: paths.dashboard.settings.account,

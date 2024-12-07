@@ -103,9 +103,9 @@ export function MainNav({ color = 'evident', items = [] }) {
             spacing={2}
             sx={{ alignItems: 'center', flex: '1 1 auto', justifyContent: 'flex-end' }}
           >
-            <SearchButton />
-            <NotificationsButton />
-            <ContactsButton />
+            {/*<SearchButton />*/}
+            {/*<NotificationsButton />*/}
+            {/*<ContactsButton />*/}
             <Divider
               flexItem
               orientation="vertical"

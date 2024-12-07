@@ -65,14 +65,13 @@ export function Hero() {
         <Stack spacing={4}>
           <Stack spacing={2}>
             <Typography sx={{ fontSize: '3.5rem', fontWeight: 600, lineHeight: 1.2, textAlign: 'center' }}>
-              do we need marketing landing page?{' '}
+              EduCourse Simplifies your Administration Process{' '}
               <Typography color="primary.main" component="span" variant="inherit">
-                actually lets try making one.
-              </Typography> 
-              
+                One Step at a Time
+              </Typography>
             </Typography>
             <Typography color="neutral.300" sx={{ fontWeight: 400, textAlign: 'center' }} variant="h5">
-              a suite of opensource and secure applications to decrease admin work. 
+              a suite of opensource and secure applications to decrease admin work.
             </Typography>
           </Stack>
           <Stack direction="row" spacing={2} sx={{ justifyContent: 'center' }}>
@@ -95,7 +94,7 @@ export function Hero() {
               <Typography color="inherit" component="span" sx={{ fontWeight: 700 }} variant="inherit">
                 Built for School Administrators
               </Typography>{' '}
-              | A suite of free, secure and highly efficent softwares & tools.
+              | Free, secure and highly efficent softwares.
             </Typography>
           </Stack>
         </Stack>

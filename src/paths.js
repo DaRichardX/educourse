@@ -60,6 +60,13 @@ export const paths = {
       compose: '/dashboard/chat/compose',
       thread: (threadType, threadId) => `/dashboard/chat/${threadType}/${threadId}`,
     },
+    capstone: {
+      rooms: '/dashboard/capstone/rooms',
+      presenters: '/dashboard/capstone/presenters',
+      registrations: '/dashboard/capstone/registrations',
+      placements: '/dashboard/capstone/placements',
+      // thread: (threadType, threadId) => `/dashboard/capstone/${threadType}/${threadId}`,
+    },
     crypto: '/dashboard/crypto',
     students: {
       list: '/dashboard/students',
