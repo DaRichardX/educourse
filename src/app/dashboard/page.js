@@ -10,7 +10,6 @@ import { FileCode as FileCodeIcon } from '@phosphor-icons/react/dist/ssr/FileCod
 import { Info as InfoIcon } from '@phosphor-icons/react/dist/ssr/Info';
 import { ListChecks as ListChecksIcon } from '@phosphor-icons/react/dist/ssr/ListChecks';
 import { Plus as PlusIcon } from '@phosphor-icons/react/dist/ssr/Plus';
-import { Users as UsersIcon } from '@phosphor-icons/react/dist/ssr/Users';
 import { Warning as WarningIcon } from '@phosphor-icons/react/dist/ssr/Warning';
 
 import { config } from '@/config';
@@ -22,6 +21,8 @@ import { Events } from '@/components/dashboard/overview/events';
 import { HelperWidget } from '@/components/dashboard/overview/helper-widget';
 import { Subscriptions } from '@/components/dashboard/overview/subscriptions';
 import { Summary } from '@/components/dashboard/overview/summary';
+import { SignupsSummary } from '@/components/dashboard/overview/summary/signups-summary';
+
 
 export const metadata = { title: `Overview | Dashboard | ${config.site.name}` };
 
@@ -51,7 +52,7 @@ export default function Page() {
             <Summary amount={31} diff={15} icon={ListChecksIcon} title="Tickets" trend="up" />
           </Grid>
           <Grid md={4} xs={12}>
-            <Summary amount={240} diff={5} icon={UsersIcon} title="Sign ups" trend="down" />
+            <SignupsSummary/>
           </Grid>
           <Grid md={4} xs={12}>
             <Summary amount={21} diff={12} icon={WarningIcon} title="Open issues" trend="up" />
