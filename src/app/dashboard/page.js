@@ -9,28 +9,18 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Unstable_Grid2";
 import { ArrowRight as ArrowRightIcon } from "@phosphor-icons/react/dist/ssr/ArrowRight";
 import { Prohibit as Prohibit } from "@phosphor-icons/react/dist/ssr/Prohibit";
-import { FileCode as FileCodeIcon } from "@phosphor-icons/react/dist/ssr/FileCode";
 import { Info as InfoIcon } from "@phosphor-icons/react/dist/ssr/Info";
 import { DownloadSimple as DownloadIcon } from "@phosphor-icons/react/dist/ssr/DownloadSimple";
-import { ListChecks as ListChecksIcon } from "@phosphor-icons/react/dist/ssr/ListChecks";
-import { Plus as PlusIcon } from "@phosphor-icons/react/dist/ssr/Plus";
 import { Users as UsersIcon } from "@phosphor-icons/react/dist/ssr/Users";
 import { Warning as WarningIcon } from "@phosphor-icons/react/dist/ssr/Warning";
 
 import { config } from "@/config";
 import { dayjs } from "@/lib/dayjs";
-import { AppChat } from "@/components/dashboard/overview/app-chat";
-import { AppLimits } from "@/components/dashboard/overview/app-limits";
-import { AppUsage } from "@/components/dashboard/overview/app-usage";
 import { Events } from "@/components/dashboard/overview/events";
 import { HelperWidget } from "@/components/dashboard/overview/helper-widget";
 import { Modal8 } from "@/components/widgets/modals/modal-8";
-import { Subscriptions } from "@/components/dashboard/overview/subscriptions";
 import { Summary } from "@/components/dashboard/overview/summary";
 import { SummaryPending } from "@/components/dashboard/overview/summary-pending";
-import { de } from "@/locales/de";
-// import { position } from "stylis";
-// import zIndex from "@mui/material/styles/zIndex";
 
 // export const metadata = { title: `Overview | Dashboard | ${config.site.name}` };
 
