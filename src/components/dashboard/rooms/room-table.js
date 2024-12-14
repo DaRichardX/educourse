@@ -17,7 +17,7 @@ import { paths } from '@/paths';
 import { DataTable } from '@/components/core/data-table';
 import LinearProgress from "@mui/material/LinearProgress";
 
-export function RoomsTable({ rows = [] }) {
+export function RoomsTable({ rows = [], onDelete }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [currentRow, setCurrentRow] = React.useState(null);
 
@@ -29,6 +29,13 @@ export function RoomsTable({ rows = [] }) {
   const handleClose = () => {
     setAnchorEl(null);
     setCurrentRow(null);
+  };
+
+  const handleDelete = () => {
+    if (currentRow && onDelete) {
+      onDelete(currentRow); // Call the onDelete callback with the current row
+    }
+    handleClose();
   };
 
   const open = Boolean(anchorEl);
@@ -98,7 +105,7 @@ export function RoomsTable({ rows = [] }) {
         }}
       >
         <Box sx={{ p: 1 }}>
-          <Button onClick={handleClose} size="small" sx={{ color:'red' }}>Delete</Button>
+          <Button onClick={handleDelete} size="small" sx={{ color:'red' }}>Delete</Button>
         </Box>
       </Popover>
     </React.Fragment>

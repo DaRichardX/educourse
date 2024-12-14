@@ -33,6 +33,9 @@ export default function Page() {
     setRooms((prevRooms) => [...prevRooms, newRoom]);
     handleModalClose(); // Close the modal after adding
   };
+  const handleDelete = (roomToDelete) => {
+    setRooms((prevRooms) => prevRooms.filter((room) => room.id !== roomToDelete.id));
+  };
 
   // Filter rooms
   const filteredRooms = applyFilters(rooms, { searchTerm });
@@ -88,7 +91,7 @@ export default function Page() {
           <Card>
             <Divider />
             <Box sx={{ overflowX: 'auto' }}>
-              <RoomsTable rows={filteredRooms} />
+              <RoomsTable rows={filteredRooms} onDelete={handleDelete} />
             </Box>
             <Divider />
           </Card>
