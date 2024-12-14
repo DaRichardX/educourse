@@ -14,28 +14,20 @@ export const layoutConfig = {
       title: 'Capstone',
       items: [
         {
+          key: 'capstone:importData',
+          title: 'Import Data',
+          href: paths.dashboard.importData,
+        },
+        {
           key: 'capstone:rooms',
           title: 'Rooms',
           href: paths.dashboard.rooms,
         },
         {
-          key: 'capstone:presentors',
-          title: 'Presentors',
-          href: paths.dashboard.presenters,
-
+          key: 'capstone:students',
+          title: 'Students',
+          href: paths.dashboard.students,
         },
-        {
-          key: 'capstone:registration',
-          title: 'Registrations',
-          href: paths.dashboard.registration,
-
-        },
-        {
-          key: 'capstone:placement',
-          title: 'Export Placement',
-          href: paths.dashboard.placement,
-
-        }
       ],
       //href: paths.dashboard.settings.account,
       icon: 'read-cv-logo',
