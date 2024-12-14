@@ -14,39 +14,34 @@ export const layoutConfig = {
       title: 'Capstone',
       items: [
         {
-          key: 'capstone',
-          title: 'Capstone',
-          items: [
-            {
-              key: 'capstone:rooms',
-              title: 'Rooms',
-              href: paths.dashboard.capstone.rooms,
-            },
-            {
-              key: 'capstone:presentors',
-              title: 'Presentors',
-              href: paths.dashboard.capstone.presenters,
-
-            },
-            {
-              key: 'capstone:registration',
-              title: 'Registrations',
-              href: paths.dashboard.capstone.registration,
-
-            },
-            {
-              key: 'capstone:placement',
-              title: 'Export Placement',
-              href: paths.dashboard.capstone.placement,
-
-            }
-          ],
-          //href: paths.dashboard.settings.account,
-          icon: 'read-cv-logo',
-          //matcher: { type: 'startsWith', href: '/dashboard/settings' },
+          key: 'capstone:rooms',
+          title: 'Rooms',
+          href: paths.dashboard.rooms,
         },
-      ]
+        {
+          key: 'capstone:presentors',
+          title: 'Presentors',
+          href: paths.dashboard.presenters,
+
+        },
+        {
+          key: 'capstone:registration',
+          title: 'Registrations',
+          href: paths.dashboard.registration,
+
+        },
+        {
+          key: 'capstone:placement',
+          title: 'Export Placement',
+          href: paths.dashboard.placement,
+
+        }
+      ],
+      //href: paths.dashboard.settings.account,
+      icon: 'read-cv-logo',
+      //matcher: { type: 'startsWith', href: '/dashboard/settings' },
     },
+  ]
     // {
     //   key: 'courseplanning',
     //   title: 'Course Planning',
@@ -120,5 +115,4 @@ export const layoutConfig = {
     //     },
     //   ],
     // }
-  ],
 };

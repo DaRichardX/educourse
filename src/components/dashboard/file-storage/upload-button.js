@@ -8,7 +8,7 @@ import { useDialog } from '@/hooks/use-dialog';
 
 import { Uploader } from './uploader';
 
-export function UplaodButton() {
+export function UploadButton() {
   const uploadDialog = useDialog();
 
   return (
