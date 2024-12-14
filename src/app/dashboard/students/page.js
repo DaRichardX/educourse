@@ -1,154 +1,125 @@
-import * as React from 'react';
+'use client';
+import React, { useState } from 'react';
+import RouterLink from 'next/link';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
-import { useData } from '@/hooks/use-data'
 import Typography from '@mui/material/Typography';
 import { Plus as PlusIcon } from '@phosphor-icons/react/dist/ssr/Plus';
+import { StudentTable } from "@/components/dashboard/students/student-table";
+import { StudentCreateModal } from "@/components/dashboard/students/student-create-modal";
 
-
-import { config } from '@/config';
-import { logger } from '@/lib/default-logger';
-import { dayjs } from '@/lib/dayjs';
-import { CustomersFilters } from '@/components/dashboard/customer/customers-filters';
-import { CustomersPagination } from '@/components/dashboard/customer/customers-pagination';
-import { CustomersSelectionProvider } from '@/components/dashboard/customer/customers-selection-context';
-import { CustomersTable } from '@/components/dashboard/customer/customers-table';
-
-export const metadata = { title: `List | Customers | Dashboard | ${config.site.name}` };
-
-const customers = [
-  {
-    id: 'USR-005',
-    name: 'Fran Perez',
-    avatar: '/assets/avatar-5.png',
-    email: 'fran.perez@domain.com',
-    phone: '(815) 704-0045',
-    quota: 50,
-    status: 'active',
-    createdAt: dayjs().subtract(1, 'hour').toDate(),
-  },
-  {
-    id: 'USR-004',
-    name: 'Penjani Inyene',
-    avatar: '/assets/avatar-4.png',
-    email: 'penjani.inyene@domain.com',
-    phone: '(803) 937-8925',
-    quota: 100,
-    status: 'active',
-    createdAt: dayjs().subtract(3, 'hour').toDate(),
-  },
-  {
-    id: 'USR-003',
-    name: 'Carson Darrin',
-    avatar: '/assets/avatar-3.png',
-    email: 'carson.darrin@domain.com',
-    phone: '(715) 278-5041',
-    quota: 10,
-    status: 'blocked',
-    createdAt: dayjs().subtract(1, 'hour').subtract(1, 'day').toDate(),
-  },
-  {
-    id: 'USR-002',
-    name: 'Siegbert Gottfried',
-    avatar: '/assets/avatar-2.png',
-    email: 'siegbert.gottfried@domain.com',
-    phone: '(603) 766-0431',
-    quota: 0,
-    status: 'pending',
-    createdAt: dayjs().subtract(7, 'hour').subtract(1, 'day').toDate(),
-  },
-  {
-    id: 'USR-001',
-    name: 'Miron Vitold',
-    avatar: '/assets/avatar-1.png',
-    email: 'miron.vitold@domain.com',
-    phone: '(425) 434-5535',
-    quota: 50,
-    status: 'active',
-    createdAt: dayjs().subtract(2, 'hour').subtract(2, 'day').toDate(),
-  },
+const studentData = [
+  { id: '2241495', name: 'Zaremba Paul', status: 'submitted', type:'Presenter'},
+  { id: '2241496', name: 'Samasan Sas', status:'pending', type:'Presenter'},
+  { id: '2241497', name: 'Carbon Fiber', status: 'submitted', type:'Viewer'},
+  { id: '2241498', name: 'Asaspin Las', status: 'submitted', type:'Viewer'},
 ];
 
-export default function Page({ searchParams }) {
-  const { email, phone, sortDir, status } = searchParams;
+export default function Page() {
+  // States
+  const [student, setStudent] = useState(studentData); // Room data
+  const [searchTerm, setSearchTerm] = useState(''); // Search term
+  const [isModalOpen, setIsModalOpen] = useState(false); // Modal visibility
 
-  const sortedCustomers = applySort(customers, sortDir);
-  const filteredCustomers = applyFilters(sortedCustomers, { email, phone, status });
+  // Handlers
+  const handleSearchChange = (event) => setSearchTerm(event.target.value);
+  const handleModalOpen = () => setIsModalOpen(true);
+  const handleModalClose = () => setIsModalOpen(false);
 
-  const data = useData();
-  logger.debug(data);
+  const handleAddStudent = (newRoom) => {
+    setStudent((prevRooms) => [...prevRooms, newRoom]);
+    handleModalClose(); // Close the modal after adding
+  };
+  const handleDelete = (roomToDelete) => {
+    setStudent((prevRooms) => prevRooms.filter((room) => room.id !== roomToDelete.id));
+  };
+
+  // Filter rooms
+  const filteredStudents = applyFilters(student, { searchTerm });
 
   return (
-    <Box
-      sx={{
-        maxWidth: 'var(--Content-maxWidth)',
-        m: 'var(--Content-margin)',
-        p: 'var(--Content-padding)',
-        width: 'var(--Content-width)',
-      }}
-    >
-      <Stack spacing={4}>
-        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={3} sx={{ alignItems: 'flex-start' }}>
-          <Box sx={{ flex: '1 1 auto' }}>
-            <Typography variant="h4">Customers</Typography>
+    <React.Fragment>
+      <Box
+        sx={{
+          maxWidth: 'var(--Content-maxWidth)',
+          m: 'var(--Content-margin)',
+          p: 'var(--Content-padding)',
+          width: 'var(--Content-width)',
+        }}
+      >
+        <Stack spacing={4}>
+          <Stack
+            direction={{ xs: 'column', sm: 'row' }}
+            spacing={3}
+            sx={{ alignItems: 'flex-start' }}
+          >
+            <Box sx={{ flex: '1 1 auto' }}>
+              <Typography variant="h4">Students</Typography>
+            </Box>
+            <div>
+              <Button
+                startIcon={<PlusIcon />}
+                variant="contained"
+                onClick={handleModalOpen}
+              >
+                Add
+              </Button>
+            </div>
+          </Stack>
+          <Box sx={{ mb: 2 }}>
+            <input
+              type="text"
+              placeholder="Search by student name, student number, type, or status"
+              value={searchTerm}
+              onChange={handleSearchChange}
+              style={{
+                padding: '8px 20px',
+                fontSize: '16px',
+                height: '2.8rem',
+                background: '#f5f5f5',
+                outline: 'none',
+                border: 'none',
+                borderRadius: '1.625rem',
+                width: '100%',
+                maxWidth: '800px',
+              }}
+            />
           </Box>
-          <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <Button startIcon={<PlusIcon />} variant="contained">
-              Add
-            </Button>
-          </Box>
-        </Stack>
-        <CustomersSelectionProvider customers={filteredCustomers}>
           <Card>
-            <CustomersFilters filters={{ email, phone, status }} sortDir={sortDir} />
             <Divider />
             <Box sx={{ overflowX: 'auto' }}>
-              <CustomersTable rows={filteredCustomers} />
+              <StudentTable rows={filteredStudents} onDelete={handleDelete} />
             </Box>
             <Divider />
-            <CustomersPagination count={filteredCustomers.length + 100} page={0} />
           </Card>
-        </CustomersSelectionProvider>
-      </Stack>
-    </Box>
+        </Stack>
+      </Box>
+
+      <StudentCreateModal
+        open={isModalOpen}
+        onClose={handleModalClose}
+        onSubmit={handleAddStudent}
+      />
+    </React.Fragment>
   );
 }
 
-// Sorting and filtering has to be done on the server.
-
-function applySort(row, sortDir) {
-  return row.sort((a, b) => {
-    if (sortDir === 'asc') {
-      return a.createdAt.getTime() - b.createdAt.getTime();
-    }
-
-    return b.createdAt.getTime() - a.createdAt.getTime();
-  });
-}
-
-function applyFilters(row, { email, phone, status }) {
+// Filtering logic based only on search term
+function applyFilters(row, { searchTerm }) {
   return row.filter((item) => {
-    if (email) {
-      if (!item.email?.toLowerCase().includes(email.toLowerCase())) {
-        return false;
-      }
+    if (
+      searchTerm &&
+      !(
+        item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.status.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    ) {
+      return false;
     }
-
-    if (phone) {
-      if (!item.phone?.toLowerCase().includes(phone.toLowerCase())) {
-        return false;
-      }
-    }
-
-    if (status) {
-      if (item.status !== status) {
-        return false;
-      }
-    }
-
     return true;
   });
 }

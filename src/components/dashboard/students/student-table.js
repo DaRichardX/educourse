@@ -8,9 +8,12 @@ import Button from "@mui/material/Button";
 import { DotsThree as Dots } from '@phosphor-icons/react/dist/ssr/DotsThree';
 
 import { DataTable } from '@/components/core/data-table';
-import LinearProgress from "@mui/material/LinearProgress";
+import {CheckCircle as CheckCircleIcon} from "@phosphor-icons/react/dist/ssr/CheckCircle";
+import {Minus as MinusIcon} from "@phosphor-icons/react/dist/ssr/Minus";
+import {Clock as ClockIcon} from "@phosphor-icons/react/dist/ssr/Clock";
+import Chip from "@mui/material/Chip";
 
-export function RoomsTable({ rows = [], onDelete }) {
+export function StudentTable({ rows = [], onDelete }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [currentRow, setCurrentRow] = React.useState(null);
 
@@ -36,8 +39,8 @@ export function RoomsTable({ rows = [], onDelete }) {
   const columns = [
     {
       field: 'id',
-      name: 'Room',
-      width: '150px',
+      name: 'Student Number',
+      width: '170px',
     },
     {
       formatter: (row) => (
@@ -48,20 +51,26 @@ export function RoomsTable({ rows = [], onDelete }) {
           </div>
         </Stack>
       ),
-      name: 'Teacher',
+      name: 'Name',
       width: '150px',
     },
     {
-      formatter: (row) => (
-        <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
-          <LinearProgress sx={{ flex: '1 1 auto', maxWidth: '300px' }} value={(row.current_register / row.room_capacity) * 100} variant="determinate" />
-          <Typography color="text.secondary" variant="body2">
-            {row.current_register}/{row.room_capacity}
-          </Typography>
-        </Stack>
-      ),
-      name: 'Progress',
-      width: '100px',
+      formatter: (row) => {
+        const mapping = {
+          submitted: { label: 'Submitted', icon: <CheckCircleIcon color="var(--mui-palette-success-main)" weight="fill" /> },
+          pending: { label: 'Pending', icon: <ClockIcon color="var(--mui-palette-warning-main)" weight="fill" /> },
+        };
+        const { label, icon } = mapping[row.status] ?? { label: 'Unknown', icon: null };
+
+        return <Chip icon={icon} label={label} size="small" variant="outlined" />;
+      },
+      name: 'Status',
+      width: '150px',
+    },
+    {
+      field: 'type',
+      name: 'Type',
+      width: '150px',
     },
     {
       formatter: (row) => (
@@ -84,7 +93,7 @@ export function RoomsTable({ rows = [], onDelete }) {
       {!rows.length ? (
         <Box sx={{ p: 3 }}>
           <Typography color="text.secondary" sx={{ textAlign: 'center' }} variant="body2">
-            No rooms found
+            No students found
           </Typography>
         </Box>
       ) : null}
