@@ -109,9 +109,6 @@ export default function Page() {
           </div>
         </Stack>
         <Grid container spacing={4}>
-          {/*<Grid md={4} xs={12}>*/}
-          {/*  <Summary amount={31} diff={15} icon={ListChecksIcon} title="Tickets" trend="up" />*/}
-          {/*</Grid>*/}
           <Grid md={6} xs={12}>
             <Summary
               amount={240}
@@ -120,11 +117,31 @@ export default function Page() {
               title="Sign ups"
             />
           </Grid>
+
           <Grid md={6} xs={12}>
             <SummaryPending
               amount={21}
               icon={WarningIcon}
               title="Missing Sign-ups"
+            />
+          </Grid>
+
+          <Grid md={8} xs={12}>
+            <Events
+              events={[
+                {
+                  id: "EV-004",
+                  title: "Capstone registration deadline",
+                  description: "17:00 to 18:00",
+                  createdAt: dayjs("2025-04-20").toDate(),
+                },
+                {
+                  id: "EV-003",
+                  title: "Capstone presentations",
+                  description: "15:30 to 16:45",
+                  createdAt: dayjs("2025-04-26").toDate(),
+                },
+              ]}
             />
           </Grid>
 
@@ -135,6 +152,7 @@ export default function Page() {
                   color="secondary"
                   endIcon={<ArrowRightIcon />}
                   size="small"
+                  href="mailto:richardtryhard070711@gmail.com?"
                 >
                   Help center
                 </Button>
@@ -143,23 +161,6 @@ export default function Page() {
               icon={InfoIcon}
               label="Help center"
               title="Need help figuring things out?"
-            />
-          </Grid>
-          <Grid md={4} xs={12}>
-            <HelperWidget
-              action={
-                <Button
-                  color="secondary"
-                  endIcon={<ArrowRightIcon />}
-                  size="small"
-                >
-                  Documentation
-                </Button>
-              }
-              description="Learn how to get started with our product and make the most of it."
-              icon={FileCodeIcon}
-              label="Documentation"
-              title="Explore documentation"
             />
           </Grid>
         </Grid>
