@@ -8,19 +8,19 @@ import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { Plus as PlusIcon } from '@phosphor-icons/react/dist/ssr/Plus';
-import { StudentTable } from "@/components/dashboard/students/student-table";
-import { StudentCreateModal } from "@/components/dashboard/students/student-create-modal";
+import { RoomsTable } from "@/components/dashboard/rooms/room-table";
+import { RoomCreateModal } from "@/components/dashboard/rooms/room-create-modal";
 
-const studentData = [
-  { id: '2241495', name: 'Zaremba Paul', status: 'submitted', type:'Presenter'},
-  { id: '2241496', name: 'Samasan Sas', status:'pending', type:'Presenter'},
-  { id: '2241497', name: 'Carbon Fiber', status: 'submitted', type:'Viewer'},
-  { id: '2241498', name: 'Asaspin Las', status: 'submitted', type:'Viewer'},
+const roomsData = [
+  { id: '1B2', name: 'Zaremba Paul', current_register: 5, room_capacity: 30 },
+  { id: '1B3', name: 'Samasan Sas', current_register: 20, room_capacity: 30 },
+  { id: '1B4', name: 'Carbon Fiber', current_register: 21, room_capacity: 30 },
+  { id: '1B5', name: 'Asaspin Las', current_register: 30, room_capacity: 30 },
 ];
 
 export default function Page() {
   // States
-  const [student, setStudent] = useState(studentData); // Room data
+  const [rooms, setRooms] = useState(roomsData); // Room data
   const [searchTerm, setSearchTerm] = useState(''); // Search term
   const [isModalOpen, setIsModalOpen] = useState(false); // Modal visibility
 
@@ -29,16 +29,16 @@ export default function Page() {
   const handleModalOpen = () => setIsModalOpen(true);
   const handleModalClose = () => setIsModalOpen(false);
 
-  const handleAddStudent = (newRoom) => {
-    setStudent((prevRooms) => [...prevRooms, newRoom]);
+  const handleAddRoom = (newRoom) => {
+    setRooms((prevRooms) => [...prevRooms, newRoom]);
     handleModalClose(); // Close the modal after adding
   };
   const handleDelete = (roomToDelete) => {
-    setStudent((prevRooms) => prevRooms.filter((room) => room.id !== roomToDelete.id));
+    setRooms((prevRooms) => prevRooms.filter((room) => room.id !== roomToDelete.id));
   };
 
   // Filter rooms
-  const filteredStudents = applyFilters(student, { searchTerm });
+  const filteredRooms = applyFilters(rooms, { searchTerm });
 
   return (
     <React.Fragment>
@@ -57,7 +57,7 @@ export default function Page() {
             sx={{ alignItems: 'flex-start' }}
           >
             <Box sx={{ flex: '1 1 auto' }}>
-              <Typography variant="h4">Students</Typography>
+              <Typography variant="h4">Rooms</Typography>
             </Box>
             <div>
               <Button
@@ -72,7 +72,7 @@ export default function Page() {
           <Box sx={{ mb: 2 }}>
             <input
               type="text"
-              placeholder="Search by student name, student number, type, or status"
+              placeholder="Search by teacher name or room number"
               value={searchTerm}
               onChange={handleSearchChange}
               style={{
@@ -91,17 +91,17 @@ export default function Page() {
           <Card>
             <Divider />
             <Box sx={{ overflowX: 'auto' }}>
-              <StudentTable rows={filteredStudents} onDelete={handleDelete} />
+              <RoomsTable rows={filteredRooms} onDelete={handleDelete} />
             </Box>
             <Divider />
           </Card>
         </Stack>
       </Box>
 
-      <StudentCreateModal
+      <RoomCreateModal
         open={isModalOpen}
         onClose={handleModalClose}
-        onSubmit={handleAddStudent}
+        onSubmit={handleAddRoom}
       />
     </React.Fragment>
   );
@@ -114,8 +114,7 @@ function applyFilters(row, { searchTerm }) {
       searchTerm &&
       !(
         item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.status.toLowerCase().includes(searchTerm.toLowerCase())
+        item.id.toLowerCase().includes(searchTerm.toLowerCase())
       )
     ) {
       return false;

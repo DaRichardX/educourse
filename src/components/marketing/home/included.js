@@ -59,8 +59,7 @@ export function Included() {
                   Dashboards
                 </Typography>
                 <Typography color="inherit">
-                  Our interactive dashboard provides an all-encompassing view of your projects, tasks, and
-                  collaborations. Monitor deadlines, track milestones, and stay updated on team activities.
+                  Our interactive dashboard provides an all-encompassing view of student sign-ups and allows printing in one click.
                 </Typography>
                 <div>
                   <Button color="secondary" component={RouterLink} href={paths.dashboard.overview} variant="contained">

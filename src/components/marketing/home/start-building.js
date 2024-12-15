@@ -94,7 +94,7 @@ export function StartBuilding() {
             </Stack>
             <div>
               <Button endIcon={<CaretRightIcon />} href={paths.purchase} target="_blank" variant="contained">
-                Purchase now
+                Try now
               </Button>
             </div>
           </Stack>

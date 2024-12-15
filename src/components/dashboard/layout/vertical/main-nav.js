@@ -62,15 +62,15 @@ export function MainNav({ items }) {
             >
               <ListIcon />
             </IconButton>
-            <SearchButton />
+            {/*<SearchButton />*/}
           </Stack>
           <Stack
             direction="row"
             spacing={2}
             sx={{ alignItems: 'center', flex: '1 1 auto', justifyContent: 'flex-end' }}
           >
-            <NotificationsButton />
-            <ContactsButton />
+            {/*<NotificationsButton />*/}
+            {/*<ContactsButton />*/}
             <Divider
               flexItem
               orientation="vertical"

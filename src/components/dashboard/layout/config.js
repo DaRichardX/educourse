@@ -14,32 +14,26 @@ export const layoutConfig = {
       title: 'Capstone',
       items: [
         {
-          key: 'capstone',
-          title: 'Capstone',
-          items: [
-            {
-              key: 'capstone:rooms',
-              title: 'Rooms',
-            },
-            {
-              key: 'capstone:presentors',
-              title: 'Presentors',
-            },
-            {
-              key: 'capstone:registration',
-              title: 'Registrations',
-            },
-            {
-              key: 'capstone:placement',
-              title: 'Placement',
-            }
-          ],
-          //href: paths.dashboard.settings.account,
-          icon: 'read-cv-logo',
-          //matcher: { type: 'startsWith', href: '/dashboard/settings' },
+          key: 'capstone:importData',
+          title: 'Import Data',
+          href: paths.dashboard.importData,
         },
-      ]
+        {
+          key: 'capstone:rooms',
+          title: 'Rooms',
+          href: paths.dashboard.rooms,
+        },
+        {
+          key: 'capstone:students',
+          title: 'Students',
+          href: paths.dashboard.students,
+        },
+      ],
+      //href: paths.dashboard.settings.account,
+      icon: 'read-cv-logo',
+      //matcher: { type: 'startsWith', href: '/dashboard/settings' },
     },
+  ]
     // {
     //   key: 'courseplanning',
     //   title: 'Course Planning',
@@ -113,5 +107,4 @@ export const layoutConfig = {
     //     },
     //   ],
     // }
-  ],
 };
