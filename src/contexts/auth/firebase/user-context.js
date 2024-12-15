@@ -20,14 +20,23 @@ export function UserProvider({ children }) {
   });
 
   const [userData, setUserData] = React.useState({
-
+    id: null,
+    org_id: "",
+    email: "",
+    name: "",
+    first_name: "",
+    last_name: "",
+    name_org: "",
+    avatar: "",
+    org_data: "",
+    isFetching: false,
   });
 
   React.useEffect(() => {
-    const unsubscribe = onAuthStateChanged(firebaseAuth, (user) => {
+    const unsubscribe = onAuthStateChanged(firebaseAuth, async (user) => {
       logger.debug('[Auth] onAuthStateChanged:', user);
       if(user){
-        getUserData(user.uid); //sets the userData state (mainly used for info display)
+        await getUserData(user.uid); //sets the userData state (mainly used for info display)
         setState((prev) => ({ //sets the state state (mainly used for auth)
           ...prev,
           user:
@@ -62,7 +71,13 @@ export function UserProvider({ children }) {
       }
     });
 
-    async function getUserData(uid) { //only sets userData
+    async function getUserData(uid) {//only sets userData
+      setUserData((prev) => ({
+        ...prev,
+        isFetching: true
+      }));
+
+      //succes
       try {
         const userDocRef = doc(firestore, 'users', uid); // Reference to the user's document
         const userDoc = await getDoc(userDocRef); // Fetch the document from Firestore
@@ -94,11 +109,16 @@ export function UserProvider({ children }) {
           last_name: userdata.last_name,
           name_org: `${orgDoc.data().name}`,
           avatar: "avatar-default.jpg",
-          org_data: orgDoc.data()
+          org_data: orgDoc.data(),
+          isFetching: false
         }));
         //success
       } catch (error) {
         logger.debug('[Auth] Error fetching userData:', error);
+        setUserData((prev) => ({
+          ...prev,
+          isFetching: false
+        }));
       }
     }
     
