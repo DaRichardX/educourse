@@ -1,33 +1,23 @@
 "use client";
 
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Unstable_Grid2';
-import { ArrowRight as ArrowRightIcon } from '@phosphor-icons/react/dist/ssr/ArrowRight';
-import { Briefcase as BriefcaseIcon } from '@phosphor-icons/react/dist/ssr/Briefcase';
-import { FileCode as FileCodeIcon } from '@phosphor-icons/react/dist/ssr/FileCode';
-import { Info as InfoIcon } from '@phosphor-icons/react/dist/ssr/Info';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Unstable_Grid2";
+import { ArrowRight as ArrowRightIcon } from "@phosphor-icons/react/dist/ssr/ArrowRight";
+import { Info as InfoIcon } from "@phosphor-icons/react/dist/ssr/Info";
 import { Prohibit as Prohibit } from "@phosphor-icons/react/dist/ssr/Prohibit";
 import { DownloadSimple as DownloadIcon } from "@phosphor-icons/react/dist/ssr/DownloadSimple";
 import { Users as UsersIcon } from "@phosphor-icons/react/dist/ssr/Users";
 import { Warning as WarningIcon } from "@phosphor-icons/react/dist/ssr/Warning";
-import { ListChecks as ListChecksIcon } from '@phosphor-icons/react/dist/ssr/ListChecks';
-import { Plus as PlusIcon } from '@phosphor-icons/react/dist/ssr/Plus';
-import { Warning as WarningIcon } from '@phosphor-icons/react/dist/ssr/Warning';
 
-import { config } from '@/config';
-import { dayjs } from '@/lib/dayjs';
-import { AppChat } from '@/components/dashboard/overview/app-chat';
-import { AppLimits } from '@/components/dashboard/overview/app-limits';
-import { AppUsage } from '@/components/dashboard/overview/app-usage';
-import { Events } from '@/components/dashboard/overview/events';
-import { HelperWidget } from '@/components/dashboard/overview/helper-widget';
-import { Subscriptions } from '@/components/dashboard/overview/subscriptions';
-import { Summary } from '@/components/dashboard/overview/summary';
-import { SignupsSummary } from '@/components/dashboard/overview/summary/signups-summary';
+import { config } from "@/config";
+import { dayjs } from "@/lib/dayjs";
+import { Events } from "@/components/dashboard/overview/events";
+import { HelperWidget } from "@/components/dashboard/overview/helper-widget";
+import { Summary } from "@/components/dashboard/overview/summary";
 
 import { Modal8 } from "@/components/widgets/modals/modal-8";
 import { SummaryPending } from "@/components/dashboard/overview/summary-pending";
@@ -35,8 +25,8 @@ import { SummaryPending } from "@/components/dashboard/overview/summary-pending"
 // export const metadata = { title: `Overview | Dashboard | ${config.site.name}` };
 
 export default function Page() {
-  const [openModal, setOpenModal] = useState(false);
-  const [deactivateBtn, setDeactivateBtn] = useState(false);
+  const [openModal, setOpenModal] = React.useState(false);
+  const [deactivateBtn, setDeactivateBtn] = React.useState(false);
 
   function toggleModal() {
     setOpenModal(!openModal);
