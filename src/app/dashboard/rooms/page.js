@@ -8,8 +8,8 @@ import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { Plus as PlusIcon } from '@phosphor-icons/react/dist/ssr/Plus';
-import { RoomsTable } from "@/components/dashboard/rooms/room-table";
-import { RoomCreateModal } from "@/components/dashboard/rooms/room-create-modal";
+import { RoomsTable } from "@/components/dashboard/capstone/rooms/room-table";
+import { RoomCreateModal } from "@/components/dashboard/capstone/rooms/room-create-modal";
 
 const roomsData = [
   { id: '1B2', name: 'Zaremba Paul', current_register: 5, room_capacity: 30 },
