@@ -1,4 +1,4 @@
-'use client'; //TODO: FIX THIS SHIT
+'use client'; //TODO: FIX THIS 
 
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
