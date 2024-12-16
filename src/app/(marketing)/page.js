@@ -18,10 +18,11 @@ export default function Page() {
   return (
     <div>
       <Hero />
-      <Productivity />
+      {/* Include productivity for schools later*/}
+      {/*<Productivity />*/}
       <Included />
-      <Features />
-      <Testimonails />
+      {/*<Features />*/}
+      {/*<Testimonails />*/}
       <Faqs />
       <StartBuilding />
     </div>

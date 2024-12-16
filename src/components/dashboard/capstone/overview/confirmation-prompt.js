@@ -8,7 +8,37 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { Warning as WarningIcon } from "@phosphor-icons/react/dist/ssr/Warning";
 
-export function Modal8({ setModal, deactivateRegistrationBtn }) {
+export const PromptTypes = {
+  dne: {
+    title: "Prompt Type Not Exist",
+    description: "Internal Error, Please Contact Developers",
+    confirmationText: "Exit"
+  },
+  deactivateSubmissions: {
+    title: "Deactivate Submissions?",
+    description: "Are you sure you want to deactivate all submissions? This action cannot be undone.",
+    confirmationText: "Deactivate"
+  }
+}
+
+export function ConfirmationPrompt ({type, isActive, setActive, action}) {
+
+  if(!isActive){
+    return;
+  }
+  let onConfirm = action;
+  let prompt;
+
+  if(!type){
+    //type does not exist
+    prompt = PromptTypes.dne;
+    onConfirm = () => {}; //override actions to prevent accidental damage
+  }else{
+    prompt = type;
+  }
+
+  
+
   return (
     <Box
       sx={{
@@ -36,10 +66,11 @@ export function Modal8({ setModal, deactivateRegistrationBtn }) {
             </Avatar>
             <Stack spacing={3}>
               <Stack spacing={1}>
-                <Typography variant="h5">Deactivate Submissions?</Typography>
+                <Typography variant="h5">
+                  {prompt.title}
+                </Typography>
                 <Typography color="text.secondary" variant="body2">
-                  Are you sure you want to deactivate all submissions? This
-                  action cannot be undone.
+                  {prompt.description}
                 </Typography>
               </Stack>
               <Stack
@@ -47,18 +78,18 @@ export function Modal8({ setModal, deactivateRegistrationBtn }) {
                 spacing={2}
                 sx={{ justifyContent: "flex-end" }}
               >
-                <Button color="secondary" onClick={() => setModal(false)}>
+                <Button color="secondary" onClick={() => setActive(false)}>
                   Cancel
                 </Button>
                 <Button
                   color="error"
                   variant="contained"
                   onClick={() => {
-                    deactivateRegistrationBtn();
-                    setModal(false);
+                    onConfirm();
+                    setActive(false);
                   }}
                 >
-                  Deactivate
+                  {prompt.confirmationText}
                 </Button>
               </Stack>
             </Stack>

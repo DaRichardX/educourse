@@ -15,33 +15,21 @@ import { Question as QuestionIcon } from '@phosphor-icons/react/dist/ssr/Questio
 const faqs = [
   {
     id: 'FAQ-1',
-    question: 'Do you have a free demo to review the code before purchasing?',
+    question: 'What features does the capstone presentation management system offer?',
     answer:
-      'Yes, you can check out our open source dashboard template which should give you an overview of the code quality and folder structure. Keep in mind that some aspects may differ from this Paid version.',
+      "Our capstone presentation management system is designed to simplify the coordination of presentations for large groups. Key features include secure student sign-ups, automated assignment of presentation times for non-sign-ups, printable attendance summaries, and user-friendly interfaces for easy navigation and management."
   },
   {
     id: 'FAQ-2',
-    question: 'How many projects can I build with Devias Kit PRO?',
+    question: 'How do I sign up or register for the capstone presentation system?',
     answer:
-      "The license is per project (domain), but if you intend to develop an unknown number of projects feel free to contact us and we'll find a solution.",
+      "Signing up is simple. Just visit our website and navigate to the 'Sign Up' section. You’ll need to provide your basic information and school affiliation. Once registered, you can access the system and begin using its features.",
   },
   {
     id: 'FAQ-3',
-    question: 'How many projects can I build with this template?',
+    question: 'Is the system secure and private? How is my data protected?',
     answer:
-      'Absolutely! If you intend to charge users for using your product Extended license is created specifically for this context.',
-  },
-  {
-    id: 'FAQ-4',
-    question: 'What browsers does the template support?',
-    answer:
-      "The components in MUI are designed to work in the latest, stable releases of all major browsers, including Chrome, Firefox, Safari, and Edge. We don't support Internet Explorer 11.",
-  },
-  {
-    id: 'FAQ-5',
-    question: 'For what kind of projects is the Standard license intended?',
-    answer:
-      'The Standard license is designed for internal applications in which staff will access the application. An example could be the back-office dashboard of a public-facing e-commerce website in which staff would sign in and manage inventory, customers, etc.',
+      'Yes, data security and privacy are our top priorities. The system is designed with robust security measures, including encrypted data storage and compliance with data privacy regulations. We ensure that all user data is protected and only accessible to authorized individuals.',
   },
 ];
 
@@ -62,7 +50,7 @@ export function Faqs() {
                 Have another question you do not see here? Contact us by{' '}
                 <Box
                   component="a"
-                  href="mailto:support@deviasio.zendesk.com"
+                  href="mailto:2114489@learn.vsb.bc.ca"
                   sx={{ color: 'inherit', textDecoration: 'underline' }}
                 >
                   email

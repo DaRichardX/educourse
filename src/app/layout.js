@@ -37,7 +37,7 @@ export default async function Layout({ children }) {
                   <I18nProvider lng={settings.language}>
                     <ThemeProvider>
                       {children}
-                      <SettingsButton />
+                      {/*<SettingsButton />*/}
                       <Toaster position="bottom-right" />
                     </ThemeProvider>
                   </I18nProvider>

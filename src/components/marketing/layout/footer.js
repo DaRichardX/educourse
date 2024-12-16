@@ -25,8 +25,8 @@ const groups = [
     key: 'legal',
     title: 'Legal',
     items: [
-      { key: 'terms-and-conditions', title: 'Terms & Conditions' },
-      { key: 'privacy-policy', title: 'License' },
+      // { key: 'terms-and-conditions', title: 'Terms & Conditions' },
+      // { key: 'privacy-policy', title: 'License' },
       { key: 'contact', title: 'Contact' },
     ],
   },
@@ -35,7 +35,7 @@ const groups = [
     title: 'Social',
     items: [
       { key: 'instagram', title: 'Instagram' },
-      { key: 'linkedin', title: 'LinkedIn' },
+      // { key: 'linkedin', title: 'LinkedIn' },
     ],
   },
 ];
@@ -57,7 +57,7 @@ export function Footer() {
             <Stack spacing={1}>
               <DynamicLogo colorDark="light" colorLight="dark" height={32} width={122} />
               <Typography color="text.secondary" variant="caption">
-                © 2024 Devias IO
+                © 2024 EduCourse.ca
               </Typography>
             </Stack>
           </Grid>
