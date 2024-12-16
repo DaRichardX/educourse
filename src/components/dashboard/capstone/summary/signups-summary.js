@@ -11,17 +11,15 @@ import { logger } from '@/lib/default-logger';
 import { useData } from '@/hooks/use-data';
 import { Users as UsersIcon } from '@phosphor-icons/react/dist/ssr/Users';
 import Typography from '@mui/material/Typography';
-import { TrendDown as TrendDownIcon } from '@phosphor-icons/react/dist/ssr/TrendDown';
-import { TrendUp as TrendUpIcon } from '@phosphor-icons/react/dist/ssr/TrendUp';
 import Skeleton from '@mui/material/Skeleton';
 
 export function SignupsSummary() {
   const data = useData(); // Custom hook providing `data.get.getTotalSignups`
-  const [signups, setSignups] = React.useState('');
+  const signups = React.useRef(-1);
   const [loading, setLoading] = React.useState(true);
-  const trend = 'up';
-  const diff = '5';
+  const percentage = '70.1'
   const title = 'Sign ups';
+
 
   React.useEffect(() => {
     let isMounted = true; // Prevent state updates if component is unmounted
@@ -30,13 +28,13 @@ export function SignupsSummary() {
       try {
         const result = await data.get.getTotalSignups();
         if (isMounted) {
-          setSignups(result);
+          signups.current = result;
           setLoading(false);
         }
       } catch (error) {
         logger.error('Error fetching total signups:', error);
         if (isMounted) {
-          setSignups('Error fetching data');
+          signups.current = -1;
           setLoading(false);
         }
       }
@@ -52,7 +50,7 @@ export function SignupsSummary() {
   return (
     <Card>
       <CardContent>
-        {loading ? (
+      {loading ? (
           <Stack direction="row" spacing={3} sx={{ alignItems: 'center' }}>
             <Skeleton variant="circular" width={48} height={48} />
             <div>
@@ -61,7 +59,7 @@ export function SignupsSummary() {
             </div>
           </Stack>
         ) : (
-          <Stack direction="row" spacing={3} sx={{ alignItems: 'center' }}>
+          <Stack direction="row" spacing={3} sx={{ apercentlignItems: 'center' }}>
             <Avatar
               sx={{
                 '--Avatar-size': '48px',
@@ -76,46 +74,45 @@ export function SignupsSummary() {
               <Typography color="text.secondary" variant="body1">
                 {title}
               </Typography>
-              <Typography variant="h3">
-                {signups}
-              </Typography>
+              <Typography variant="h3">{new Intl.NumberFormat('en-US').format(signups.current)}</Typography>
             </div>
           </Stack>
-        )}
+          )}
       </CardContent>
       <Divider />
       <Box sx={{ p: '16px' }}>
-        {loading ? (
+      {loading ? (
           <Skeleton width="100%" height={32} />
         ) : (
-          <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
-            <Box
-              sx={{
-                alignItems: 'center',
-                color: trend === 'up' ? 'var(--mui-palette-success-main)' : 'var(--mui-palette-error-main)',
-                display: 'flex',
-                justifyContent: 'center',
-              }}
-            >
-              {trend === 'up' ? (
-                <TrendUpIcon fontSize="var(--icon-fontSize-md)" />
-              ) : (
-                <TrendDownIcon fontSize="var(--icon-fontSize-md)" />
-              )}
-            </Box>
-            <Typography color="text.secondary" variant="body2">
-              <Typography
-                color={trend === 'up' ? 'success.main' : 'error.main'}
-                component="span"
-                variant="subtitle2"
-              >
-                {new Intl.NumberFormat('en-US', { style: 'percent', maximumFractionDigits: 2 }).format(
-                  diff / 100
-                )}
-              </Typography>{' '}
-              {trend === 'up' ? 'increase' : 'decrease'} vs last month
-            </Typography>
-          </Stack>
+        <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
+          <Typography color="text.secondary" variant="body2">
+            <Typography component="span" sx={{ fontSize: '1.2rem' }}>
+              {percentage}%
+              {/* {new Intl.NumberFormat('en-US', { style: 'percent', maximumFractionDigits: 2 }).format(diff / 100)} */}
+            </Typography>{' '}
+            completed
+          </Typography>
+          {/*<Box*/}
+          {/*  sx={{*/}
+          {/*    alignItems: 'center',*/}
+          {/*    color: trend === 'up' ? 'var(--mui-palette-success-main)' : 'var(--mui-palette-error-main)',*/}
+          {/*    display: 'flex',*/}
+          {/*    justifyContent: 'center',*/}
+          {/*  }}*/}
+          {/*>*/}
+          {/*  {trend === 'up' ? (*/}
+          {/*    <TrendUpIcon fontSize="var(--icon-fontSize-md)" />*/}
+          {/*  ) : (*/}
+          {/*    <TrendDownIcon fontSize="var(--icon-fontSize-md)" />*/}
+          {/*  )}*/}
+          {/*</Box>*/}
+      {/*    <Typography color="text.secondary" variant="body2">*/}
+      {/*      <Typography color={trend === 'up' ? 'success.main' : 'error.main'} component="span" variant="subtitle2">*/}
+      {/*        {new Intl.NumberFormat('en-US', { style: 'percent', maximumFractionDigits: 2 }).format(diff / 100)}*/}
+      {/*      </Typography>{' '}*/}
+      {/*      {trend === 'up' ? 'increase' : 'decrease'} vs last month*/}
+      {/*    </Typography>*/}
+        </Stack>
         )}
       </Box>
     </Card>

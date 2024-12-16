@@ -8,8 +8,8 @@ import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { Plus as PlusIcon } from '@phosphor-icons/react/dist/ssr/Plus';
-import { StudentTable } from "@/components/dashboard/students/student-table";
-import { StudentCreateModal } from "@/components/dashboard/students/student-create-modal";
+import { StudentTable } from "@/components/dashboard/capstone/students/student-table";
+import { StudentCreateModal } from "@/components/dashboard/capstone/students/student-create-modal";
 
 const studentData = [
   { id: '2241495', name: 'Zaremba Paul', status: 'submitted', type:'Presenter'},
