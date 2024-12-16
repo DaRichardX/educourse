@@ -11,7 +11,7 @@ import { ItemsPagination } from '@/components/dashboard/file-storage/items-pagin
 import { Stats } from '@/components/dashboard/file-storage/stats';
 import { StorageProvider } from '@/components/dashboard/file-storage/storage-context';
 import { StorageView } from '@/components/dashboard/file-storage/storage-view';
-import { UplaodButton } from '@/components/dashboard/file-storage/upload-button';
+import { UploadButton } from '@/components/dashboard/file-storage/upload-button';
 
 export const metadata = { title: `File storage | Dashboard | ${config.site.name}` };
 
@@ -174,7 +174,7 @@ export default function Page({ searchParams }) {
             <Typography variant="h4">File storage</Typography>
           </Box>
           <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <UplaodButton />
+            <UploadButton />
           </Box>
         </Stack>
         <Grid container spacing={4}>
