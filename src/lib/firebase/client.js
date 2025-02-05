@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { initializeApp } from 'firebase/app';
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { config } from "@/config";
 
-import { config } from '@/config';
-
-// This executes on the client only, so we can cache the app instance.
+// Cache the Firebase app instance to avoid re-initialization.
 let appInstance;
 
 export function getFirebaseApp() {
@@ -22,4 +22,9 @@ export function getFirebaseApp() {
   });
 
   return appInstance;
+}
+
+// Firebase Auth instance: couldnt find this anywhere else
+export function getFirebaseAuth() {
+  return getAuth(getFirebaseApp());
 }
