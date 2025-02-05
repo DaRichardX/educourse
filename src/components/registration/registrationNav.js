@@ -2,7 +2,6 @@ import React from "react";
 import { Shuffle } from "@phosphor-icons/react";
 
 export default function RegistrationNav({
-  isLoading,
   user,
   hasScrolledPastHero,
 }) {
@@ -20,13 +19,11 @@ export default function RegistrationNav({
 
       <div className="nav-right">
         {(hasScrolledPastHero || isMobile) && <SearchBar />}
-        {!isLoading && (
-          <img
-            src={user?.photo || "/assets/image-minimal-1.png"}
-            alt="user"
-            className="user-photo"
-          />
-        )}
+        <img
+          src="/assets/image-minimal-1.png"
+          alt="user"
+          className="user-photo"
+        />
       </div>
     </div>
   );

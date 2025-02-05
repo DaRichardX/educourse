@@ -9,8 +9,6 @@ export default function RegistrationHero({ user }) {
           <h1>
             Welcome,{" "}
             <span className="clipped-text">{user?.name || "audience"}</span>
-            <br />
-            this is where ideas take form.
           </h1>
         </div>
 

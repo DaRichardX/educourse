@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import RegistrationNav from "./registrationNav";
 import RegistrationHero from "./registrationHero";
 import "./registration.css";
-import { onAuthStateChanged } from "firebase/auth";
-import { getFirebaseAuth } from "@/lib/firebase/client";
 
 export default function Registration() {
-  const auth = getFirebaseAuth();
-  const [user, setUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState({
+    name: "Richard",
+  });
   const [hasScrolledPastHero, setHasScrolledPastHero] = useState(false);
+
+  // get user name from UID
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,29 +27,9 @@ export default function Registration() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [hasScrolledPastHero]);
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        setUser({
-          name: currentUser.displayName || "audience",
-          photo: currentUser.photoURL || "",
-        });
-      } else {
-        setUser(null);
-      }
-      setIsLoading(false);
-    });
-
-    return () => unsubscribe();
-  }, []);
-
   return (
     <div className="reg-page">
-      <RegistrationNav
-        isLoading={isLoading}
-        user={user}
-        hasScrolledPastHero={hasScrolledPastHero}
-      />
+      <RegistrationNav user={user} hasScrolledPastHero={hasScrolledPastHero} />
       <RegistrationHero user={user} />
 
       <section className="schedule-section">
