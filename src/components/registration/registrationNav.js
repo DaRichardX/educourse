@@ -1,11 +1,20 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Shuffle } from "@phosphor-icons/react";
 
 export default function RegistrationNav({
   user,
-  hasScrolledPastHero,
+  hasScrolledPastHero, randomizeRoom
 }) {
-  const isMobile = window.innerWidth <= 900;
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 900);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   return (
     <div className={`nav ${hasScrolledPastHero ? "nav-full" : ""}`}>
@@ -18,9 +27,14 @@ export default function RegistrationNav({
       </div>
 
       <div className="nav-right">
-        {(hasScrolledPastHero || isMobile) && <SearchBar />}
+        {(hasScrolledPastHero || isMobile) && <SearchBar/>}
+        {(hasScrolledPastHero || isMobile) && <button onClick={randomizeRoom}
+                className="random-btn">
+          <Shuffle className="w-4 h-4 text-gray-500"/>
+          <span>Random Room</span>
+        </button>}
         <img
-          src="/assets/image-minimal-1.png"
+          src="/assets/uhill.png"
           alt="user"
           className="user-photo"
         />
@@ -37,9 +51,7 @@ function SearchBar() {
         placeholder="Filter by presenter or room"
         className="search-input"
       />
-      <button className="search-btn">
-        <Shuffle size={24} weight="fill" />
-      </button>
+
     </div>
   );
 }

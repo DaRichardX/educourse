@@ -1,30 +1,25 @@
-import React, { useState } from "react";
-import { Info } from "@phosphor-icons/react";
+import React from "react";
+import "./registration.css"; // Ensure you import the CSS file
 
-export default function ClassroomCard({ room, data, closeModal, openModal }) {
+export default function ClassroomCard({ room, data, closeModal, openModal, highlighted, registeredRoom }) {
+  const isRegistered = registeredRoom === room;
+
   return (
-    <div className="classroom-card">
+    <div className={`classroom-card ${highlighted ? "highlighted" : ""}`}>
       <div className="room-header">
         <h3>{room.toUpperCase()}</h3>
-        <Info
-          className="info-icon"
-          size={20}
-          weight="bold"
-          role="button"
-          onClick={openModal}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") openModal();
-          }}
-        />
       </div>
 
       <p className="teacher-name">{data.teacher}</p>
 
       <div className="bottom-row">
-        <button className="register-btn">Register</button>
-        <p className="capacity">
-          {data.currentOccupancy}/{data.fullCapacity}
-        </p>
+        <button
+          className={`register-btn ${registeredRoom ? (isRegistered ? "registered" : "disabled") : ""}`}
+          disabled={!!registeredRoom}
+          onClick={() => openModal(room)}
+        >
+          {isRegistered ? "Registered" : "Register"}
+        </button>
       </div>
     </div>
   );

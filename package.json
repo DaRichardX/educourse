@@ -53,6 +53,7 @@
     "embla-carousel": "8.2.0",
     "embla-carousel-react": "8.2.0",
     "firebase": "^10.13.0",
+    "framer-motion": "^12.4.2",
     "i18next": "23.14.0",
     "mapbox-gl": "3.6.0",
     "next": "14.2.5",

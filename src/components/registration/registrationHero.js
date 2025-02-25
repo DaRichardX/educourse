@@ -8,7 +8,7 @@ export default function RegistrationHero({ user }) {
         <div className="hero-content">
           <h1>
             Welcome,{" "}
-            <span className="clipped-text">{user?.name || "audience"}</span>
+            <span className="clipped-text">{user?.name || "student"}</span>
           </h1>
         </div>
 

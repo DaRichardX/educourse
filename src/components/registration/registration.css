@@ -64,6 +64,7 @@ button:active {
 }
 
 .clipped-text {
+  background-color: white;
   font-weight: bold;
   position: relative;
   background: url("/assets/mesh-gradient.png") no-repeat center;
@@ -260,14 +261,15 @@ button:active {
 }
 
 .search-btn {
-  background: transparent;
+  background: whitesmoke;
   border: none;
   cursor: pointer;
   transition: transform 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 6px;
+  padding-left: 13px;
+  padding-right: 13px;
   border-radius: 50%;
 }
 
@@ -334,13 +336,27 @@ button:active {
 }
 
 .register-btn {
-  background: #007bff;
-  color: white;
+  padding: 10px 16px;
+  font-size: 16px;
   border: none;
-  padding: 10px 14px;
   border-radius: 20px;
   cursor: pointer;
+  background-color: #007bff; /* Default blue */
+  color: white;
   transition: background-color 0.2s ease-in-out;
+}
+
+
+.register-btn.disabled {
+  background-color: #B0C4DE; /* Grey-blue when disabled */
+  color: #ffffff;
+  cursor: not-allowed;
+}
+
+.register-btn.registered {
+  background-color: #6FA3EF; /* Slightly blue when registered */
+  color: white;
+  cursor: default;
 }
 
 .register-btn:hover {
@@ -361,15 +377,25 @@ button:active {
   .classroom-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-
+  .modal-content {
+    font-size: 16px;
+  }
   h2 {
     font-size: 1.8rem;
+  }
+}
+@media (min-width: 768px) {
+  .modal-content {
+    font-size: 18px;
   }
 }
 
 @media (min-width: 1500px) {
   .classroom-grid {
     grid-template-columns: repeat(5, 1fr);
+  }
+  .modal-content {
+    font-size: 1.2rem;
   }
 }
 
@@ -388,6 +414,11 @@ h2 {
   justify-content: space-between;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transition: all 0.2s ease-in-out;
+}
+.classroom-card.highlighted {
+  border-color: #f1de94;
+  background-color: #fff8dc;
+  box-shadow: 0 0 15px rgba(239, 209, 89, 0.89);
 }
 
 .classroom-card:hover {
@@ -444,16 +475,41 @@ h2 {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(0px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  visibility: hidden;
-  opacity: 0;
+  padding: 50px 20px; /* Adds top/bottom padding with some left/right */
+  box-sizing: border-box;
+
   transition:
     opacity 0.3s ease-in-out,
     visibility 0.3s ease-in-out;
+  /*overflow-y: scroll;*/
+}
+.register-content{
+  position: sticky;
+  bottom: 0;
+  background-color: white; /* Ensures visibility */
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #ddd; /* Optional: separator */
+  margin-top: 30px;
+}
+.modal-content {
+  height: 55%;
+  background-color: white;
+  padding: 30px 40px; /* More padding inside the modal */
+  border-radius: 10px;
+  max-width: 1000px; /* Increase max width to make it wider */
+  width: 90%; /* Ensures it takes up most of the screen width */
+  max-height: calc(100% - 100px); /* Adds more top/bottom spacing */
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  position: relative;
 }
 
 .modal-overlay.show {
@@ -461,17 +517,17 @@ h2 {
   opacity: 1;
 }
 
-.modal-content {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  max-width: 400px;
-  width: 80vw;
-  min-height: 500px;
-  text-align: left;
-  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
-  animation: fadeIn 0.2s ease-in-out;
-}
+/*.modal-content {*/
+/*  background-color: white;*/
+/*  padding: 20px;*/
+/*  border-radius: 8px;*/
+/*  max-width: 800px;*/
+/*  width: 80vw;*/
+/*  min-height: 500px;*/
+/*  text-align: left;*/
+/*  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);*/
+/*  animation: fadeIn 0.2s ease-in-out;*/
+/*}*/
 
 @keyframes fadeIn {
   from {
@@ -482,6 +538,19 @@ h2 {
     opacity: 1;
     transform: translateY(0);
   }
+}
+.random-btn{
+  background: whitesmoke;
+  color: black;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  font-size: 0.9rem;
+  display: flex;
+  gap: 5px;
+  align-items: center;
 }
 
 .close-btn {
@@ -498,3 +567,15 @@ h2 {
 .close-btn:hover {
   background: #d6d6d6;
 }
+.modal-close-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+  z-index: 10;
+}
+
