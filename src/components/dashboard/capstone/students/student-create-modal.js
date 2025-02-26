@@ -49,7 +49,7 @@ export function StudentCreateModal({ open, onClose, onSubmit }) {
     >
       <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         <Stack direction="row" sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
-          <Typography variant="h6">Add New Room</Typography>
+          <Typography variant="h6">Add New Student</Typography>
           <IconButton onClick={onClose}>
             <XIcon />
           </IconButton>
