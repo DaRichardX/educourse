@@ -19,20 +19,25 @@ import { SummaryPending } from "@/components/dashboard/overview/summary-pending"
 import { ConfirmationPrompt, PromptTypes } from "./confirmation-prompt";
 import { SignupsSummary } from "../summary/signups-summary";
 import { LoadingButton } from "@mui/lab";
+import { useReqTest } from "@/queries/capstone-queries";
 
 export function CapstoneOverview(){
   const [displayDeactivateConfirm, setDisplayDeactivateConfirm] = React.useState(false);
   const [isRegClosed, setIsRegClosed] = React.useState(false);
   const [isLoadingClosingReg, setLoadingClosingReg] = React.useState(false);
+  const { mutate: putTest, isLoading } = useReqTest();
 
   function toggleConfirmDeactivationDisplay() {
     setDisplayDeactivateConfirm(!displayDeactivateConfirm);
   }
 
-  function deactivateReg() {
+  function DeactivateReg(){
+    putTest();
     setLoadingClosingReg(true);
     setIsRegClosed(true);
   }
+
+  
 
   return (
     <Box
@@ -47,7 +52,7 @@ export function CapstoneOverview(){
           type={PromptTypes.deactivateSubmissions}
           isActive={displayDeactivateConfirm}
           setActive={setDisplayDeactivateConfirm}
-          action={deactivateReg}
+          action={DeactivateReg}
       />
 
       {/* gray box when confirmation box is active*/}
@@ -83,7 +88,7 @@ export function CapstoneOverview(){
                 variant="contained"
                 color="error"
                 disabled
-                onClick={toggleConfirmDeactivationDisplay}
+                onClick={DeactivateReg}
                 loading={false}
                 >
                   Registration is Closed
@@ -94,7 +99,7 @@ export function CapstoneOverview(){
                 loadingPosition="end"
                 variant="contained"
                 color="error"
-                onClick={toggleConfirmDeactivationDisplay}
+                onClick={DeactivateReg}
                 loading={isLoadingClosingReg}
                 >
                   Close Registration

@@ -8,49 +8,22 @@ import CardContent from '@mui/material/CardContent';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import { logger } from '@/lib/default-logger';
-import { useData } from '@/hooks/use-data';
 import { Users as UsersIcon } from '@phosphor-icons/react/dist/ssr/Users';
 import Typography from '@mui/material/Typography';
 import Skeleton from '@mui/material/Skeleton';
+import { useTotalSignups } from "@/queries/capstone-queries";
 
 export function SignupsSummary() {
-  const data = useData(); // Custom hook providing `data.get.getTotalSignups`
-  const signups = React.useRef(-1);
-  const [loading, setLoading] = React.useState(true);
   const percentage = '70.1'
   const title = 'Sign ups';
 
+  const { data: totalSignups, error, isLoading } = useTotalSignups("example");
 
-  React.useEffect(() => {
-    let isMounted = true; // Prevent state updates if component is unmounted
-
-    const fetchSignups = async () => {
-      try {
-        const result = await data.get.getTotalSignups();
-        if (isMounted) {
-          signups.current = result;
-          setLoading(false);
-        }
-      } catch (error) {
-        logger.error('Error fetching total signups:', error);
-        if (isMounted) {
-          signups.current = -1;
-          setLoading(false);
-        }
-      }
-    };
-
-    fetchSignups();
-
-    return () => {
-      isMounted = false; // Clean up to prevent memory leaks
-    };
-  }, [data]); // Dependency array
-
+  
   return (
     <Card>
       <CardContent>
-      {loading ? (
+      {isLoading ? (
           <Stack direction="row" spacing={3} sx={{ alignItems: 'center' }}>
             <Skeleton variant="circular" width={48} height={48} />
             <div>
@@ -74,14 +47,14 @@ export function SignupsSummary() {
               <Typography color="text.secondary" variant="body1">
                 {title}
               </Typography>
-              <Typography variant="h3">{new Intl.NumberFormat('en-US').format(signups.current)}</Typography>
+              <Typography variant="h3">{new Intl.NumberFormat('en-US').format(totalSignups)}</Typography>
             </div>
           </Stack>
           )}
       </CardContent>
       <Divider />
       <Box sx={{ p: '16px' }}>
-      {loading ? (
+      {isLoading ? (
           <Skeleton width="100%" height={32} />
         ) : (
         <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>

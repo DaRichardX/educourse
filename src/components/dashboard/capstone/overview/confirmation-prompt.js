@@ -28,14 +28,12 @@ export function ConfirmationPrompt ({type, isActive, setActive, action}) {
   if(!isActive){
     return;
   }
-  let onConfirm = action;
   let prompt;
 
   if(!type){
     //type does not exist
     prompt = PromptTypes.dne;
-    onConfirm = () => {}; //override actions to prevent accidental damage
-  }else{
+    }else{
     prompt = type;
   }
 
@@ -87,7 +85,7 @@ export function ConfirmationPrompt ({type, isActive, setActive, action}) {
                   color="error"
                   variant="contained"
                   onClick={() => {
-                    onConfirm();
+                    action();
                     setActive(false);
                   }}
                 >

@@ -20,12 +20,12 @@ import { AuthStrategy } from '@/lib/auth/strategy';
 import { CustomSignOut } from './custom-sign-out';
 import { FirebaseSignOut } from './firebase-sign-out';
 import { SupabaseSignOut } from './supabase-sign-out';
-import { useUserData } from '@/hooks/use-user-data';
+import { useUser } from '@/hooks/use-user';
 
 
 export function UserPopover({ anchorEl, onClose, open }) {
 
-  const userData = useUserData();
+  const userData = useUser().userData;
   
   return (
     <Popover

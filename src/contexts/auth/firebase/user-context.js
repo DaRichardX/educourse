@@ -112,6 +112,7 @@ export function UserProvider({ children }) {
           org_data: orgDoc.data(),
           isFetching: false
         }));
+        
         //success
       } catch (error) {
         logger.debug('[Auth] Error fetching userData:', error);
@@ -122,13 +123,16 @@ export function UserProvider({ children }) {
       }
     }
     
-
     return () => {
       unsubscribe();
     };
   }, [firebaseAuth, firestore]);
 
-  return <UserContext.Provider value={{state, userData}}>{children}</UserContext.Provider>;
+  const getIdToken = () => {
+    return firebaseAuth.currentUser.getIdToken();
+  }
+
+  return <UserContext.Provider value={{state, userData, getIdToken}}>{children}</UserContext.Provider>;
 }
 
 export const UserConsumer = UserContext.Consumer;
