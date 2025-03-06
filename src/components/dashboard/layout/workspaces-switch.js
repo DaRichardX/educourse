@@ -16,10 +16,13 @@ import { useUser } from '@/hooks/use-user';
 
 export function WorkspacesSwitch() {
   const popover = usePopover();
-  const userData = useUser();
-  logger.debug(userData);
-  const workspace = [{name: "ERROR", id: userData.org_id, avatar: '/assets/workspace-avatar-uhill.jpg'}]
-  // const workspace = [{name: userData.name_org, id: userData.org_id, avatar: '/assets/workspace-avatar-uhill.jpg'}]
+  const user = useUser().user;
+  logger.debug("worksplace", user)
+  if(user === null){
+    return;
+  }
+  const workspace = [{name: user.org_name, id: user.org_id, avatar: '/assets/workspace-avatar-uhill.jpg'}]
+
   //await multi workspace, currently userData only has one org_id field. In future, it will be
   // orgid, role pairs so that they can log onto multi workspaces. This is hardcoded so that it work currently.
   return (
