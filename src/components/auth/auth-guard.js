@@ -12,7 +12,7 @@ import { useUser } from '@/hooks/use-user';
 
 export function AuthGuard({ children }) {
   const router = useRouter();
-  const { user, error, isLoading } = useUser();
+  const { isAuthenticated, error, isLoading } = useUser();
   const [isChecking, setIsChecking] = React.useState(true);
 
   const checkPermissions = async () => {
@@ -25,7 +25,7 @@ export function AuthGuard({ children }) {
       return;
     }
 
-    if (!user) {
+    if (!isAuthenticated) {
       logger.debug('[AuthGuard]: User is not logged in, redirecting to sign in');
 
       switch (config.auth.strategy) {
@@ -56,7 +56,7 @@ export function AuthGuard({ children }) {
       // noop
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps -- Expected
-  }, [user, error, isLoading]);
+  }, [isAuthenticated, error, isLoading]);
 
   if (isChecking) {
     return null;

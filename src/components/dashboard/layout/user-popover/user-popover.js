@@ -25,7 +25,7 @@ import { useUser } from '@/hooks/use-user';
 
 export function UserPopover({ anchorEl, onClose, open }) {
 
-  const user = useUser().user;
+  const user = useUser().userData;
   
   return (
     <Popover
@@ -37,9 +37,9 @@ export function UserPopover({ anchorEl, onClose, open }) {
       transformOrigin={{ horizontal: 'right', vertical: 'top' }}
     >
       <Box sx={{ p: 2 }}>
-        <Typography>{user ? user.name : null}</Typography>
+        <Typography>{user.name}</Typography>
         <Typography color="text.secondary" variant="body2">
-          {user ? user.email : null}
+          {user.email}
         </Typography>
       </Box>
       <Divider />

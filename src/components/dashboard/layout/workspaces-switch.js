@@ -16,10 +16,7 @@ import { useUser } from '@/hooks/use-user';
 
 export function WorkspacesSwitch() {
   const popover = usePopover();
-  const user = useUser().user;
-  if(user === null){
-    return;
-  }
+  const user = useUser().userData;
   const workspace = [{name: user.org_name, id: user.org_id, avatar: '/assets/workspace-avatar-uhill.jpg'}]
 
   //await multi workspace, currently userData only has one org_id field. In future, it will be

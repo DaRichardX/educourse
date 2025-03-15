@@ -30,10 +30,7 @@ export function CapstoneOverview(){
   const [isRegClosed, setIsRegClosed] = React.useState(false);
   const [isLoadingClosingReg, setLoadingClosingReg] = React.useState(false);
   const { mutate: addSignup, error, isLoading} = useAddSignup();
-  const user = useUser().user;
-  if(!user){
-    return <></>;
-  }
+  const user = useUser().userData;
   const debug = (user.role === "admin");
 
   function toggleConfirmDeactivationDisplay() {

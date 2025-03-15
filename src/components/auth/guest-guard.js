@@ -10,7 +10,7 @@ import { useUser } from '@/hooks/use-user';
 
 export function GuestGuard({ children }) {
   const router = useRouter();
-  const { user, error, isLoading } = useUser();
+  const { isAuthenticated, error, isLoading } = useUser();
   const [isChecking, setIsChecking] = React.useState(true);
 
   const checkPermissions = async () => {
@@ -23,7 +23,7 @@ export function GuestGuard({ children }) {
       return;
     }
 
-    if (user) {
+    if (isAuthenticated) {
       logger.debug('[GuestGuard]: User is logged in, redirecting to dashboard');
       router.replace(paths.dashboard.overview);
       return;
@@ -37,7 +37,7 @@ export function GuestGuard({ children }) {
       // noop
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps -- Expected
-  }, [user, error, isLoading]);
+  }, [isAuthenticated, error, isLoading]);
 
   if (isChecking) {
     return null;

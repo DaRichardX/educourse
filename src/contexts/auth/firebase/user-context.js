@@ -13,48 +13,72 @@ export function UserProvider({ children }) {
   const [firebaseAuth] = React.useState(getFirebaseAuth());
   const firestore = getFirestore();
 
-  const [state, setState] = React.useState({
-    user: null,
+  const [authStates, setAuthStates] = React.useState({
+    isAuthenticated: false,
     error: null,
     isLoading: true,
   });
 
+  const [userData, setUserData] = React.useState({
+    uid: "",
+    org_id: "",
+    org_name: "",
+    role: "",
+    name: "",
+    first_name: "",
+    last_name: "",
+    avatar: 'avatar-default.jpg',
+  });
+
+  const [orgData, setOrgData] = React.useState(null);
+
   React.useEffect(() => {
     const unsubscribe = onAuthStateChanged(firebaseAuth, async (user) => {
       logger.debug('[Auth] onAuthStateChanged:', user);
+      // User is signing in
       if (user) {
         try {
-          const fetchedUserData = await getUserData(user.uid);
-          setState({
-            user: {
-              id: user.uid,
-              email: user.email,
-              ...fetchedUserData, // Spread all fetched user data into state
-            },
+          const fetchedUserData = await getUserData(user.uid); // Grabs the user doc on Firestore (uid)
+          setUserData({
+            uid: user.uid,
+            org_id: fetchedUserData.org_id,
+            org_name: fetchedUserData.org_name,
+            role: fetchedUserData.role,
+            name: fetchedUserData.name,
+            first_name: fetchedUserData.first_name,
+            last_name: fetchedUserData.last_name,
+            avatar: 'avatar-default.jpg',
+          });
+          setOrgData(fetchedUserData.org_data);
+          setAuthStates({
+            isAuthenticated: true,
             error: null,
             isLoading: false,
           });
+
         } catch (error) {
           logger.debug('[Auth] Error fetching userData:', error);
-          setState((prev) => ({
-            ...prev,
-            user: null,
+          setAuthStates({
+            isAuthenticated: false,
             error,
             isLoading: false,
-          }));
+          });
         }
       } else {
-        setState({
-          user: null,
+        // User is logging out
+        setAuthStates({
+          isAuthenticated: false,
           error: null,
           isLoading: false,
         });
       }
     });
 
-    async function getUserData(uid) {
+    // Func grabs user doc from Firestore
+    const getUserData = async (uid) => {
       const userDocRef = doc(firestore, 'users', uid);
       const userDoc = await getDoc(userDocRef);
+      
 
       if (!userDoc.exists()) {
         logger.debug(`[Auth] userData document not found for ${uid}`);
@@ -83,19 +107,14 @@ export function UserProvider({ children }) {
         org_name: orgDoc.data()?.name || '',
         avatar: 'avatar-default.jpg',
         org_data: orgDoc.data() || '',
-        isFetching: false,
       };
     }
 
     return () => unsubscribe();
   }, [firebaseAuth, firestore]);
 
-  const getIdToken = () => {
-    return firebaseAuth.currentUser?.getIdToken();
-  };
-
   return (
-    <UserContext.Provider value={{...state, getIdToken }}>
+    <UserContext.Provider value={{...authStates, userData, orgData}}>
       {children}
     </UserContext.Provider>
   );
