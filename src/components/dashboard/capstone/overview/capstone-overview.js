@@ -9,7 +9,10 @@ import Grid from "@mui/material/Unstable_Grid2";
 import { ArrowRight as ArrowRightIcon } from "@phosphor-icons/react/dist/ssr/ArrowRight";
 import { Info as InfoIcon } from "@phosphor-icons/react/dist/ssr/Info";
 import { Prohibit } from "@phosphor-icons/react/dist/ssr/Prohibit";
-import { DownloadSimple as DownloadIcon } from "@phosphor-icons/react/dist/ssr/DownloadSimple";import { Warning as WarningIcon } from "@phosphor-icons/react/dist/ssr/Warning";
+import { DownloadSimple as DownloadIcon } from "@phosphor-icons/react/dist/ssr/DownloadSimple";
+import { Warning as WarningIcon } from "@phosphor-icons/react/dist/ssr/Warning";
+import { Bug as DebugIcon } from "@phosphor-icons/react/dist/ssr/Bug";
+
 
 import { dayjs } from "@/lib/dayjs";
 import { Events } from "@/components/dashboard/overview/events";
@@ -19,23 +22,42 @@ import { SummaryPending } from "@/components/dashboard/overview/summary-pending"
 import { ConfirmationPrompt, PromptTypes } from "./confirmation-prompt";
 import { SignupsSummary } from "../summary/signups-summary";
 import { LoadingButton } from "@mui/lab";
-import { useReqTest } from "@/queries/capstone-queries";
+import { useUser } from '@/hooks/use-user';
+import { useAddSignup} from "@/queries/capstone-queries";
 
 export function CapstoneOverview(){
   const [displayDeactivateConfirm, setDisplayDeactivateConfirm] = React.useState(false);
   const [isRegClosed, setIsRegClosed] = React.useState(false);
   const [isLoadingClosingReg, setLoadingClosingReg] = React.useState(false);
-  const { mutate: putTest, isLoading } = useReqTest();
+  const { mutate: addSignup, error, isLoading} = useAddSignup();
+  const user = useUser().user;
+  if(!user){
+    return <></>;
+  }
+  const debug = (user.role === "admin");
 
   function toggleConfirmDeactivationDisplay() {
     setDisplayDeactivateConfirm(!displayDeactivateConfirm);
   }
 
   function DeactivateReg(){
-    putTest();
     setLoadingClosingReg(true);
     setIsRegClosed(true);
   }
+
+
+  // used for testing only
+  function debugFunc(){
+    // @ts-ignore
+    // IT LITERALLY IS NOT FREAKING VOID???? WHAT YOUR MOTHER IS VOID BRO WWHY DOES IT THINK ITS VOID????? refering to ts-ignore
+    addSignup({
+      orgId: "example",
+      name: "Richard",
+      room: "1D2",
+    });
+  }
+
+  
 
   
 
@@ -95,7 +117,7 @@ export function CapstoneOverview(){
                 </LoadingButton>
               : 
                 <LoadingButton
-                endIcon={<Prohibit />}
+                endIcon={<Prohibit/>}
                 loadingPosition="end"
                 variant="contained"
                 color="error"
@@ -105,15 +127,23 @@ export function CapstoneOverview(){
                   Close Registration
                 </LoadingButton>
               }
-              
-
               <Button
-                endIcon={<DownloadIcon />}
+                endIcon={<DownloadIcon/>}
                 variant="contained"
                 disabled={!isRegClosed}
               >
                 Export All
               </Button>
+
+              {/* Debug button, not rendered in prod */}
+              {debug ? <Button
+                endIcon={<DebugIcon/>}
+                variant="contained"
+                onClick={debugFunc}
+              >
+                Run Func
+              </Button> : null}
+
             </Stack>
           </div>
         </Stack>

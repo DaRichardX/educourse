@@ -76,6 +76,7 @@ export function UserProvider({ children }) {
 
       return {
         org_id: userdata.org_id,
+        role: userdata.role,
         name: `${userdata.first_name} ${userdata.last_name}`,
         first_name: userdata.first_name,
         last_name: userdata.last_name,

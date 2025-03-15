@@ -17,7 +17,6 @@ import { useUser } from '@/hooks/use-user';
 export function WorkspacesSwitch() {
   const popover = usePopover();
   const user = useUser().user;
-  logger.debug("worksplace", user)
   if(user === null){
     return;
   }
