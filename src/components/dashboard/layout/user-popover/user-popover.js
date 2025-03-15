@@ -20,12 +20,12 @@ import { AuthStrategy } from '@/lib/auth/strategy';
 import { CustomSignOut } from './custom-sign-out';
 import { FirebaseSignOut } from './firebase-sign-out';
 import { SupabaseSignOut } from './supabase-sign-out';
-import { useUserData } from '@/hooks/use-user-data';
+import { useUser } from '@/hooks/use-user';
 
 
 export function UserPopover({ anchorEl, onClose, open }) {
 
-  const userData = useUserData();
+  const user = useUser().userData;
   
   return (
     <Popover
@@ -37,9 +37,9 @@ export function UserPopover({ anchorEl, onClose, open }) {
       transformOrigin={{ horizontal: 'right', vertical: 'top' }}
     >
       <Box sx={{ p: 2 }}>
-        <Typography>{userData ? userData.name : null}</Typography>
+        <Typography>{user.name}</Typography>
         <Typography color="text.secondary" variant="body2">
-          {userData ? userData.email : null}
+          {user.email}
         </Typography>
       </Box>
       <Divider />

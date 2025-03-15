@@ -13,122 +13,111 @@ export function UserProvider({ children }) {
   const [firebaseAuth] = React.useState(getFirebaseAuth());
   const firestore = getFirestore();
 
-  const [state, setState] = React.useState({
-    user: null,
+  const [authStates, setAuthStates] = React.useState({
+    isAuthenticated: false,
     error: null,
     isLoading: true,
   });
 
   const [userData, setUserData] = React.useState({
-    id: null,
+    uid: "",
     org_id: "",
-    email: "",
+    org_name: "",
+    role: "",
     name: "",
     first_name: "",
     last_name: "",
-    name_org: "",
-    avatar: "",
-    org_data: "",
-    isFetching: false,
+    avatar: 'avatar-default.jpg',
   });
+
+  const [orgData, setOrgData] = React.useState(null);
 
   React.useEffect(() => {
     const unsubscribe = onAuthStateChanged(firebaseAuth, async (user) => {
       logger.debug('[Auth] onAuthStateChanged:', user);
-      if(user){
-        await getUserData(user.uid); //sets the userData state (mainly used for info display)
-        setState((prev) => ({ //sets the state state (mainly used for auth)
-          ...prev,
-          user:
-            {
-                id: user.uid,
-                email: user.email,
-                avatar: "avatar-default.jpg",
-            },
+      // User is signing in
+      if (user) {
+        try {
+          const fetchedUserData = await getUserData(user.uid); // Grabs the user doc on Firestore (uid)
+          setUserData({
+            uid: user.uid,
+            org_id: fetchedUserData.org_id,
+            org_name: fetchedUserData.org_name,
+            role: fetchedUserData.role,
+            name: fetchedUserData.name,
+            first_name: fetchedUserData.first_name,
+            last_name: fetchedUserData.last_name,
+            avatar: 'avatar-default.jpg',
+          });
+          setOrgData(fetchedUserData.org_data);
+          setAuthStates({
+            isAuthenticated: true,
+            error: null,
+            isLoading: false,
+          });
+
+        } catch (error) {
+          logger.debug('[Auth] Error fetching userData:', error);
+          setAuthStates({
+            isAuthenticated: false,
+            error,
+            isLoading: false,
+          });
+        }
+      } else {
+        // User is logging out
+        setAuthStates({
+          isAuthenticated: false,
           error: null,
           isLoading: false,
-        }));    
-      }else{
-        //signout, user doesn't exist
-        setUserData((prev) => ({
-          ...prev,
-          id: null,
-          org_id: "",
-          email: "",
-          name: "",
-          first_name: "",
-          last_name: "",
-          name_org: "",
-          avatar: "",
-          org_data: "",
-        }));
-        setState((prev) => ({
-          ...prev,
-          user: null,
-          error: null,
-          isLoading: false,
-        }));
+        });
       }
     });
 
-    async function getUserData(uid) {//only sets userData
-      setUserData((prev) => ({
-        ...prev,
-        isFetching: true
-      }));
+    // Func grabs user doc from Firestore
+    const getUserData = async (uid) => {
+      const userDocRef = doc(firestore, 'users', uid);
+      const userDoc = await getDoc(userDocRef);
+      
 
-      //succes
-      try {
-        const userDocRef = doc(firestore, 'users', uid); // Reference to the user's document
-        const userDoc = await getDoc(userDocRef); // Fetch the document from Firestore
-
-        if (!userDoc.exists()) {
-          logger.debug(`[Auth] userData document not found for ${  uid}`);
-          return;
-        }
-
-        const userdata = userDoc.data(); //fetched userdata from /users/uid
-        logger.debug('[Auth] userData:', userdata);
-
-        const orgDocRef = doc(firestore, 'orgs', userdata.org_id); // Reference to the user's org's document
-        const orgDoc = await getDoc(orgDocRef); // Fetch the document from Firestore
-
-        if(!orgDoc.exists){
-          logger.debug(`[Auth] orgData document not found for ${  userdata.org_id}`);
-        }
-
-        logger.debug('[Auth] orgData:', orgDoc.data());
-
-        setUserData((prev) => ({
-          ...prev,
-          id: uid,
-          org_id: userdata.org_id,
-          email: userdata.email,
-          name: `${userdata.first_name} ${userdata.last_name}`,
-          first_name: userdata.first_name,
-          last_name: userdata.last_name,
-          name_org: `${orgDoc.data().name}`,
-          avatar: "avatar-default.jpg",
-          org_data: orgDoc.data(),
-          isFetching: false
-        }));
-        //success
-      } catch (error) {
-        logger.debug('[Auth] Error fetching userData:', error);
-        setUserData((prev) => ({
-          ...prev,
-          isFetching: false
-        }));
+      if (!userDoc.exists()) {
+        logger.debug(`[Auth] userData document not found for ${uid}`);
+        throw new Error('User data not found');
       }
-    }
-    
 
-    return () => {
-      unsubscribe();
-    };
+      const userdata = userDoc.data();
+      logger.debug('[Auth] userData:', userdata);
+
+      const orgDocRef = doc(firestore, 'orgs', userdata.org_id);
+      const orgDoc = await getDoc(orgDocRef);
+
+      if (!orgDoc.exists()) {
+        logger.debug(`[Auth] orgData document not found for ${userdata.org_id}`);
+      }
+
+      logger.debug('[Auth] orgData:', orgDoc.data());
+      
+
+      return {
+        org_id: userdata.org_id,
+        role: userdata.role,
+        name: `${userdata.first_name} ${userdata.last_name}`,
+        first_name: userdata.first_name,
+        last_name: userdata.last_name,
+        org_name: orgDoc.data()?.name || '',
+        avatar: 'avatar-default.jpg',
+        org_data: orgDoc.data() || '',
+      };
+    }
+
+    return () => unsubscribe();
   }, [firebaseAuth, firestore]);
 
-  return <UserContext.Provider value={{state, userData}}>{children}</UserContext.Provider>;
+  return (
+    <UserContext.Provider value={{...authStates, userData, orgData}}>
+      {children}
+    </UserContext.Provider>
+  );
 }
 
 export const UserConsumer = UserContext.Consumer;

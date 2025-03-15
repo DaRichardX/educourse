@@ -12,10 +12,12 @@ import { I18nProvider } from '@/components/core/i18n-provider';
 import { LocalizationProvider } from '@/components/core/localization-provider';
 import { SettingsButton } from '@/components/core/settings/settings-button';
 import { ThemeProvider } from '@/components/core/theme-provider/theme-provider';
+import { Query, QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from '@/components/core/toaster';
-import { DataProvider } from '@/contexts/data/data-context';
+import QueryProvider from './query-provider';
 
 export const metadata = { title: config.site.name };
+
 
 export const viewport = {
   width: 'device-width',
@@ -31,19 +33,19 @@ export default async function Layout({ children }) {
       <body>
         <Analytics>
           <LocalizationProvider>
-            <UserProvider>
-              <DataProvider>
-                <SettingsProvider settings={settings}>
-                  <I18nProvider lng={settings.language}>
-                    <ThemeProvider>
-                      {children}
-                      {/*<SettingsButton />*/}
-                      <Toaster position="bottom-right" />
-                    </ThemeProvider>
-                  </I18nProvider>
-                </SettingsProvider>
-              </DataProvider>
-            </UserProvider>
+            <QueryProvider>
+              <UserProvider>
+                  <SettingsProvider settings={settings}>
+                    <I18nProvider lng={settings.language}>
+                      <ThemeProvider>
+                        {children}
+                        {/*<SettingsButton />*/}
+                        <Toaster position="bottom-right" />
+                      </ThemeProvider>
+                    </I18nProvider>
+                  </SettingsProvider>
+              </UserProvider>
+            </QueryProvider>
           </LocalizationProvider>
         </Analytics>
       </body>
