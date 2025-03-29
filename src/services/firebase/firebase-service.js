@@ -30,18 +30,66 @@ export const getTotalSignups = async (schoolID) => {
     throw new Error("Failed to fetch signups");
   }
 };
-// addSignup: add a capstone signup to the orgId provided
-// props: {orgId: string, name: string)
+
+export const getMetadata = async (schoolID) => {
+  if (!schoolID) throw new Error("Missing school ID");
+
+  try {
+    // Reference to the metadata document inside the capstone_schedule collection
+    const metadataDocRef = doc(firestore, `orgs/${schoolID}/capstone_schedule/metadata`);
+    
+    // Fetch the document
+    const metadataDocSnapshot = await getDoc(metadataDocRef);
+
+    // Check if document exists
+    if (!metadataDocSnapshot.exists()) {
+      throw new Error("Metadata document not found");
+    }
+
+    // Get the metadata data from the document
+    const metadata = metadataDocSnapshot.data();
+    logger.debug("[Data] Metadata: ", metadata);
+
+    return metadata;
+  } catch (error) {
+    logger.error("[Data] Error fetching metadata: ", error);
+    throw new Error("Failed to fetch metadata");
+  }
+};
+
+export const closeSignup = async (orgId) => {
+  if (!orgId) throw new Error("Missing organization ID");
+
+  const endpoint = `/org/specific/${orgId}/capstone/status`;
+
+  const body = {
+    isSignupClosed: true,  // Closing the signup
+  };
+
+  try {
+    // Make authenticated request to the backend to update the signup status
+    const response = await makeAuthenticatedRequest(endpoint, "PATCH", body);
+
+    logger.debug("Signup status successfully closed", response);
+    return response;
+  } catch (error) {
+    logger.error("Error closing signup status:", error);
+    throw new Error("Failed to close the signup");
+  }
+};
+
+// addSignup: Add a capstone signup to the orgId provided
+// props: {orgId: string, signupId: string, student: string, roomId: string}
+// comment: questionable use of ?id=signupId instead of putting in body, TODO: change in the future.
 export const addSignup = async (signup) => {
-  const orgId = signup.orgId;
-  const room = signup.room;
-  const name = signup.name;
+  const { orgId, signupId, student, roomId } = signup;
 
-  const endpoint = `/org/${orgId}/capstone/signups`;
+  const endpoint = `/api/public/org/specific/${orgId}/capstone/signups?id=${signupId}`;
 
-  const response = await makeAuthenticatedRequest(endpoint, "POST", {name, room});
+  // Sending a POST request to the backend
+  const response = await makeAuthenticatedRequest(endpoint, "POST", { student, room_id: roomId });
 
-  logger.debug("Added Signup", response);
+  logger.debug("Added Signup:", response);
   return response;
 };
 

@@ -7,18 +7,13 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
-import { logger } from '@/lib/default-logger';
 import { Users as UsersIcon } from '@phosphor-icons/react/dist/ssr/Users';
 import Typography from '@mui/material/Typography';
 import Skeleton from '@mui/material/Skeleton';
-import { useTotalSignups } from "@/queries/capstone-queries";
 
-export function SignupsSummary() {
+export function SignupsSummary({metadata, isLoading}) {
   const percentage = '70.1'
   const title = 'Sign ups';
-
-  const { data: totalSignups, error, isLoading } = useTotalSignups("example");
-
   
   return (
     <Card>
@@ -47,7 +42,7 @@ export function SignupsSummary() {
               <Typography color="text.secondary" variant="body1">
                 {title}
               </Typography>
-              <Typography variant="h3">{new Intl.NumberFormat('en-US').format(totalSignups)}</Typography>
+              <Typography variant="h3">{new Intl.NumberFormat('en-US').format(metadata.num_signups)}</Typography>
             </div>
           </Stack>
           )}

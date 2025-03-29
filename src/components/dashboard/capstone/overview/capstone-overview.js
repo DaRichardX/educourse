@@ -23,15 +23,28 @@ import { ConfirmationPrompt, PromptTypes } from "./confirmation-prompt";
 import { SignupsSummary } from "../summary/signups-summary";
 import { LoadingButton } from "@mui/lab";
 import { useUser } from '@/hooks/use-user';
-import { useAddSignup} from "@/queries/capstone-queries";
+import { useCloseSignup, useMetadata, useTotalSignups} from "@/queries/capstone-queries";
 
 export function CapstoneOverview(){
   const [displayDeactivateConfirm, setDisplayDeactivateConfirm] = React.useState(false);
   const [isRegClosed, setIsRegClosed] = React.useState(false);
   const [isLoadingClosingReg, setLoadingClosingReg] = React.useState(false);
-  const { mutate: addSignup, error, isLoading} = useAddSignup();
   const user = useUser().userData;
   const debug = (user.role === "admin");
+
+  const { data: metadata, isLoading: isLoadingMetadata } = useMetadata(user.org_id);
+  const { data: totalSignups, error, isLoading } = useTotalSignups(user.org_id);
+
+  const { mutate: closeSignupMutation } = useCloseSignup();
+
+  // Update the isRegClosed state based on metadata
+  React.useEffect(() => {
+    if (metadata) {
+      setIsRegClosed(metadata.isSignupClosed);
+    }
+  }, [metadata]);
+
+  
 
   function toggleConfirmDeactivationDisplay() {
     setDisplayDeactivateConfirm(!displayDeactivateConfirm);
@@ -40,23 +53,14 @@ export function CapstoneOverview(){
   function DeactivateReg(){
     setLoadingClosingReg(true);
     setIsRegClosed(true);
+    closeSignupMutation(user.org_id);
   }
 
 
   // used for testing only
   function debugFunc(){
-    // @ts-ignore
-    // IT LITERALLY IS NOT FREAKING VOID???? WHAT YOUR MOTHER IS VOID BRO WWHY DOES IT THINK ITS VOID????? refering to ts-ignore
-    addSignup({
-      orgId: "example",
-      name: "Richard",
-      room: "1D2",
-    });
+    closeSignupMutation(user.org_id)
   }
-
-  
-
-  
 
   return (
     <Box
@@ -107,7 +111,7 @@ export function CapstoneOverview(){
                 variant="contained"
                 color="error"
                 disabled
-                onClick={DeactivateReg}
+                onClick={toggleConfirmDeactivationDisplay}
                 loading={false}
                 >
                   Registration is Closed
@@ -118,7 +122,7 @@ export function CapstoneOverview(){
                 loadingPosition="end"
                 variant="contained"
                 color="error"
-                onClick={DeactivateReg}
+                onClick={toggleConfirmDeactivationDisplay}
                 loading={isLoadingClosingReg}
                 >
                   Close Registration
@@ -146,7 +150,7 @@ export function CapstoneOverview(){
         </Stack>
         <Grid container spacing={4}>
           <Grid md={6} xs={12}>
-            <SignupsSummary/>
+            <SignupsSummary metadata={metadata} isLoading={isLoadingMetadata}/>
           </Grid>
           <Grid md={6} xs={12}>
             <SummaryPending
