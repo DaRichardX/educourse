@@ -27,10 +27,26 @@ const classrooms = {
   room102: {
     teacher: "Mr. Smith",
     students: [
-      { name: "Ethan", presentation: "Quantum computing explained" },
-      { name: "Fiona", presentation: "The psychology of decision-making" },
-      { name: "George", presentation: "The rise of electric vehicles" },
-      { name: "Hannah", presentation: "Artificial intelligence in healthcare" },
+      {
+        name: "Ethan",
+        presentation:
+          "Quantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computinguantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computinguantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computinguantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computinguantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computinguantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computinguantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computinguantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computinguantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computinguantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explained",
+      },
+      {
+        name: "Fiona",
+        presentation:
+          "The psychology of decision-makinsychology of decision-makinsychology of decision-makinsychology of decision-makinsychology of decision-making",
+      },
+      {
+        name: "George",
+        presentation:
+          "The rise of electric veh rise of electric veh rise of electric veh rise of electric veh rise of electric veh rise of electric vehicles",
+      },
+      {
+        name: "Hannah",
+        presentation:
+          "Artificial intelligence iicial intelligence iicial intelligence iicial intelligence iicial intelligence iicial intelligence iicial intelligence iicial intelligence iicial intelligence in healthcare",
+      },
     ],
     fullCapacity: 25,
     currentOccupancy: 18,
@@ -174,9 +190,8 @@ function PresenterModal({ selectedRoom, closeModal, registerUser }) {
       className="modal-overlay"
       role="button"
       tabIndex="0"
-      onClick={closeModal}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") closeModal(e);
+      onClick={(e) => {
+        if (e.target === e.currentTarget) closeModal();
       }}
     >
       <div className="modal-content">
@@ -187,8 +202,11 @@ function PresenterModal({ selectedRoom, closeModal, registerUser }) {
         >
           <X size={24} weight="bold" />
         </button>
-        <div>
-          <h3>{classrooms[selectedRoom].teacher}'s Room</h3>
+
+        <div style={{ padding: "0px 40px 30px 40px" }}>
+          <h3 style={{ margin: 0, fontSize: "1.8rem" }}>
+            {classrooms[selectedRoom].teacher}'s Room
+          </h3>
           <ul style={{ lineHeight: "1.5", marginTop: "25px" }}>
             {classrooms[selectedRoom].students.map((student, idx) => (
               <li key={idx} style={{ marginTop: "10px" }}>
@@ -197,6 +215,7 @@ function PresenterModal({ selectedRoom, closeModal, registerUser }) {
             ))}
           </ul>
         </div>
+
         <div className="register-content">
           <span
             style={{
