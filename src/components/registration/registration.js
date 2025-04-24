@@ -1,18 +1,22 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 import RegistrationNav from "./registrationNav";
 import RegistrationHero from "./registrationHero";
 import RegistrationGrid from "./RegistrationGrid";
 import { Footer } from "../marketing/layout/footer";
-import { X } from "@phosphor-icons/react"; // Import the close icon
+import { X } from "@phosphor-icons/react";
 import "./registration.css";
-import { Shuffle } from "@phosphor-icons/react";
 import Button from "@mui/material/Button";
 
 const classrooms = {
   room101: {
     teacher: "Ms. Johnson",
     students: [
-      { name: "Alice", presentation: "The impact of climate change on polar bears" },
+      {
+        name: "Alice",
+        presentation: "The impact of climate change on polar bears",
+      },
       { name: "Bob", presentation: "The history of the Silk Road" },
       { name: "Charlie", presentation: "How rockets work" },
       { name: "Diana", presentation: "My relationship and the lessons learnt" },
@@ -23,10 +27,26 @@ const classrooms = {
   room102: {
     teacher: "Mr. Smith",
     students: [
-      { name: "Ethan", presentation: "Quantum computing explained" },
-      { name: "Fiona", presentation: "The psychology of decision-making" },
-      { name: "George", presentation: "The rise of electric vehicles" },
-      { name: "Hannah", presentation: "Artificial intelligence in healthcare" },
+      {
+        name: "Ethan",
+        presentation:
+          "Quantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computinguantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computinguantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computinguantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computinguantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computinguantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computinguantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computinguantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computinguantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computinguantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explained",
+      },
+      {
+        name: "Fiona",
+        presentation:
+          "The psychology of decision-makinsychology of decision-makinsychology of decision-makinsychology of decision-makinsychology of decision-making",
+      },
+      {
+        name: "George",
+        presentation:
+          "The rise of electric veh rise of electric veh rise of electric veh rise of electric veh rise of electric veh rise of electric vehicles",
+      },
+      {
+        name: "Hannah",
+        presentation:
+          "Artificial intelligence iicial intelligence iicial intelligence iicial intelligence iicial intelligence iicial intelligence iicial intelligence iicial intelligence iicial intelligence in healthcare",
+      },
     ],
     fullCapacity: 25,
     currentOccupancy: 18,
@@ -37,7 +57,10 @@ const classrooms = {
       { name: "Ian", presentation: "The history of the Roman Empire" },
       { name: "Julia", presentation: "Marine biology and ocean conservation" },
       { name: "Kyle", presentation: "The basics of blockchain technology" },
-      { name: "Laura", presentation: "The impact of fast fashion on the environment" },
+      {
+        name: "Laura",
+        presentation: "The impact of fast fashion on the environment",
+      },
       { name: "Mark", presentation: "How video games affect cognitive skills" },
     ],
     fullCapacity: 35,
@@ -59,7 +82,10 @@ const classrooms = {
     students: [
       { name: "Ryan", presentation: "The role of genetics in disease" },
       { name: "Sophia", presentation: "The mathematics of infinity" },
-      { name: "Tom", presentation: "The impact of artificial intelligence on jobs" },
+      {
+        name: "Tom",
+        presentation: "The impact of artificial intelligence on jobs",
+      },
       { name: "Uma", presentation: "The chemistry behind fireworks" },
     ],
     fullCapacity: 40,
@@ -67,62 +93,10 @@ const classrooms = {
   },
 };
 
-const PresenterModal = ({ selectedRoom, isOpen, closeModal, registerUser}) => {
-  if (!isOpen || !selectedRoom) return null;
+export default function Registration({ id }) {
+  console.log(id);
 
-  return (
-    <div
-      className="modal-overlay"
-      role="dialog"
-      aria-modal="true"
-
-      onKeyDown={(e) => {
-        if (e.key === "Escape") closeModal(e);
-      }}
-    >
-      <div className="modal-content">
-        <button className="modal-close-button" onClick={closeModal}>
-          <X size={24} weight="bold" />
-        </button>
-        <div>
-          <h3>{classrooms[selectedRoom].teacher}'s Room</h3>
-          <ul style={{ lineHeight: "1.5", marginTop: "25px" }}>
-            {classrooms[selectedRoom].students.map((student, idx) => (
-              <li key={idx} style={{marginTop: "10px" }}>
-                {student.name}: {student.presentation}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="register-content">
-          {/* Registrant Count */}
-          <span
-            style={{
-              fontSize: "16px",
-              fontWeight: "bold",
-              color: "grey",
-              marginRight: "10px",
-            }}
-          >
-            {classrooms[selectedRoom].currentOccupancy} /{" "}
-            {classrooms[selectedRoom].fullCapacity}
-          </span>
-
-          {/* Register Button */}
-          <Button
-            size="large"
-            variant="contained"
-            onClick={registerUser}
-          >
-            Register
-          </Button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default function Registration() {
+  // do something with the id here
   const [user, setUser] = useState({ name: "Richard" });
   const [hasScrolledPastHero, setHasScrolledPastHero] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -132,7 +106,10 @@ export default function Registration() {
   const registerUser = () => {
     if (registeredRoom) return; // Prevent registering again
 
-    const confirmRegister = window.confirm("Are you sure you want to register? You cannot change your choice once confirmed.");
+    const confirmRegister = window.confirm(
+      "Are you sure you want to register? You cannot change your choice once confirmed.",
+    );
+
     if (confirmRegister) {
       setRegisteredRoom(selectedRoom);
       setIsModalOpen(false);
@@ -146,17 +123,16 @@ export default function Registration() {
   };
 
   const closeModal = (e) => {
+    setIsModalOpen(false);
+    if (e.type === "keydown" && e.key === "Escape") setIsModalOpen(false);
+  };
 
-      setIsModalOpen(false);
-      if (e.type === "keydown" && e.key === "Escape") setIsModalOpen(false);
-
-  }
   const randomizeRoom = () => {
     const roomKeys = Object.keys(classrooms);
     const randomRoom = roomKeys[Math.floor(Math.random() * roomKeys.length)];
     setHighlightedRoom(randomRoom);
-    setSelectedRoom(randomRoom); // Set the selected room
-    setIsModalOpen(true); // Open the modal
+    setSelectedRoom(randomRoom);
+    setIsModalOpen(true);
   };
 
   useEffect(() => {
@@ -182,7 +158,7 @@ export default function Registration() {
         hasScrolledPastHero={hasScrolledPastHero}
         randomizeRoom={randomizeRoom}
       />
-      <RegistrationHero user={user}/>
+      <RegistrationHero user={user} />
 
       <section className="schedule-section">
         <h2>Capstone Presentation Rooms</h2>
@@ -193,15 +169,71 @@ export default function Registration() {
           closeModal={closeModal}
           registeredRoom={registeredRoom}
         />
-
       </section>
-      <PresenterModal
-        selectedRoom={selectedRoom}
-        isOpen={isModalOpen}
-        closeModal={closeModal}
-        registerUser={registerUser}
-      />
-      <Footer/>
+
+      {isModalOpen && (
+        <PresenterModal
+          selectedRoom={selectedRoom}
+          closeModal={closeModal}
+          registerUser={registerUser}
+        />
+      )}
+
+      <Footer />
+    </div>
+  );
+}
+
+function PresenterModal({ selectedRoom, closeModal, registerUser }) {
+  return (
+    <div
+      className="modal-overlay"
+      role="button"
+      tabIndex="0"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) closeModal();
+      }}
+    >
+      <div className="modal-content">
+        <button
+          type="button"
+          className="modal-close-button"
+          onClick={closeModal}
+        >
+          <X size={24} weight="bold" />
+        </button>
+
+        <div style={{ padding: "0px 40px 30px 40px" }}>
+          <h3 style={{ margin: 0, fontSize: "1.8rem" }}>
+            {classrooms[selectedRoom].teacher}'s Room
+          </h3>
+          <ul style={{ lineHeight: "1.5", marginTop: "25px" }}>
+            {classrooms[selectedRoom].students.map((student, idx) => (
+              <li key={idx} style={{ marginTop: "10px" }}>
+                {student.name}: {student.presentation}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="register-content">
+          <span
+            style={{
+              fontSize: "16px",
+              fontWeight: "bold",
+              color: "grey",
+              marginRight: "10px",
+            }}
+          >
+            {classrooms[selectedRoom].currentOccupancy} /{" "}
+            {classrooms[selectedRoom].fullCapacity}
+          </span>
+
+          <Button size="large" variant="contained" onClick={registerUser}>
+            Register
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }
