@@ -20,21 +20,47 @@ import { DropdownTrigger } from "@/components/core/dropdown/dropdown-trigger";
 import { Logo } from "@/components/core/logo";
 
 import { MobileNav } from "./mobile-nav";
-import { PagesPopover } from "./pages-popover";
+import { useEffect, useState } from "react";
 
 export function MainNav() {
   const [openNav, setOpenNav] = React.useState(false);
   const pathname = usePathname();
+  const [scrollPercentage, setScrollPercentage] = useState(0);
+  const [scrolledPastHero, setScrolledPastHero] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } =
+        document.documentElement;
+      const percentage = (scrollTop / (scrollHeight - clientHeight)) * 100;
+      setScrollPercentage(percentage);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (scrollPercentage > 1 && !scrolledPastHero) {
+      setScrolledPastHero(true);
+    } else if (scrollPercentage <= 1 && scrolledPastHero) {
+      setScrolledPastHero(false);
+    }
+  }, [scrollPercentage, scrolledPastHero]);
 
   return (
     <React.Fragment>
       <Box
         component="header"
         sx={{
-          bgcolor: "var(--mui-palette-neutral-950)",
-          color: "var(--mui-palette-common-white)",
+          bgcolor: scrolledPastHero
+            ? "var(--mui-palette-neutral-950)"
+            : "transparent",
+          color: scrolledPastHero ? "var(--mui-palette-common-white)" : "black",
           left: 0,
-          position: "sticky",
+          position: "fixed",
           right: 0,
           top: 0,
           zIndex: "var(--MainNav-zIndex)",
@@ -58,7 +84,11 @@ export function MainNav() {
               href={paths.home}
               sx={{ display: "inline-flex" }}
             >
-              <Logo color="light" height={32} width={122} />
+              <Logo
+                color={scrolledPastHero ? "light" : "dark"}
+                height={32}
+                width={122}
+              />
             </Box>
             <Box component="nav" sx={{ display: { xs: "none", md: "block" } }}>
               <Stack
@@ -68,11 +98,13 @@ export function MainNav() {
                 sx={{ listStyle: "none", m: 0, p: 0 }}
               >
                 <NavItem
+                  scrolledPastHero={scrolledPastHero}
                   href={paths.components.index}
                   pathname={pathname}
                   title="Components"
                 />
                 <NavItem
+                  scrolledPastHero={scrolledPastHero}
                   href={paths.docs}
                   pathname={pathname}
                   title="Documentation"
@@ -100,7 +132,7 @@ export function MainNav() {
               component={RouterLink}
               href={paths.dashboard.overview}
               sx={{
-                color: "var(--mui-palette-neutral-300)",
+                color: "var(--mui-palette-neutral-500)",
                 "&:hover": { bgcolor: "var(--mui-palette-action-hover)" },
               }}
             >
@@ -147,6 +179,7 @@ export function NavItem({
   matcher,
   pathname,
   title,
+  scrolledPastHero,
 }) {
   const active = isNavItemActive({
     disabled,
@@ -180,7 +213,9 @@ export function NavItem({
         sx={{
           alignItems: "center",
           borderRadius: 1,
-          color: "var(--mui-palette-neutral-300)",
+          color: scrolledPastHero
+            ? "var(--mui-palette-neutral-300)"
+            : "var(--mui-palette-neutral-900)",
           cursor: "pointer",
           display: "flex",
           flex: "0 0 auto",

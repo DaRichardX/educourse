@@ -26,10 +26,11 @@ export function Hero() {
   return (
     <Box
       sx={{
-        bgcolor: "var(--mui-palette-neutral-950)",
-        color: "var(--mui-palette-common-white)",
+        color: "var(--mui-palette-common-black)",
         overflow: "hidden",
         position: "relative",
+        background:
+          "linear-gradient(120deg, #f6f3ff 0%, #f4f1ff 35%, #fff7ed 80%, #fff4e6 100%)",
       }}
     >
       <Box
@@ -74,27 +75,46 @@ export function Hero() {
         maxWidth="md"
         sx={{
           position: "relative",
-          py: { xs: "80px", sm: "100px", md: "120px" },
+          py: { xs: "60px", sm: "80px", md: "90px" },
+          mt: "85px",
           zIndex: 3,
         }}
       >
         <Stack spacing={4}>
           <Stack spacing={2}>
-            <Typography
+            {/* <Typography
               sx={{
-                fontSize: { xs: "2.2rem", sm: "3rem", md: "3.5rem" },
+                fontSize: { xs: "2.2rem", sm: "3.3rem", md: "3.75rem" },
                 fontWeight: 600,
-                lineHeight: { xs: "2.9rem", sm: "3.5rem", md: "4.1rem" },
+                lineHeight: { xs: "2.9rem", sm: "3.5rem", md: "4.5rem" },
                 textAlign: "center",
               }}
             >
-              EduCourse Simplifies your Administration Process <br />
+              EduCourse Streamlines your Administration Process <br />
               <Typography
                 color="primary.main"
                 component="span"
                 variant="inherit"
               >
                 One Step at a Time
+              </Typography>
+            </Typography> */}
+
+            <Typography
+              sx={{
+                fontSize: { xs: "2.2rem", sm: "3.3rem", md: "3.75rem" },
+                fontWeight: 600,
+                lineHeight: { xs: "2.9rem", sm: "3.5rem", md: "4.5rem" },
+                textAlign: "center",
+              }}
+            >
+              EduCourse makes Capstone Scheduling{" "}
+              <Typography
+                color="primary.main"
+                component="span"
+                variant="inherit"
+              >
+                simple.
               </Typography>
             </Typography>
           </Stack>
@@ -111,7 +131,7 @@ export function Hero() {
               component={RouterLink}
               href={paths.dashboard.overview}
               sx={{
-                color: "var(--mui-palette-common-white)",
+                color: "var(--mui-palette-common-black)",
                 "&:hover": { bgcolor: "var(--mui-palette-action-hover)" },
               }}
             >
@@ -132,7 +152,7 @@ export function Hero() {
           }}
         >
           <Typography
-            color="neutral.300"
+            color="neutral.800"
             sx={{ whiteSpace: "nowrap" }}
             variant="caption"
           >
@@ -163,7 +183,6 @@ export function Hero() {
         >
           <Box
             sx={{
-              bgcolor: "var(--mui-palette-neutral-950)",
               borderRadius: "28px",
               height: "100%",
               width: "100%",
@@ -181,6 +200,7 @@ export function Hero() {
             transform: "translateX(-50%)",
             width: "80%",
             zIndex: 1,
+            mixBlendMode: "plus-lighter",
           }}
         />
         <Box
