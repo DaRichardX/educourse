@@ -11,104 +11,43 @@ import { logger } from '@/lib/default-logger';
 import Button from "@mui/material/Button";
 import { useCapstoneSelections } from "@/queries/capstone-queries";
 
-const classrooms = {
-  room101: {
-    teacher: "Ms. Johnson",
-    students: [
-      {
-        name: "Alice",
-        presentation: "The impact of climate change on polar bears",
-      },
-      { name: "Bob", presentation: "The history of the Silk Road" },
-      { name: "Charlie", presentation: "How rockets work" },
-      { name: "Diana", presentation: "My relationship and the lessons learnt" },
-    ],
-    fullCapacity: 30,
-    currentOccupancy: 12,
-  },
-  room102: {
-    teacher: "Mr. Smith",
-    students: [
-      {
-        name: "Ethan",
-        presentation:
-          "Quantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computinguantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computinguantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computinguantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computinguantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computinguantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computinguantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computinguantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computinguantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computinguantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explainedQuantum computing explained",
-      },
-      {
-        name: "Fiona",
-        presentation:
-          "The psychology of decision-makinsychology of decision-makinsychology of decision-makinsychology of decision-makinsychology of decision-making",
-      },
-      {
-        name: "George",
-        presentation:
-          "The rise of electric veh rise of electric veh rise of electric veh rise of electric veh rise of electric veh rise of electric vehicles",
-      },
-      {
-        name: "Hannah",
-        presentation:
-          "Artificial intelligence iicial intelligence iicial intelligence iicial intelligence iicial intelligence iicial intelligence iicial intelligence iicial intelligence iicial intelligence in healthcare",
-      },
-    ],
-    fullCapacity: 25,
-    currentOccupancy: 18,
-  },
-  room103: {
-    teacher: "Mrs. Brown",
-    students: [
-      { name: "Ian", presentation: "The history of the Roman Empire" },
-      { name: "Julia", presentation: "Marine biology and ocean conservation" },
-      { name: "Kyle", presentation: "The basics of blockchain technology" },
-      {
-        name: "Laura",
-        presentation: "The impact of fast fashion on the environment",
-      },
-      { name: "Mark", presentation: "How video games affect cognitive skills" },
-    ],
-    fullCapacity: 35,
-    currentOccupancy: 22,
-  },
-  room104: {
-    teacher: "Dr. Green",
-    students: [
-      { name: "Nina", presentation: "The physics behind roller coasters" },
-      { name: "Oliver", presentation: "The future of space travel" },
-      { name: "Paula", presentation: "How music influences human emotions" },
-      { name: "Quentin", presentation: "The evolution of digital marketing" },
-    ],
-    fullCapacity: 28,
-    currentOccupancy: 16,
-  },
-  room105: {
-    teacher: "Ms. White",
-    students: [
-      { name: "Ryan", presentation: "The role of genetics in disease" },
-      { name: "Sophia", presentation: "The mathematics of infinity" },
-      {
-        name: "Tom",
-        presentation: "The impact of artificial intelligence on jobs",
-      },
-      { name: "Uma", presentation: "The chemistry behind fireworks" },
-    ],
-    fullCapacity: 40,
-    currentOccupancy: 30,
-  },
-};
+
+// Parse data from the API response to create a structured object for classrooms
+function transformResponseToClassrooms(responseData) {
+  const classrooms = {};
+
+  responseData.available_rooms.forEach((room, index) => {
+    const roomKey = room.roomId;
+
+    classrooms[roomKey] = {
+      teacher: room.teacher,
+      students: room.presenters.map(presenter => ({
+        name: presenter.name,
+        presentation: presenter.topic,
+      })),
+      fullCapacity: room.capacityViewers,
+      currentOccupancy: room.currentSignups,
+    };
+  });
+
+  return classrooms;
+}
 
 export default function Registration({ orgId, signupId }) {
-  logger.debug("Org ID:", orgId);
-  logger.debug("Signup ID:", signupId);
-
   const {data: selections, isLoading: isSelectionsLoading} = useCapstoneSelections({orgId, signupId});
+  const [isReady, setIsReady] = useState(false);
+  const [classrooms, setClassrooms] = useState(null);
+
   useEffect(() => {
     if (isSelectionsLoading) {
       logger.debug("Loading Selections...");
     } else {
-      logger.debug("Selections Data:", selections);
+      logger.debug("Selections Data:", transformResponseToClassrooms(selections));
+      setClassrooms(transformResponseToClassrooms(selections));
+      setIsReady(true);
     }
   }, [isSelectionsLoading, selections]);
 
-  // do something with the id here
   const [hasScrolledPastHero, setHasScrolledPastHero] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [highlightedRoom, setHighlightedRoom] = useState(null);
@@ -163,7 +102,7 @@ export default function Registration({ orgId, signupId }) {
   }, [hasScrolledPastHero]);
 
   return (
-    isSelectionsLoading ? (
+    !isReady ? (
       <div className="loading-screen">
         <h1>Loading...</h1>
         <p>Please wait while we fetch your data.</p>
@@ -171,11 +110,11 @@ export default function Registration({ orgId, signupId }) {
     ) : (
     <div className="reg-page">
       <RegistrationNav
-        user={selections.student_id}
+        user={selections.first_name}
         hasScrolledPastHero={hasScrolledPastHero}
         randomizeRoom={randomizeRoom}
       />
-      <RegistrationHero name={selections.student_id} />
+      <RegistrationHero name={selections.first_name} />
 
       <section className="schedule-section">
         <h2>Capstone Presentation Rooms</h2>
@@ -193,6 +132,7 @@ export default function Registration({ orgId, signupId }) {
           selectedRoom={selectedRoom}
           closeModal={closeModal}
           registerUser={registerUser}
+          classrooms={classrooms}
         />
       )}
 
@@ -202,7 +142,7 @@ export default function Registration({ orgId, signupId }) {
   );
 }
 
-function PresenterModal({ selectedRoom, closeModal, registerUser }) {
+function PresenterModal({ selectedRoom, closeModal, registerUser, classrooms}) {
   return (
     <div
       className="modal-overlay"

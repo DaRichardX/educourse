@@ -5,6 +5,9 @@ import { logger } from '@/lib/default-logger';
 
 const FIREBASE_FUNCTIONS_DOMAIN = "https://us-central1-educourse-e0c66.cloudfunctions.net/api";
 
+// TESTING
+// const FIREBASE_FUNCTIONS_DOMAIN = "http://127.0.0.1:5001/educourse-e0c66/us-central1/api";
+
 
 export const getTotalSignups = async (schoolID) => {
   if (!schoolID) throw new Error("Missing school ID");

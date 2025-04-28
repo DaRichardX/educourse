@@ -32,6 +32,7 @@ export const useCapstoneSelections = (props) => {
     queryKey: ["capstone-selections", props], // Cache key for metadata query
     queryFn: () => getCapstoneSelections(props),
     enabled: Boolean(props), // Only fetch if schoolID exists
+    staleTime: 3 * 60 * 1000, // 3 minutes (in milliseconds)
   });
 };
 
