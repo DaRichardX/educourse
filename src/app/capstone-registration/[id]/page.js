@@ -2,10 +2,11 @@
 
 import * as React from "react";
 import Registration from "@/components/registration/registration";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 
 export default function Page() {
-  const { id } = useParams();
+  const orgId = useParams().id;
+  const queryId = useSearchParams().get("id");
 
-  return <Registration id={id} />;
+  return <Registration orgId={orgId} signupId={queryId} />;
 }

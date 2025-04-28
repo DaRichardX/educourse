@@ -1,10 +1,7 @@
-import { getFirestore, getDoc, doc } from "firebase/firestore";
-import { getFirebaseAuth } from '@/lib/auth/firebase/client';
+import { getDoc, doc } from "firebase/firestore";
+import { getFirebaseAuth, getFirebaseApp} from '@/lib/firebase/client';
+import axios from 'axios';
 import { logger } from '@/lib/default-logger';
-
-// Initialize Firestore
-const firestore = getFirestore();
-const auth = getFirebaseAuth();
 
 const FIREBASE_FUNCTIONS_DOMAIN = "https://us-central1-educourse-e0c66.cloudfunctions.net/api";
 
@@ -13,6 +10,7 @@ export const getTotalSignups = async (schoolID) => {
   if (!schoolID) throw new Error("Missing school ID");
 
   try {
+    const firestore = getFirebaseApp().firestore();
     const signupsDocRef = doc(firestore, `orgs/${schoolID}/capstone_schedule/signups`);
     const signupsDocSnapshot = await getDoc(signupsDocRef);
 
@@ -31,10 +29,43 @@ export const getTotalSignups = async (schoolID) => {
   }
 };
 
+export const getCapstoneSelections = async (props) => {
+  const { orgId, signupId } = props;
+
+  // Throw error if required props are missing
+  if (!orgId || !signupId) throw new Error("Missing organization ID or signup ID");
+
+  const endpoint = `${FIREBASE_FUNCTIONS_DOMAIN}/public/org/specific/${orgId}/capstone/selections?id=${signupId}`;
+
+  try {
+    // Make the GET request to the server endpoint using axios
+    const response = await axios.get(endpoint);
+
+    // Check if the response data exists
+    if (!response.data) {
+      throw new Error("No data returned from the server.");
+    }
+
+    // Return the response data
+    return response.data;
+  } catch (error) {
+    if (error.response) {
+      // Server responded with a status code outside the 2xx range
+      logger.error("Error fetching capstone selections:", error.response.data);
+      throw new Error(error.response.data.message || "Failed to fetch capstone selections");
+    }
+    // Handle any errors that occur during the request
+    logger.error("Error fetching capstone selections:", error.message);
+    throw new Error(error.message);
+  }
+};
+
+
 export const getMetadata = async (schoolID) => {
   if (!schoolID) throw new Error("Missing school ID");
 
   try {
+    const firestore = getFirebaseApp().firestore();
     // Reference to the metadata document inside the capstone_schedule collection
     const metadataDocRef = doc(firestore, `orgs/${schoolID}/capstone_schedule/metadata`);
     
@@ -95,6 +126,7 @@ export const addSignup = async (signup) => {
 
 // makeAuthenticatedRequest: needs to have a valid user w/ token
 const makeAuthenticatedRequest = async (endpoint, method, body) => {
+  const auth = getFirebaseAuth();
   if (!auth.currentUser) {
     throw new Error("Missing current user");
   }

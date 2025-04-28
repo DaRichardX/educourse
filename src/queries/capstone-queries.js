@@ -1,5 +1,5 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { getTotalSignups, addSignup, getMetadata, closeSignup } from "@/services/firebase/firebase-service";
+import { getTotalSignups, addSignup, getMetadata, closeSignup, getCapstoneSelections} from "@/services/firebase/firebase-service";
 
 // hook for total signups
 export const useTotalSignups = (schoolID) => {
@@ -23,6 +23,15 @@ export const useMetadata = (schoolID) => {
     queryKey: ["metadata", schoolID], // Cache key for metadata query
     queryFn: () => getMetadata(schoolID),
     enabled: Boolean(schoolID), // Only fetch if schoolID exists
+  });
+};
+
+// hook for getting capstone selections
+export const useCapstoneSelections = (props) => {
+  return useQuery({
+    queryKey: ["capstone-selections", props], // Cache key for metadata query
+    queryFn: () => getCapstoneSelections(props),
+    enabled: Boolean(props), // Only fetch if schoolID exists
   });
 };
 

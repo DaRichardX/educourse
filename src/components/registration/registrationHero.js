@@ -1,14 +1,14 @@
 import React from "react";
 import { CaretDown } from "@phosphor-icons/react"; // Phosphor scroll-down icon
 
-export default function RegistrationHero({ user }) {
+export default function RegistrationHero({ name }) {
   return (
     <>
       <div className="hero">
         <div className="hero-content">
           <h1>
             Welcome,{" "}
-            <span className="clipped-text">{user?.name || "student"}</span>
+            <span className="clipped-text">{name || "student"}</span>
           </h1>
         </div>
 

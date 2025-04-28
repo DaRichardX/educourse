@@ -7,7 +7,9 @@ import RegistrationGrid from "./RegistrationGrid";
 import { Footer } from "../marketing/layout/footer";
 import { X } from "@phosphor-icons/react";
 import "./registration.css";
+import { logger } from '@/lib/default-logger';
 import Button from "@mui/material/Button";
+import { useCapstoneSelections } from "@/queries/capstone-queries";
 
 const classrooms = {
   room101: {
@@ -93,11 +95,20 @@ const classrooms = {
   },
 };
 
-export default function Registration({ id }) {
-  console.log(id);
+export default function Registration({ orgId, signupId }) {
+  logger.debug("Org ID:", orgId);
+  logger.debug("Signup ID:", signupId);
+
+  const {data: selections, isLoading: isSelectionsLoading} = useCapstoneSelections({orgId, signupId});
+  useEffect(() => {
+    if (isSelectionsLoading) {
+      logger.debug("Loading Selections...");
+    } else {
+      logger.debug("Selections Data:", selections);
+    }
+  }, [isSelectionsLoading, selections]);
 
   // do something with the id here
-  const [user, setUser] = useState({ name: "Richard" });
   const [hasScrolledPastHero, setHasScrolledPastHero] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [highlightedRoom, setHighlightedRoom] = useState(null);
@@ -152,13 +163,19 @@ export default function Registration({ id }) {
   }, [hasScrolledPastHero]);
 
   return (
+    isSelectionsLoading ? (
+      <div className="loading-screen">
+        <h1>Loading...</h1>
+        <p>Please wait while we fetch your data.</p>
+      </div>
+    ) : (
     <div className="reg-page">
       <RegistrationNav
-        user={user}
+        user={selections.student_id}
         hasScrolledPastHero={hasScrolledPastHero}
         randomizeRoom={randomizeRoom}
       />
-      <RegistrationHero user={user} />
+      <RegistrationHero name={selections.student_id} />
 
       <section className="schedule-section">
         <h2>Capstone Presentation Rooms</h2>
@@ -181,6 +198,7 @@ export default function Registration({ id }) {
 
       <Footer />
     </div>
+    )
   );
 }
 
