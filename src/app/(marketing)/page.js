@@ -18,7 +18,15 @@ export default function Page() {
   return (
     <div>
       <Hero />
-      <Box sx={{ height: "16px", width: "100vw", bgcolor: "white" }} />
+      <Box
+        sx={{
+          position: "relative",
+          height: "16px",
+          width: "100vw",
+          bgcolor: "white",
+          zIndex: 99999,
+        }}
+      />
       <Included />
       <Faqs />
       <StartBuilding />

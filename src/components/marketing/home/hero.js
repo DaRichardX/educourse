@@ -149,7 +149,7 @@ export function Hero() {
             <Typography
               ref={titleRef}
               sx={{
-                fontSize: { xs: "3rem", sm: "3.8rem", md: "5.3rem" },
+                fontSize: { xs: "2.7rem", sm: "3.8rem", md: "5.3rem" },
                 fontWeight: 700,
                 lineHeight: { xs: "3.1rem", sm: "3.9rem", md: "5.2rem" },
                 textAlign: "center",
@@ -181,7 +181,6 @@ export function Hero() {
               >
                 paperwork
               </Typography>
-              .
             </Typography>
           </Stack>
 
@@ -199,7 +198,7 @@ export function Hero() {
               color="white"
               ref={subtitleRef}
               sx={{
-                maxMidth: "200px",
+                maxWidth: "600px",
                 fontSize: { xs: "0.9rem", sm: "1.1rem", md: "1.2rem" },
                 fontWeight: 400,
                 lineHeight: { xs: "1.1rem", sm: "1.3rem", md: "1.7rem" },
@@ -209,8 +208,8 @@ export function Hero() {
               }}
               variant="caption"
             >
-              EduCourse is your trusted, turbo-charged <br /> course and
-              capstone scheduling software.
+              EduCourse is your trusted, turbo-charged course and capstone
+              scheduling software.
             </Typography>
           </Stack>
 
