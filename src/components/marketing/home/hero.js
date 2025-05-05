@@ -6,214 +6,362 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
-import { useColorScheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import { paths } from "@/paths";
+import { useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export function Hero() {
-  const { colorScheme } = useColorScheme();
-
-  const [img, setImg] = React.useState("/assets/home-hero-light.png");
+  const demoRef = useRef(null);
+  const ctaRef = useRef(null);
+  const titleRef = useRef(null);
+  const subtitleRef = useRef(null);
+  const buttonGroupRef = useRef(null);
+  const strikeRef = useRef(null);
+  const [loaded, setLoaded] = React.useState(false);
+  const blurredRef = useRef(null);
+  const fullResRef = useRef(null);
 
   React.useEffect(() => {
-    setImg(
-      colorScheme === "dark"
-        ? "/assets/home-hero-dark.png"
-        : "/assets/home-hero-light.png",
+    const imgEl = fullResRef.current;
+    if (!imgEl) return;
+
+    if (imgEl.complete) {
+      setLoaded(true);
+    }
+  }, []);
+
+  React.useLayoutEffect(() => {
+    if (!ctaRef.current || !demoRef.current) return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#hero-section",
+        start: "top top",
+        end: "bottom +=40%",
+        scrub: true,
+        pin: ctaRef.current,
+        pinSpacing: false,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+      },
+    });
+
+    tl.to(
+      demoRef.current,
+      {
+        scale: 1.2,
+        ease: "none",
+      },
+      0,
     );
-  }, [colorScheme]);
+
+    tl.to(
+      ctaRef.current,
+      {
+        scale: 0.8,
+        autoAlpha: 0,
+        ease: "none",
+      },
+      0,
+    );
+
+    return () => ScrollTrigger.getAll().forEach((t) => t.kill());
+  }, []);
+
+  React.useLayoutEffect(() => {
+    if (!titleRef.current || !subtitleRef.current) return;
+
+    const tl = gsap.timeline();
+
+    tl.to(titleRef.current, {
+      autoAlpha: 1,
+      filter: "blur(0px)",
+      duration: 1.5,
+      ease: "power3.out",
+    });
+
+    tl.to(
+      subtitleRef.current,
+      {
+        autoAlpha: 1,
+        filter: "blur(0px)",
+        duration: 1,
+        ease: "power3.out",
+      },
+      "-=1",
+    );
+
+    tl.to(
+      buttonGroupRef.current,
+      {
+        autoAlpha: 1,
+        filter: "blur(0px)",
+        duration: 1,
+        ease: "power3.out",
+      },
+      "-=0.8",
+    );
+
+    tl.to(
+      strikeRef.current,
+      {
+        "--strike-width": "100%",
+        duration: 0.5,
+        ease: "power2.out",
+      },
+      "+=0.2",
+    );
+
+    return () => tl.kill();
+  }, []);
 
   return (
     <Box
       sx={{
-        color: "var(--mui-palette-common-black)",
+        m: 2,
+        mb: 0,
+        borderRadius: 3,
+        color: "var(--mui-palette-common-white)",
         overflow: "hidden",
         position: "relative",
         background:
-          "linear-gradient(120deg, #f6f3ff 0%, #f4f1ff 35%, #fff7ed 80%, #fff4e6 100%)",
+          "linear-gradient(rgba(83, 123, 166, 0.99) 0%, rgba(154, 191, 218, 0.68) 58%, rgba(203, 223, 236, 0.3) 100%)",
       }}
+      id="hero-section"
     >
-      <Box
-        sx={{
-          alignItems: "center",
-          bottom: 0,
-          display: "flex",
-          justifyContent: "center",
-          left: 0,
-          position: "absolute",
-          right: 0,
-          top: 0,
-          zIndex: 0,
-        }}
-      >
-        <Box
-          component="img"
-          src="/assets/home-cosmic.svg"
-          sx={{ height: "auto", width: "1600px" }}
-        />
-      </Box>
-      <Box
-        sx={{
-          alignItems: "center",
-          bottom: 0,
-          display: "flex",
-          justifyContent: "center",
-          left: 0,
-          position: "absolute",
-          right: 0,
-          top: 0,
-          zIndex: 1,
-        }}
-      >
-        <Box
-          component="img"
-          src="/assets/home-rectangles.svg"
-          sx={{ height: "auto", width: "1900px" }}
-        />
-      </Box>
       <Container
         maxWidth="md"
         sx={{
           position: "relative",
-          py: { xs: "60px", sm: "80px", md: "90px" },
+          py: { xs: "30px", sm: "40px", md: "60px" },
           mt: "85px",
           zIndex: 3,
+          mb: "30px",
         }}
+        ref={ctaRef}
       >
         <Stack spacing={4}>
           <Stack spacing={2}>
-            {/* <Typography
-              sx={{
-                fontSize: { xs: "2.2rem", sm: "3.3rem", md: "3.75rem" },
-                fontWeight: 600,
-                lineHeight: { xs: "2.9rem", sm: "3.5rem", md: "4.5rem" },
-                textAlign: "center",
-              }}
-            >
-              EduCourse Streamlines your Administration Process <br />
-              <Typography
-                color="primary.main"
-                component="span"
-                variant="inherit"
-              >
-                One Step at a Time
-              </Typography>
-            </Typography> */}
-
             <Typography
+              ref={titleRef}
               sx={{
-                fontSize: { xs: "2.2rem", sm: "3.3rem", md: "3.75rem" },
-                fontWeight: 600,
-                lineHeight: { xs: "2.9rem", sm: "3.5rem", md: "4.5rem" },
+                fontSize: { xs: "3rem", sm: "3.8rem", md: "5.3rem" },
+                fontWeight: 700,
+                lineHeight: { xs: "3.1rem", sm: "3.9rem", md: "5.2rem" },
                 textAlign: "center",
+                opacity: 0,
+                filter: "blur(30px)",
               }}
             >
-              EduCourse makes Capstone Scheduling{" "}
+              Students, not <br />
               <Typography
-                color="primary.main"
                 component="span"
-                variant="inherit"
+                ref={strikeRef}
+                sx={{
+                  fontSize: "inherit",
+                  fontWeight: "inherit",
+                  lineHeight: "inherit",
+                  display: "inline-block",
+                  position: "relative",
+                  "::after": {
+                    content: '""',
+                    position: "absolute",
+                    height: { xs: "6px", md: "10px" },
+                    zIndex: 5,
+                    backgroundColor: "currentColor",
+                    left: 0,
+                    bottom: "35%",
+                    width: "var(--strike-width, 0%)",
+                  },
+                }}
               >
-                simple.
+                paperwork
               </Typography>
+              .
             </Typography>
           </Stack>
 
-          <Stack direction="row" spacing={2} sx={{ justifyContent: "center" }}>
-            <Button
-              component={RouterLink}
-              href={"not implemented"}
-              variant="contained"
-            >
-              Contact Us
-            </Button>
-            <Button
-              component={RouterLink}
-              href={paths.dashboard.overview}
+          <Stack
+            direction="row"
+            spacing={1}
+            sx={{
+              alignItems: "center",
+              justifyContent: "center ",
+              py: { xs: "10px", md: "10px" },
+              width: "100%",
+            }}
+          >
+            <Typography
+              color="white"
+              ref={subtitleRef}
               sx={{
-                color: "var(--mui-palette-common-black)",
-                "&:hover": { bgcolor: "var(--mui-palette-action-hover)" },
+                maxMidth: "200px",
+                fontSize: { xs: "0.9rem", sm: "1.1rem", md: "1.2rem" },
+                fontWeight: 400,
+                lineHeight: { xs: "1.1rem", sm: "1.3rem", md: "1.7rem" },
+                textAlign: "center",
+                opacity: 0,
+                filter: "blur(30px)",
+              }}
+              variant="caption"
+            >
+              EduCourse is your trusted, turbo-charged <br /> course and
+              capstone scheduling software.
+            </Typography>
+          </Stack>
+
+          <Stack
+            direction={{ xs: "column", sm: "row" }}
+            spacing={1}
+            ref={buttonGroupRef}
+            className="push-to-back"
+            sx={{
+              justifyContent: "center",
+              alignItems: "center",
+              position: "relative",
+              zIndex: 9999,
+              pointerEvents: "auto",
+              opacity: 0,
+              filter: "blur(30px)",
+            }}
+          >
+            <Button
+              href="/auth/sign-in"
+              variant="contained"
+              size="large"
+              color="info"
+              sx={{
+                padding: "5px 24px",
+                borderRadius: "28px",
+                width: { xs: "80%", sm: "auto" },
+                cursor: "pointer",
               }}
             >
               Sign in
             </Button>
-          </Stack>
-        </Stack>
-
-        <Stack
-          direction="row"
-          spacing={1}
-          sx={{
-            alignItems: "center",
-            justifyContent: "center ",
-            py: { xs: "20px", sm: "25px", md: "28px" },
-            width: "100%",
-            maxMidth: "250px",
-          }}
-        >
-          <Typography
-            color="neutral.800"
-            sx={{ whiteSpace: "nowrap" }}
-            variant="caption"
-          >
-            <Typography
-              color="inherit"
-              component="span"
-              sx={{ fontWeight: 700, margin: "0 auto", width: "70%" }}
-              variant="inherit"
+            <Button
+              href="/dashboard"
+              sx={{
+                color: "var(--mui-palette-common-black)",
+                "&:hover": {
+                  bgcolor: "var(--mui-palette-action-hover)",
+                  borderWidth: "0.5px",
+                },
+                padding: "5px 24px",
+                borderRadius: "28px",
+                width: { xs: "80%", sm: "auto" },
+                textAlign: "center",
+                borderWidth: "0.5px",
+                cursor: "pointer",
+              }}
+              size="large"
+              variant="outlined"
+              color="info"
             >
-              Built for School Administrators
-            </Typography>{" "}
-            | Free, secure and highly efficent softwares.
-          </Typography>
+              Book a demo
+            </Button>
+          </Stack>
         </Stack>
       </Container>
 
-      <Container maxWidth="lg" sx={{ position: "relative", zIndex: 2 }}>
+      <Container
+        maxWidth="lg"
+        sx={{ position: "relative", zIndex: 200, pointerEvents: "none" }}
+      >
         <Box
           sx={{
-            bottom: 0,
-            left: 0,
             position: "absolute",
-            px: "24px",
-            right: 0,
-            top: 0,
-            zIndex: 0,
+            bottom: 0,
+            zIndex: 9999,
           }}
         >
           <Box
             sx={{
-              borderRadius: "28px",
+              borderRadius: "20px",
               height: "100%",
               width: "100%",
             }}
           />
         </Box>
+
         <Box
+          ref={demoRef}
           sx={{
-            bgcolor: "#b69cff",
-            filter: "blur(50px)",
-            height: "30px",
-            left: "50%",
-            position: "absolute",
-            top: 0,
-            transform: "translateX(-50%)",
-            width: "90%",
-            zIndex: 1,
-            mixBlendMode: "plus-lighter",
-          }}
-        />
-        <Box
-          component="img"
-          src={img}
-          sx={{
-            display: "block",
-            height: "auto",
+            borderRadius: { xs: "10px", md: "20px" },
+            bgcolor: "rgba( 255, 255, 255, 0.25)",
+            backdropFilter: "blur( 10px )",
+            padding: { xs: "0 8px", md: "0 12px" },
+            paddingTop: { xs: "8px", md: "12px" },
             position: "relative",
-            width: "100%",
-            zIndex: 2,
+            right: { xs: "-10%", md: "0" },
+            width: { xs: "100%", md: "90%" },
+            margin: "0 auto",
+            pointerEvents: "none",
           }}
-        />
+        >
+          <Box
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-48%, -50%)",
+              width: "103%",
+              height: "105%",
+              background:
+                "radial-gradient(141.53% 114.68% at 50% 50%, rgba(14, 114, 176, 0.8) 0%, rgba(14,10,162,0) 60%)",
+              filter: "blur(20px)",
+              borderRadius: "50px",
+              boxShadow: "0px 5px 20px rgba(134, 203, 255, 0.3)",
+              zIndex: 0,
+              pointerEvents: "none",
+            }}
+          />
+          <Box
+            sx={{
+              position: "relative",
+              width: "100%",
+              overflow: "hidden",
+              borderRadius: { xs: "10px", md: "20px" },
+            }}
+          >
+            <Box
+              component="img"
+              ref={blurredRef}
+              src="/assets/home-hero-demo-light-blurred.png"
+              sx={{
+                width: "100%",
+                position: "absolute",
+                top: 0,
+                left: 0,
+                zIndex: 1,
+                filter: "blur(20px)",
+                transform: "scale(1.05)",
+                transition: "opacity 0.3s ease",
+                opacity: loaded ? 0 : 1,
+                overflow: "hidden",
+                pointerEvents: "none",
+              }}
+            />
+            <Box
+              component="img"
+              ref={fullResRef}
+              src="/assets/home-hero-light.png"
+              onLoad={() => setLoaded(true)}
+              sx={{
+                width: "100%",
+                display: "block",
+                zIndex: 20,
+                opacity: loaded ? 1 : 0,
+                transition: "opacity 0.4s ease-in-out",
+                pointerEvents: "none",
+              }}
+            />
+          </Box>
+        </Box>
       </Container>
     </Box>
   );

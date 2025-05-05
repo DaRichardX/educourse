@@ -1,20 +1,20 @@
 /* Remove if fonts are not used */
-@import '~@fontsource/inter/100.css';
-@import '~@fontsource/inter/200.css';
-@import '~@fontsource/inter/300.css';
-@import '~@fontsource/inter/400.css';
-@import '~@fontsource/inter/500.css';
-@import '~@fontsource/inter/600.css';
-@import '~@fontsource/inter/700.css';
-@import '~@fontsource/inter/800.css';
-@import '~@fontsource/inter/900.css';
-@import '~@fontsource/roboto-mono/300.css';
-@import '~@fontsource/roboto-mono/400.css';
-@import '~@fontsource/plus-jakarta-sans/600.css';
-@import '~@fontsource/plus-jakarta-sans/700.css';
+@import "~@fontsource/inter/100.css";
+@import "~@fontsource/inter/200.css";
+@import "~@fontsource/inter/300.css";
+@import "~@fontsource/inter/400.css";
+@import "~@fontsource/inter/500.css";
+@import "~@fontsource/inter/600.css";
+@import "~@fontsource/inter/700.css";
+@import "~@fontsource/inter/800.css";
+@import "~@fontsource/inter/900.css";
+@import "~@fontsource/roboto-mono/300.css";
+@import "~@fontsource/roboto-mono/400.css";
+@import "~@fontsource/plus-jakarta-sans/600.css";
+@import "~@fontsource/plus-jakarta-sans/700.css";
 
 /* Remove if mapbox is not used */
-@import '~mapbox-gl/dist/mapbox-gl.css';
+@import "~mapbox-gl/dist/mapbox-gl.css";
 
 /* Remove is recharts is not used */
 .recharts-cartesian-axis-tick-value {
@@ -138,4 +138,36 @@ html {
 
 body {
   height: 100%;
+}
+
+.push-to-back {
+  z-index: -1 !important;
+}
+
+img {
+  user-select: none !important;
+  -webkit-user-drag: none !important;
+  -khtml-user-drag: none !important;
+  -moz-user-drag: none !important;
+  -o-user-drag: none !important;
+  -ms-user-drag: none !important;
+}
+
+.pin-spacer {
+  pointer-events: none !important;
+}
+
+@keyframes pulseGlow {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.6;
+  }
 }

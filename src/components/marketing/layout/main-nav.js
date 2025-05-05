@@ -27,12 +27,15 @@ export function MainNav() {
   const pathname = usePathname();
   const [scrollPercentage, setScrollPercentage] = useState(0);
   const [scrolledPastHero, setScrolledPastHero] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
       const { scrollTop, scrollHeight, clientHeight } =
         document.documentElement;
+
       const percentage = (scrollTop / (scrollHeight - clientHeight)) * 100;
+      setScrollY(scrollTop);
       setScrollPercentage(percentage);
     };
 
@@ -43,35 +46,35 @@ export function MainNav() {
   }, []);
 
   useEffect(() => {
-    if (scrollPercentage > 1 && !scrolledPastHero) {
-      setScrolledPastHero(true);
-    } else if (scrollPercentage <= 1 && scrolledPastHero) {
-      setScrolledPastHero(false);
-    }
-  }, [scrollPercentage, scrolledPastHero]);
+    const heroHeight =
+      document.getElementById("hero-section")?.offsetHeight || 0;
+    const passed = scrollY >= heroHeight - 85;
+
+    setScrolledPastHero((prev) => (prev !== passed ? passed : prev));
+  }, [scrollY]);
 
   return (
     <React.Fragment>
       <Box
         component="header"
         sx={{
-          bgcolor: scrolledPastHero
-            ? "var(--mui-palette-neutral-950)"
-            : "transparent",
+          bgcolor: scrolledPastHero ? "black" : "transparent",
           color: scrolledPastHero ? "var(--mui-palette-common-white)" : "black",
-          left: 0,
+          ml: "16px",
+          width: "calc(100% - 32px)",
           position: "fixed",
-          right: 0,
-          top: 0,
+          top: "16px",
           zIndex: "var(--MainNav-zIndex)",
+          transition: "background-color 0.3s ease, color 0.3s ease",
+          borderRadius: "25px",
         }}
       >
         <Container
-          maxWidth="lg"
+          maxWidth={false}
           sx={{
             display: "flex",
             minHeight: "var(--MainNav-height)",
-            py: "16px",
+            py: "5px",
           }}
         >
           <Stack
@@ -84,11 +87,7 @@ export function MainNav() {
               href={paths.home}
               sx={{ display: "inline-flex" }}
             >
-              <Logo
-                color={scrolledPastHero ? "light" : "dark"}
-                height={32}
-                width={122}
-              />
+              <Logo color="light" height={32} width={{ xs: 140, md: 180 }} />
             </Box>
             <Box component="nav" sx={{ display: { xs: "none", md: "block" } }}>
               <Stack
@@ -101,13 +100,13 @@ export function MainNav() {
                   scrolledPastHero={scrolledPastHero}
                   href={paths.components.index}
                   pathname={pathname}
-                  title="Components"
+                  title="Capstone Scheduling"
                 />
                 <NavItem
                   scrolledPastHero={scrolledPastHero}
                   href={paths.docs}
                   pathname={pathname}
-                  title="Documentation"
+                  title="Course Scheduling"
                 />
               </Stack>
             </Box>
@@ -128,25 +127,20 @@ export function MainNav() {
                 </NavItem>
               </Stack>
             </Box> */}
-            <Button
-              component={RouterLink}
-              href={paths.dashboard.overview}
-              sx={{
-                color: "var(--mui-palette-neutral-500)",
-                "&:hover": { bgcolor: "var(--mui-palette-action-hover)" },
-              }}
-            >
-              Sign in
-            </Button>
-            <Button
-              component="a"
-              // href={"not implemented"}
-              sx={{ display: { xs: "none", md: "flex" } }}
-              target="_blank"
-              variant="contained"
-            >
-              Contact Us
-            </Button>
+            {scrolledPastHero && (
+              <Button
+                component={RouterLink}
+                href={paths.dashboard.overview}
+                sx={{
+                  color: "var(--mui-palette-neutral-100)",
+                  "&:hover": { opacity: 0.8 },
+                  display: { xs: "none", md: "flex" },
+                }}
+              >
+                Sign up
+              </Button>
+            )}
+
             <IconButton
               onClick={() => {
                 setOpenNav(true);
@@ -213,9 +207,7 @@ export function NavItem({
         sx={{
           alignItems: "center",
           borderRadius: 1,
-          color: scrolledPastHero
-            ? "var(--mui-palette-neutral-300)"
-            : "var(--mui-palette-neutral-900)",
+          color: "var(--mui-palette-neutral-100)",
           cursor: "pointer",
           display: "flex",
           flex: "0 0 auto",
@@ -233,8 +225,7 @@ export function NavItem({
           "&:hover": {
             ...(!disabled &&
               !active && {
-                bgcolor: "rgba(255, 255, 255, 0.04)",
-                color: "var(--mui-palette-common-white)",
+                bgcolor: "rgba(255, 255, 255, 0.1)",
               }),
           },
         }}
