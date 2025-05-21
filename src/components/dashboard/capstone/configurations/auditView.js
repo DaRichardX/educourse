@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -19,8 +19,10 @@ import {
   Typography,
   useMediaQuery,
   useTheme,
+  DialogContentText,
 } from "@mui/material";
 import { Question } from "@phosphor-icons/react";
+import { toast } from "sonner";
 
 import { useCapstoneContext } from "@/contexts/capstone-context";
 import RoomDataTable from "./roomDataTable";
@@ -73,7 +75,6 @@ export default function AuditView() {
     </Card>
   );
 
-  /* ------------------------------ render ------------------------------ */
   return (
     <Box sx={{ animation: "fade-in 300ms ease" }}>
       {isMonitor ? (
@@ -191,10 +192,80 @@ export default function AuditView() {
   );
 }
 
-const SendLinkButton = () => {
+async function sendRegistrationLinks() {
+  // Simulated latency
+  await new Promise((r) => setTimeout(r, 1200));
+}
+
+export function SendLinkButton() {
+  const { studentData, roomData } = useCapstoneContext();
+
+  const [open, setOpen] = useState(false);
+  const [sending, setSending] = useState(false);
+  const disabled = studentData.length === 0 || roomData.length === 0;
+
+  const handleSend = async () => {
+    setSending(true);
+    try {
+      await sendRegistrationLinks();
+      toast.success("Registration links sent!");
+      setOpen(false);
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to send registration links");
+    } finally {
+      setSending(false);
+    }
+  };
+
   return (
-    <Button variant="contained" color="info">
-      Send Registration Links
-    </Button>
+    <>
+      <Button
+        variant="contained"
+        color="info"
+        disabled={disabled}
+        onClick={() => setOpen(true)}
+      >
+        Send Registration Links
+      </Button>
+
+      <Dialog
+        open={open}
+        onClose={() => !sending && setOpen(false)}
+        PaperProps={{
+          sx: { p: 2 },
+        }}
+      >
+        <DialogTitle sx={{ fontSize: "2rem", fontWeight: 600, mb: 3 }}>
+          Confirm Send
+        </DialogTitle>
+
+        <DialogContent dividers sx={{ mb: 2 }}>
+          <DialogContentText>
+            You're about to send registration links to
+            <strong> {studentData.length} </strong>
+            students for
+            <strong> {roomData.length} </strong>
+            room{roomData.length !== 1 && "s"}.
+            <br />
+            Once sent, student emails are dispatched immediately.
+          </DialogContentText>
+        </DialogContent>
+
+        <DialogActions>
+          <Button onClick={() => setOpen(false)} disabled={sending}>
+            Cancel
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleSend}
+            disabled={sending}
+          >
+            {sending ? "Sending…" : "Send"}
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
-};
+}
