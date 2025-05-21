@@ -1,13 +1,11 @@
 "use client";
 
 import * as React from "react";
-import RouterLink from "next/link";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { paths } from "@/paths";
 import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -53,8 +51,8 @@ export function Hero() {
     tl.to(
       demoRef.current,
       {
-        scale: 1.2,
-        ease: "none",
+        scale: 1.1,
+        ease: "power1",
       },
       0,
     );
@@ -116,15 +114,15 @@ export function Hero() {
       "+=0.2",
     );
 
-    return () => tl.kill();
+    return () => {
+      tl.kill();
+    };
   }, []);
 
   return (
     <Box
       sx={{
-        m: 2,
         mb: 0,
-        borderRadius: 3,
         color: "var(--mui-palette-common-white)",
         overflow: "hidden",
         position: "relative",
