@@ -15,6 +15,7 @@ import { ThemeProvider } from "@/components/core/theme-provider/theme-provider";
 import { Query, QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/core/toaster";
 import QueryProvider from "./query-provider";
+import { CapstoneProvider } from "@/contexts/capstone-context-provider";
 
 export const metadata = {
   title: config.site.name,
@@ -42,9 +43,11 @@ export default async function Layout({ children }) {
                 <SettingsProvider settings={settings}>
                   <I18nProvider lng={settings.language}>
                     <ThemeProvider>
-                      {children}
-                      {/* <SettingsButton /> */}
-                      <Toaster position="bottom-right" />
+                      <CapstoneProvider>
+                        {children}
+                        {/* <SettingsButton /> */}
+                        <Toaster position="bottom-right" />
+                      </CapstoneProvider>
                     </ThemeProvider>
                   </I18nProvider>
                 </SettingsProvider>
