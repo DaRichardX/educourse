@@ -51,8 +51,8 @@ export function Hero() {
     tl.to(
       demoRef.current,
       {
-        scale: 1.2,
-        ease: "none",
+        scale: 1.1,
+        ease: "power1",
       },
       0,
     );
@@ -122,9 +122,7 @@ export function Hero() {
   return (
     <Box
       sx={{
-        m: 2,
         mb: 0,
-        borderRadius: 3,
         color: "var(--mui-palette-common-white)",
         overflow: "hidden",
         position: "relative",

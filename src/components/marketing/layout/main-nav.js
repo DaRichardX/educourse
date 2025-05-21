@@ -60,10 +60,10 @@ export function MainNav() {
         sx={{
           bgcolor: scrolledPastHero ? "black" : "transparent",
           color: scrolledPastHero ? "var(--mui-palette-common-white)" : "black",
-          ml: "16px",
-          width: "calc(100% - 32px)",
+          ml: "6px",
+          width: "calc(100% - 12px)",
           position: "fixed",
-          top: "16px",
+          top: "6px",
           zIndex: "var(--MainNav-zIndex)",
           transition: "background-color 0.3s ease, color 0.3s ease",
           borderRadius: "25px",

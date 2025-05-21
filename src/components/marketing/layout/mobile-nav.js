@@ -33,21 +33,10 @@ const navItems = [
             title: "Overview",
             href: paths.dashboard.overview,
           },
-          // { key: 'analytics', title: 'Customers', href: paths.dashboard.students.list },
           {
-            key: "logistics",
-            title: "Logistics",
-            href: paths.dashboard.logistics.metrics,
-          },
-          {
-            key: "settings",
-            title: "Settings",
-            href: paths.dashboard.settings.account,
-          },
-          {
-            key: "file-storage",
-            title: "File storage",
-            href: paths.dashboard.fileStorage,
+            key: "capstone configurations",
+            title: "Capstone configurations",
+            href: paths.dashboard.capstone.configurations,
           },
         ],
       },
@@ -80,8 +69,24 @@ export function MobileNav({ onClose, open = false }) {
       maxWidth="sm"
       onClose={onClose}
       open={open}
+      PaperProps={{
+        sx: {
+          width: 280,
+          maxWidth: "80vw",
+          height: "90vh",
+          maxHeight: 700,
+          borderRadius: 2,
+          overflow: "hidden",
+          display: "flex",
+          flexDirection: "column",
+          bgcolor: "background.paper",
+        },
+      }}
       sx={{
-        "& .MuiDialog-container": { justifyContent: "flex-end" },
+        "& .MuiDialog-container": {
+          justifyContent: "center",
+          alignItems: "center",
+        },
         "& .MuiDialog-paper": {
           "--MobileNav-background": "var(--mui-palette-background-paper)",
           "--MobileNav-color": "var(--mui-palette-text-primary)",
@@ -121,8 +126,8 @@ export function MobileNav({ onClose, open = false }) {
             <DynamicLogo
               colorDark="light"
               colorLight="dark"
-              height={32}
-              width={122}
+              height={42}
+              width={152}
             />
           </Box>
           <IconButton onClick={onClose}>

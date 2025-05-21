@@ -19,9 +19,8 @@ const groups = [
       {
         key: "registration",
         title: "Registration Demo",
-        href: paths.registration,
+        href: "/capstone-registration",
       },
-      { key: "components", title: "Components", href: paths.components.index },
       { key: "dashboard", title: "Dashboard", href: paths.dashboard.overview },
       {
         key: "documentation",
@@ -35,8 +34,8 @@ const groups = [
     key: "legal",
     title: "Legal",
     items: [
-      // { key: 'terms-and-conditions', title: 'Terms & Conditions' },
-      // { key: 'privacy-policy', title: 'License' },
+      { key: "terms-and-conditions", title: "Terms & Conditions" },
+      { key: "privacy-policy", title: "Privacy Policy" },
       { key: "contact", title: "Contact" },
     ],
   },
@@ -44,8 +43,8 @@ const groups = [
     key: "social",
     title: "Social",
     items: [
-      { key: "instagram", title: "Instagram" },
-      // { key: 'linkedin', title: 'LinkedIn' },
+      { key: "linkedin", title: "LinkedIn" },
+      { key: "email", title: "Email" },
     ],
   },
 ];
@@ -68,11 +67,11 @@ export function Footer() {
               <DynamicLogo
                 colorDark="light"
                 colorLight="dark"
-                height={32}
-                width={122}
+                height={38}
+                width={150}
               />
               <Typography color="text.secondary" variant="caption">
-                © 2024 EduCourse.ca
+                © {new Date().getFullYear()} EduCourse.ca
               </Typography>
             </Stack>
           </Grid>
