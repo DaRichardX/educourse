@@ -38,7 +38,7 @@ export const MuiButton = {
   defaultProps: { disableRipple: true },
   styleOverrides: {
     root: {
-      borderRadius: "12px",
+      borderRadius: "22px",
       minHeight: "var(--Button-minHeight)",
       minWidth: "unset",
       textTransform: "none",
