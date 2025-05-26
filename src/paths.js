@@ -54,6 +54,11 @@ export const paths = {
   },
   dashboard: {
     overview: "/dashboard",
+    capstone: {
+      rooms: "/dashboard/capstone/rooms",
+      students: "/dashboard/capstone/students",
+      configurations: "/dashboard/capstone/configurations",
+    },
     settings: {
       account: "/dashboard/settings/account",
       billing: "/dashboard/settings/billing",
@@ -80,10 +85,7 @@ export const paths = {
       thread: (threadType, threadId) =>
         `/dashboard/chat/${threadType}/${threadId}`,
     },
-    rooms: "/dashboard/rooms",
     crypto: "/dashboard/crypto",
-    students: "/dashboard/students",
-    importData: "/dashboard/import-data",
     eCommerce: "/dashboard/e-commerce",
     fileStorage: "/dashboard/file-storage",
     i18n: "/dashboard/i18n",
