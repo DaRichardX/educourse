@@ -1,4 +1,4 @@
-import { getDoc, doc } from "firebase/firestore";
+import { getDoc, doc, getFirestore} from "firebase/firestore";
 import { getFirebaseAuth, getFirebaseApp} from '@/lib/firebase/client';
 import axios from 'axios';
 import { logger } from '@/lib/default-logger';
@@ -13,7 +13,7 @@ export const getTotalSignups = async (schoolID) => {
   if (!schoolID) throw new Error("Missing school ID");
 
   try {
-    const firestore = getFirebaseApp().firestore();
+    const firestore = getFirestore(getFirebaseApp());
     const signupsDocRef = doc(firestore, `orgs/${schoolID}/capstone_schedule/signups`);
     const signupsDocSnapshot = await getDoc(signupsDocRef);
 
@@ -68,7 +68,7 @@ export const getMetadata = async (schoolID) => {
   if (!schoolID) throw new Error("Missing school ID");
 
   try {
-    const firestore = getFirebaseApp().firestore();
+    const firestore = getFirestore(getFirebaseApp());
     // Reference to the metadata document inside the capstone_schedule collection
     const metadataDocRef = doc(firestore, `orgs/${schoolID}/capstone_schedule/metadata`);
     
