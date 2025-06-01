@@ -12,7 +12,7 @@ import { useUser } from '@/hooks/use-user';
 
 export function AuthGuard({ children }) {
   const router = useRouter();
-  const { isAuthenticated, error, isLoading } = useUser();
+  const { isAuthenticated, error, isLoading, userData } = useUser();
   const [isChecking, setIsChecking] = React.useState(true);
 
   const checkPermissions = async () => {
@@ -24,6 +24,7 @@ export function AuthGuard({ children }) {
       setIsChecking(false);
       return;
     }
+
 
     if (!isAuthenticated) {
       logger.debug('[AuthGuard]: User is not logged in, redirecting to sign in');
@@ -48,6 +49,8 @@ export function AuthGuard({ children }) {
       }
     }
 
+    logger.debug(`[AuthGuard]: User is`, userData.role);
+
     setIsChecking(false);
   };
 
@@ -56,7 +59,7 @@ export function AuthGuard({ children }) {
       // noop
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps -- Expected
-  }, [isAuthenticated, error, isLoading]);
+  }, [isAuthenticated, error, isLoading, userData]);
 
   if (isChecking) {
     return null;

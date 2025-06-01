@@ -111,7 +111,7 @@ export function UserProvider({ children }) {
     }
 
     return () => unsubscribe();
-  }, [firebaseAuth, firestore]);
+  }, [firebaseAuth]);
 
   return (
     <UserContext.Provider value={{...authStates, userData, orgData}}>
